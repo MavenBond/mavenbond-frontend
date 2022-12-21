@@ -1,7 +1,14 @@
+/* custom font - Inter start */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+/* custom font - Inter end */
+
+/* tailwindcss styles import start */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* tailwindcss styles import end */
 
+/* css overkill baselines start */
 *,
 *::before,
 *::after {
@@ -16,16 +23,20 @@
 
 html {
   color-scheme: dark light;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+    Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 body {
   min-height: 100vh;
 }
+/* css overkill baselines end */
 
-img,
-picture,
-svg,
-video {
-  display: block;
-  max-width: 100%;
+/* continue with tailwindcss stylings start */
+@layer base {
+  body {
+    @apply max-w-7xl mx-auto;
+    @apply bg-white text-black dark:bg-black dark:text-white;
+  }
 }
+/* continue with tailwindcss stylings end */
