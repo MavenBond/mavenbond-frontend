@@ -35,8 +35,11 @@ body {
 /* continue with tailwindcss stylings start */
 @layer base {
   body {
-    @apply max-w-7xl mx-auto;
-    @apply bg-white text-black dark:bg-black dark:text-white;
+    @apply mx-auto;
+  }
+
+  main {
+    @apply max-[639px]:px-[3rem] lg:px-[8rem];
   }
 }
 /* continue with tailwindcss stylings end */
