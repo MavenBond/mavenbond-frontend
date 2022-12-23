@@ -35,11 +35,14 @@ body {
 /* continue with tailwindcss stylings start */
 @layer base {
   body {
-    @apply mx-auto;
+    @apply mx-auto max-w-screen-xl;
+    @apply bg-white dark:bg-[#0d1626] text-[#0d1626] dark:text-white;
+    @apply transition-colors duration-300;
   }
 
   main {
-    @apply max-[639px]:px-[3rem] lg:px-[8rem];
+    @apply bg-white dark:bg-[#0d1626] text-[#0d1626] dark:text-white;
+    @apply transition-colors duration-300;
   }
 }
 /* continue with tailwindcss stylings end */

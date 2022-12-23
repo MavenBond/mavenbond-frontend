@@ -6,7 +6,7 @@ import { Client } from "react-hydration-provider";
 
 // components
 import { Bars4Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Button, NotiBell } from "components";
+import { Button, NotiBell, ThemeToggler } from "components";
 import { ROUTES } from "routes";
 import { HeaderContainer, NavLinksWrapper } from "./style";
 
@@ -23,16 +23,18 @@ const MOTION_COMMON_CONTROLS = {
   initial: { opacity: 0 },
   animate: { opacity: 1 },
   exit: { opacity: 0 },
-  transition: { duration: 0.3 },
+  transition: { duration: 0.5 },
 };
 
 const Header = () => {
   // next router
   const router = useRouter();
 
+  // toggle nav bar for mobile based on screen width
+  const [isMobileNavShowing, setIsMobileNavShowing] = useState(false);
+
   // window width tracking
   const windowWidth = useWindowWidth();
-  const [windowWidthTracker, setWindowWidthTracker] = useState(windowWidth);
 
   // execute style changes on scrolling
   const scrollY = useScrollPosition(60 /*frames per second*/);
@@ -42,32 +44,22 @@ const Header = () => {
       setScrollStyles({});
       return;
     }
-
     setScrollStyles({
-      boxShadow: "0 5px 5px -2px rgba(219, 219, 219, 0.6)",
+      boxShadow: "0 10px 10px -10px rgba(251, 191, 56, 0.3)",
       backdropFilter: "saturate(120%) blur(5px)",
-      padding: windowWidthTracker >= 1024 ? "1rem 8rem" : "1rem 1.5rem",
+      padding: windowWidth >= 1024 ? "1rem 4rem" : "1rem 1.5rem",
     });
-  }, [windowWidthTracker, scrollY]);
-
-  // toggle nav bar for mobile based on screen width
-  const [showMobileNav, setShowMobileNav] = useState(false);
-  useEffect(() => {
-    setWindowWidthTracker(windowWidth);
-  }, [windowWidth]);
+  }, [windowWidth, scrollY]);
 
   return (
     <Client>
-      <MotionHeader
-        style={scrollStyles}
-        {...{ ...MOTION_COMMON_CONTROLS, transition: { duration: 1 } }}
-      >
+      <MotionHeader style={scrollStyles} {...{ ...MOTION_COMMON_CONTROLS }}>
         {/* logo on the left side */}
         <Link href="/">
           <h1
             className="
             text-2xl font-semibold text-amber-500 select-none
-            md:text-[2rem] lg:pl-8"
+            md:text-[2rem]"
           >
             MAVENBOND
           </h1>
@@ -75,19 +67,32 @@ const Header = () => {
 
         {/* nav items + (sign in / sign up || profile pic + name) on the right sides */}
         <div className="flex flex-row justify-between items-center gap-8">
-          {(showMobileNav || windowWidthTracker >= 1024) && (
+          {(isMobileNavShowing || windowWidth >= 1024) && (
             <MotionNavLinksWrapper {...{ ...MOTION_COMMON_CONTROLS }}>
               {/* navigation routes */}
               {Object.values(ROUTES).map(({ displayName, path }) => (
                 <Link
                   key={displayName}
                   href={path}
-                  className={`${router.pathname === path && "text-amber-500"} nav-link`}
+                  className={`
+                  ${router.pathname === path && "text-amber-500"} 
+                  ${router.pathname !== path && "text-black dark:text-white"} 
+                  nav-link
+                  `}
                 >
                   {displayName}
                 </Link>
               ))}
-              {windowWidthTracker >= 1024 && <NotiBell hasNoti />}
+
+              {windowWidth >= 1024 && (
+                <>
+                  <NotiBell hasNoti textClass="text-black dark:text-white" />
+                  <ThemeToggler
+                    extraSunClass="pt-[3px] text-amber-500"
+                    extraMoonClass="pt-[2px] text-[rgba(124,58,237,1)]"
+                  />
+                </>
+              )}
 
               {/* sign in button */}
               <Button
@@ -104,22 +109,26 @@ const Header = () => {
           )}
 
           {/* icons to show and hide mobile nav */}
-          {windowWidthTracker < 1024 && (
-            <div className="flex gap-6 ">
-              <NotiBell hasNoti />
-              {!showMobileNav && (
+          {windowWidth < 1024 && (
+            <div className="flex gap-6">
+              <NotiBell hasNoti textClass="text-black dark:text-white" />
+              <ThemeToggler
+                extraSunClass="pt-[3px] text-amber-500"
+                extraMoonClass="pt-[2px] text-[rgba(124,58,237,1)]"
+              />
+              {!isMobileNavShowing && (
                 <motion.div {...{ ...MOTION_COMMON_CONTROLS }}>
                   <Bars4Icon
-                    onClick={() => setShowMobileNav(!showMobileNav)}
-                    className="h-8 w-8 cursor-pointer pt-[4px]"
+                    onClick={() => setIsMobileNavShowing(!isMobileNavShowing)}
+                    className="h-9 w-9 cursor-pointer pt-[4px] text-black dark:text-white"
                   />
                 </motion.div>
               )}
-              {showMobileNav && (
+              {isMobileNavShowing && (
                 <motion.div {...{ ...MOTION_COMMON_CONTROLS }}>
                   <XMarkIcon
-                    onClick={() => setShowMobileNav(!showMobileNav)}
-                    className="h-8 w-8 cursor-pointer pt-[4px]"
+                    onClick={() => setIsMobileNavShowing(!isMobileNavShowing)}
+                    className="h-9 w-9 cursor-pointer pt-[4px] text-black dark:text-white"
                   />
                 </motion.div>
               )}
