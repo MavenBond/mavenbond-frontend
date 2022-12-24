@@ -6,7 +6,6 @@ export const BannerWrapper = styled.div`
     h-[calc(100vh_-_95px)] min-h-[calc(100vh_-_95px)] 
     select-none overflow-auto
     flex gap-5 lg:gap-10 lg:justify-between
-    lg:border-l-[10px] lg:border-[rgb(236,44,108)] dark:lg:border-[rgb(238,60,119)]
 
     max-[1024px]:flex-col-reverse
     `}
@@ -18,10 +17,10 @@ export const TypographyCol = styled.div`
     px-0 lg:pr-10 lg:pl-20
     flex flex-col gap-8 justify-center items-start  
     md:border-x-0
-    border-double lg:border-l-[30px] 
+    border-double rounded-b-[2rem] lg:border-l-[25px] 
     border-[rgb(236,44,108)] dark:border-[rgb(238,60,119)]
 
-    max-[768px]:border-x-[10px]
+    max-[1023px]:border-b-[10px]
     `}
 `;
 
