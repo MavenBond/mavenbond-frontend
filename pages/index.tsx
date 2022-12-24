@@ -1,11 +1,11 @@
-import { PageWrapper } from "components";
+import { UIComponents, Sections } from "components";
 
 export default function Home() {
+  const { PageWrapper } = UIComponents;
+  const { HomeSections } = Sections;
   return (
     <PageWrapper headTitle="Home">
-      <div className="h-screen border-b-2">Home</div>
-      <div className="h-screen border-b-2">Home</div>
-      <div className="h-screen border-b-2">Home</div>
+      <HomeSections.Banner />
     </PageWrapper>
   );
 }

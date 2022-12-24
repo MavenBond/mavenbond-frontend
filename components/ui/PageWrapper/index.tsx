@@ -2,7 +2,7 @@ import Head from "next/head";
 import _ from "lodash";
 
 // components
-import { Header } from "components";
+import { UIComponents } from "components";
 
 type PageWrapperProps = {
   headTitle: string;
@@ -10,6 +10,7 @@ type PageWrapperProps = {
 };
 
 const PageWrapper: React.FC<PageWrapperProps> = ({ headTitle, children }) => {
+  const { Header } = UIComponents;
   return (
     <>
       <Head>

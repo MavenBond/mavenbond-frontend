@@ -1,8 +1,7 @@
 // ui
-import PageWrapper from "./ui/PageWrapper";
-import Header from "./ui/Header";
-import Button from "./ui/Button";
-import NotiBell from "./ui/NotiBell";
-import ThemeToggler from "./ui/ThemeToggler";
+import UIComponents from "./ui";
 
-export { PageWrapper, Header, Button, NotiBell, ThemeToggler };
+// section
+import Sections from "./section";
+
+export { UIComponents, Sections };

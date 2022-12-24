@@ -6,7 +6,7 @@ import { Client } from "react-hydration-provider";
 
 // components
 import { Bars4Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Button, NotiBell, ThemeToggler } from "components";
+import { UIComponents } from "components";
 import { ROUTES } from "routes";
 import { HeaderContainer, NavLinksWrapper } from "./style";
 
@@ -27,6 +27,9 @@ const MOTION_COMMON_CONTROLS = {
 };
 
 const Header = () => {
+  // destruct components
+  const { Button, NotiBell, ThemeToggler } = UIComponents;
+
   // next router
   const router = useRouter();
 
@@ -58,8 +61,8 @@ const Header = () => {
         <Link href="/">
           <h1
             className="
-            text-2xl font-semibold text-amber-500 select-none
-            md:text-[2rem]"
+            text-2xl font-['Inter'] font-semibold text-amber-500 select-none
+            md:text-[2.25rem]"
           >
             MAVENBOND
           </h1>
@@ -98,7 +101,7 @@ const Header = () => {
               <Button
                 dimensionClass="w-[120px] h-[45px] mx-auto lg:mx-0"
                 textBgClass="
-                  text-white text-[14px] 
+                  text-white text-[14px] rounded-3xl
                   bg-gradient-to-r from-orange-600 to-amber-500
                 "
                 shadowClass="hover:shadow-amber-500"
