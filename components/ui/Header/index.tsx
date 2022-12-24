@@ -54,6 +54,16 @@ const Header = () => {
     });
   }, [windowWidth, scrollY]);
 
+  const _FixedUtils = () => (
+    <>
+      <NotiBell hasNoti textClass="text-black dark:text-white" />
+      <ThemeToggler
+        extraSunClass="pt-[3px] text-amber-500"
+        extraMoonClass="pt-[2px] text-[rgba(124,58,237,1)]"
+      />
+    </>
+  );
+
   return (
     <Client>
       <MotionHeader style={scrollStyles} {...{ ...MOTION_COMMON_CONTROLS }}>
@@ -87,15 +97,7 @@ const Header = () => {
                 </Link>
               ))}
 
-              {windowWidth >= 1024 && (
-                <>
-                  <NotiBell hasNoti textClass="text-black dark:text-white" />
-                  <ThemeToggler
-                    extraSunClass="pt-[3px] text-amber-500"
-                    extraMoonClass="pt-[2px] text-[rgba(124,58,237,1)]"
-                  />
-                </>
-              )}
+              {windowWidth >= 1024 && <_FixedUtils />}
 
               {/* sign in button */}
               <Button
@@ -114,11 +116,7 @@ const Header = () => {
           {/* icons to show and hide mobile nav */}
           {windowWidth < 1024 && (
             <div className="flex gap-6">
-              <NotiBell hasNoti textClass="text-black dark:text-white" />
-              <ThemeToggler
-                extraSunClass="pt-[3px] text-amber-500"
-                extraMoonClass="pt-[2px] text-[rgba(124,58,237,1)]"
-              />
+              <_FixedUtils />
               {!isMobileNavShowing && (
                 <motion.div {...{ ...MOTION_COMMON_CONTROLS }}>
                   <Bars4Icon
