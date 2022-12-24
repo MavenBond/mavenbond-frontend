@@ -18,7 +18,7 @@ const Banner = () => {
 
         {/* sign in button */}
         <Button
-          dimensionClass="w-[160px] h-[50px] mt-6 mb-14 self-center"
+          dimensionClass="w-[160px] h-[50px] lg:mt-6 lg:mb-14 self-center"
           textBgClass="
           text-white text-[18px] rounded-3xl
           bg-gradient-to-r from-orange-600 to-amber-500
@@ -35,13 +35,15 @@ const Banner = () => {
           ease: "linear",
           duration: 1.75,
         }}
-        className="flex flex-col justify-center items-center pr-10"
+        className="flex-col justify-center items-center hidden 
+        lg:pr-10 min-[768px]:flex"
       >
         <Image
           priority
           src={SampleDashboardBanner}
           alt="Home: sample dashboard banner"
-          className="w-full object-cover rounded-2xl shadow-2xl
+          className="w-[75%] lg:w-full object-cover mt-[4rem] lg:mt-0
+          rounded-2xl shadow-2xl
           shadow-gray-300/60 dark:shadow-amber-500/50"
         />
       </motion.div>
