@@ -4,13 +4,23 @@ import { images } from "assets";
 import { UIComponents } from "components";
 import { BannerWrapper, TypographyCol, MainTitle, SubTitle } from "./style";
 
+const MotionBannerWrapper = motion(BannerWrapper);
+const MotionTypographyCol = motion(TypographyCol);
+
 const Banner = () => {
   const { SampleDashboardBanner } = images;
   const { Button } = UIComponents;
 
   return (
-    <BannerWrapper>
-      <TypographyCol>
+    <MotionBannerWrapper
+      {...{
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        exit: { opacity: 0 },
+        transition: { duration: 0.5 },
+      }}
+    >
+      <MotionTypographyCol initial={{ x: -300 }} animate={{ x: 0 }} transition={{ duration: 1 }}>
         <MainTitle>
           HELP <span className="highlight">GROWING</span> BUSINESSES
         </MainTitle>
@@ -27,7 +37,7 @@ const Banner = () => {
         >
           SIGN IN
         </Button>
-      </TypographyCol>
+      </MotionTypographyCol>
       <motion.div
         animate={{ y: [0, -20, 0] }}
         transition={{
@@ -47,7 +57,7 @@ const Banner = () => {
           shadow-gray-300/60 dark:shadow-amber-500/50"
         />
       </motion.div>
-    </BannerWrapper>
+    </MotionBannerWrapper>
   );
 };
 
