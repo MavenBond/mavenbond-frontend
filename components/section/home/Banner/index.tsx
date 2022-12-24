@@ -28,9 +28,9 @@ const Banner = () => {
 
         {/* sign in button */}
         <Button
-          dimensionClass="w-[160px] h-[50px] lg:mt-6 lg:mb-14 self-center"
+          dimensionClass="w-[110px] h-[45px] md:w-[160px] md:h-[50px] mb-4 lg:mt-4 self-center"
           textBgClass="
-          text-white text-[18px] rounded-3xl
+          text-white text-[12px] md:text-[18px] rounded-lg
           bg-gradient-to-r from-orange-600 to-amber-500
         "
           shadowClass="hover:shadow-amber-500"

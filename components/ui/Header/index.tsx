@@ -103,7 +103,7 @@ const Header = () => {
               <Button
                 dimensionClass="w-[120px] h-[45px] mx-auto lg:mx-0"
                 textBgClass="
-                  text-white text-[14px] rounded-3xl
+                  text-white text-[14px] rounded-lg
                   bg-gradient-to-r from-orange-600 to-amber-500
                 "
                 shadowClass="hover:shadow-amber-500"
