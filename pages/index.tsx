@@ -6,6 +6,7 @@ export default function Home() {
   return (
     <PageWrapper headTitle="Home">
       <HomeSections.Banner />
+      <HomeSections.About />
     </PageWrapper>
   );
 }

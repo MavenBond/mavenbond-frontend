@@ -17,7 +17,7 @@ export const TypographyCol = styled.div`
     px-0 lg:pr-10 lg:pl-20 z-20
     flex flex-col gap-8 justify-center items-start  
     md:border-x-0
-    border-double rounded-b-[2rem] lg:border-l-[25px] 
+    border-double lg:border-l-[25px] lg:border-l-[25px] 
     border-[rgb(236,44,108)] dark:border-[rgb(238,60,119)]
 
     max-[768px]:border-b-[10px]

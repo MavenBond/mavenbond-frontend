@@ -1,3 +1,4 @@
 import Banner from "./Banner";
+import About from "./About";
 
-export default { Banner };
+export default { Banner, About };

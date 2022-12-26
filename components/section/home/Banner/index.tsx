@@ -21,7 +21,7 @@ const Banner = () => {
         transition: { duration: 0.5 },
       }}
     >
-      <BackgroundCircles positionClass="right-1/2 top-1/2 md:right-0 md:top-0" />
+      <BackgroundCircles positionClass="right-0 top-0" />
       <MotionTypographyCol initial={{ x: -300 }} animate={{ x: 0 }} transition={{ duration: 1 }}>
         <MainTitle>
           HELP <span className="highlight">GROWING</span> BUSINESSES
