@@ -6,7 +6,7 @@ import { Client } from "react-hydration-provider";
 
 // components
 import { Bars4Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { UIComponents } from "components";
+import { UIComponents, VariantComponents } from "components";
 import { ROUTES } from "routes";
 import { HeaderContainer, NavLinksWrapper } from "./style";
 
@@ -28,7 +28,8 @@ const MOTION_COMMON_CONTROLS = {
 
 const Header = () => {
   // destruct components
-  const { Button, NotiBell, ThemeToggler } = UIComponents;
+  const { NotiBell, ThemeToggler } = UIComponents;
+  const { SignInButton } = VariantComponents;
 
   // next router
   const router = useRouter();
@@ -100,16 +101,7 @@ const Header = () => {
               {windowWidth >= 1024 && <_FixedUtils />}
 
               {/* sign in button */}
-              <Button
-                dimensionClass="w-[120px] h-[45px] mx-auto lg:mx-0"
-                textBgClass="
-                  text-white text-[14px] rounded-lg
-                  bg-gradient-to-r from-orange-600 to-amber-500
-                "
-                shadowClass="hover:shadow-amber-500"
-              >
-                SIGN IN
-              </Button>
+              <SignInButton dimensionClass="w-[120px]" extraTextBgClass="text-[14px]" />
             </MotionNavLinksWrapper>
           )}
 

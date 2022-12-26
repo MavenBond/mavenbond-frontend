@@ -4,4 +4,7 @@ import UIComponents from "./ui";
 // section
 import Sections from "./section";
 
-export { UIComponents, Sections };
+// variant
+import VariantComponents from "./variant";
+
+export { UIComponents, Sections, VariantComponents };

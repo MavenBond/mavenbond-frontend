@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/solid";
 import { UIComponents } from "components";
@@ -13,6 +13,12 @@ const ThemeToggler = ({ extraSunClass = "", extraMoonClass = "" }: ThemeTogglerP
   const { theme, systemTheme, setTheme } = useTheme();
   const currentTheme = theme === "system" ? systemTheme : theme;
 
+  // set init theme for daisy ui
+  useEffect(() => {
+    document.getElementsByTagName("html")[0].dataset.theme =
+      currentTheme === "light" ? "dark" : "light";
+  }, []);
+
   const IconContainer = ({
     targetMode = "",
     extraClass = "",
@@ -25,7 +31,13 @@ const ThemeToggler = ({ extraSunClass = "", extraMoonClass = "" }: ThemeTogglerP
     <Button
       dimensionClass="w-[34px] h-[34px] mx-auto lg:mx-0"
       textBgClass={`text-[14px] cursor-pointer ${extraClass}`}
-      onClick={() => setTheme(targetMode)}
+      onClick={() => {
+        setTheme(targetMode);
+
+        // set theme for daisy ui, it is reversed comparing to tailwindcss mode
+        document.getElementsByTagName("html")[0].dataset.theme =
+          targetMode === "light" ? "dark" : "light";
+      }}
     >
       {icon}
     </Button>

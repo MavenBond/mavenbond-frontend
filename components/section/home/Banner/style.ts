@@ -14,19 +14,19 @@ export const BannerWrapper = styled.div`
 export const TypographyCol = styled.div`
   ${tw`
     w-full lg:w-[46%] flex-1
-    px-0 lg:pr-10 lg:pl-20
+    px-0 lg:pr-10 lg:pl-20 z-20
     flex flex-col gap-8 justify-center items-start  
     md:border-x-0
     border-double rounded-b-[2rem] lg:border-l-[25px] 
     border-[rgb(236,44,108)] dark:border-[rgb(238,60,119)]
 
-    max-[1023px]:border-b-[10px]
+    max-[768px]:border-b-[10px]
     `}
 `;
 
 export const MainTitle = styled.h1`
   ${tw`
-    lg:text-[4rem] text-center font-[500]
+    lg:text-[4rem] text-center font-[500] px-10
     text-[rgb(236,44,108)] dark:text-[rgb(238,60,119)] 
     tracking-wide break-words leading-[5rem] lg:leading-[7.25rem]
 

@@ -12,11 +12,11 @@ const NotiBell = ({ hasNoti = false, textClass = "" }: NotiBellProps) => {
       {hasNoti && (
         <>
           <span
-            className="absolute top-[6px] right-0 inline-flex rounded-full 
+            className="absolute top-[6px] right-[4px] inline-flex rounded-full 
               animate-ping h-[12px] w-[12px] bg-[rgba(124,58,237,0.75)]"
           />
           <span
-            className="absolute top-[6px] right-0 inline-flex rounded-full 
+            className="absolute top-[6px] right-[4px] inline-flex rounded-full 
               h-3 w-3 bg-[rgba(124,58,237,1)]"
           />
         </>
