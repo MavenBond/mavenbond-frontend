@@ -22,8 +22,6 @@ import tw from "twin.macro";
 */
 
 export const BannerWrapper = styled.div`
-  ${tw`select-none`}
-
   .title {
     ${tw`
     h-full w-full flex-1 z-20
@@ -79,7 +77,7 @@ export const BannerWrapper = styled.div`
     text-[1.2rem]
     font-[600]
     text-center
-    leading-[3rem]
+    leading-[2.25rem]
     px-8
 
     lg:leading-[2rem]

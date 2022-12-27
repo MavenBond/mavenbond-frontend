@@ -16,7 +16,7 @@ const Banner = () => {
   useEffect(() => {
     setTimeout(function () {
       window.scroll({
-        top: 200,
+        top: 60,
         behavior: "smooth",
       });
     }, 200);
@@ -42,17 +42,18 @@ const Banner = () => {
             positionClass="
               hidden 
               md:flex lg:flex xl:flex 
-              md:left-0 md:bottom-0 l
-              g:left-0 lg:bottom-0 
-              xl:left-0 xl:bottom-0
+              md:left-0 md:bottom-1/4
+              g:left-0 lg:bottom-1/4 
+              xl:left-0 xl:bottom-1/4
             "
           />
+
           <div className="title">
             <h1>
               HELP <span>GROWING</span> BUSINESSES
             </h1>
             <h2>We're here to find the best advertisement deals for your business!</h2>
-            <SignInButton className="scale-[1.15]" />
+            <SignInButton className="scale-[1.15] xs:my-5 sm:my-5" />
           </div>
 
           <motion.div
@@ -76,7 +77,7 @@ const Banner = () => {
 
                 md:w-[75%] 
                 lg:w-full xl:w-full
-                lg:pr-12 xl:pr-12
+                lg:mr-[8rem] xl:mr-[8rem]
                 "
             />
           </motion.div>

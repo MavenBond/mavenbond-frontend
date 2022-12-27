@@ -4,7 +4,7 @@ import tw from "twin.macro";
 export const HeaderContainer = styled.header`
   ${tw`
   text-black bg-[rgba(255,255,255,0.8)] dark:bg-[rgba(13, 22, 38, 0.8)]
-  sticky top-0 py-6 px-5 lg:px-10 z-20 rounded-b-md
+  sticky top-0 py-6 px-5 xl:px-10 z-[100] rounded-b-md
   flex justify-between items-center
   transition-all duration-300
   `}
@@ -26,6 +26,13 @@ export const NavLinksWrapper = styled.ul`
   // very important
   lg:bg-white lg:bg-[rgba(255,255,255,0)] 
   lg:dark:bg-[rgb(13, 22, 38)] lg:dark:bg-[rgba(13, 22, 38, 0)] 
+
+  xl:shadow-[0_5px_5px_-2px_rgba(219, 219, 219, 0)]
+  xl:relative xl:flex-row xl:top-0 xl:px-0 xl:py-0 xl:w-full
+
+  // very important
+  xl:bg-white xl:bg-[rgba(255,255,255,0)] 
+  xl:dark:bg-[rgb(13, 22, 38)] xl:dark:bg-[rgba(13, 22, 38, 0)] 
   `}
 
   .nav-link {
