@@ -73,7 +73,7 @@ const Header = () => {
           <h1
             className="
             text-2xl font-['Inter'] font-semibold text-amber-500 select-none
-            md:text-[2.25rem]"
+            md:text-[2rem] lg:text-[2.25rem] xl:text-[2.25rem]"
           >
             MAVENBOND
           </h1>
@@ -101,7 +101,7 @@ const Header = () => {
               {windowWidth >= 1024 && <_FixedUtils />}
 
               {/* sign in button */}
-              <SignInButton dimensionClass="w-[120px]" extraTextBgClass="text-[14px]" />
+              <SignInButton className="self-center" />
             </MotionNavLinksWrapper>
           )}
 

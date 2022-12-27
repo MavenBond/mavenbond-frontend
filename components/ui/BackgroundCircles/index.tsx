@@ -10,11 +10,11 @@ const BackgroundCircles = ({ positionClass = "" }: BackgroundCirclesProps) => {
       initial={{ opacity: 0 }}
       whileInView={{
         scale: [1, 1.25, 1.25, 1.5, 1],
-        opacity: [0.1, 0.2, 0.4, 0.8, 0.1, 1],
+        opacity: [0.1, 0.2, 0.4, 0.8, 0.1, 0.5],
         borderRadius: ["20%", "20%", "50%", "80%", "20%"],
       }}
       transition={{ duration: 2.5 }}
-      className={`absolute md:flex hidden justify-center items-center z-1 ${positionClass}`}
+      className={`absolute flex justify-center items-center z-1 ${positionClass}`}
     >
       <div className="absolute border-[2px] border-amber-400/75 rounded-full h-[200px] w-[200px] animate-ping" />
       <div className="absolute border border-amber-400/75 rounded-full h-[300px] w-[300px]" />

@@ -29,8 +29,18 @@ html {
     Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+html,
 body {
   min-height: 100vh;
+  min-width: 100%;
+}
+
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 /* css overkill baselines end */
 
@@ -40,6 +50,16 @@ body {
     @apply mx-auto;
     @apply bg-white dark:bg-[#0d1626] text-[#0d1626] dark:text-white;
     @apply transition-colors duration-300;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    @apply break-words;
   }
 }
 /* continue with tailwindcss stylings end */

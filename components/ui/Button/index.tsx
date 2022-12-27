@@ -4,18 +4,14 @@ const onClickZod = z.function();
 type onClickType = z.infer<typeof onClickZod>;
 
 type ButtonProps = {
-  dimensionClass?: string;
-  shadowClass?: string;
-  textBgClass?: string;
+  className?: string;
   disabled?: boolean;
   onClick?: onClickType;
   children?: React.ReactNode;
 };
 
 const Button: React.FC<ButtonProps> = ({
-  dimensionClass = "",
-  shadowClass = "",
-  textBgClass = "",
+  className = "",
   disabled = false,
   onClick = undefined,
   children,
@@ -25,13 +21,11 @@ const Button: React.FC<ButtonProps> = ({
       onClick={onClick}
       className={`
         rounded-md
-        border-none hover:border-none 
+        border-none 
         transition-all duration-500
-        hover:shadow-[0_8px_18px_-5px_rgba(255,255,255,0)] 
-        ${dimensionClass}
-        ${textBgClass}
-        ${!disabled && shadowClass}
+        hover:shadow-[0_8px_18px_-5px_rgba(255,255,255,0)]
         ${disabled && "cursor-not-allowed bg-gray-400 hover:bg-gray-400 hover:shadow-none"}
+        ${className}
     `}
     >
       {children}

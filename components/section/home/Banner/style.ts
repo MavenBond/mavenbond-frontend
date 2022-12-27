@@ -1,63 +1,90 @@
 import styled from "styled-components";
 import tw from "twin.macro";
 
+/*
+  position
+  dimension
+  display
+  spacing
+  overflow
+  colors
+  responsive
+*/
+
+/*
+  colors
+  size
+  weight
+  align
+  letter spacing, line height
+  spacing
+  responsive
+*/
+
 export const BannerWrapper = styled.div`
-  ${tw`
-    h-[calc(100vh_-_95px)] min-h-[calc(100vh_-_95px)] 
-    select-none overflow-auto
-    flex gap-5 lg:gap-10 lg:justify-between
+  ${tw`select-none`}
 
-    max-[1024px]:flex-col-reverse
-    `}
-`;
-
-export const TypographyCol = styled.div`
-  ${tw`
-    w-full lg:w-[46%] flex-1
-    px-0 lg:pr-10 lg:pl-20 z-20
-    flex flex-col gap-8 justify-center items-start  
-    md:border-x-0
-    border-double lg:border-l-[25px] lg:border-l-[25px] 
-    border-[rgb(236,44,108)] dark:border-[rgb(238,60,119)]
-
-    max-[768px]:border-b-[10px]
-    `}
-`;
-
-export const MainTitle = styled.h1`
-  ${tw`
-    lg:text-[4rem] text-center font-[500] px-10
-    text-[rgb(236,44,108)] dark:text-[rgb(238,60,119)] 
-    tracking-wide break-words leading-[5rem] lg:leading-[7.25rem]
-
-    min-[350px]:self-center
-    max-[639px]:text-[2.75rem]
-    sm:text-[3.25rem]
-    min-[640px]:leading-[4rem]
-    min-[1400px]:text-[6rem]
-    `}
-
-  .highlight {
+  .title {
     ${tw`
-    font-[700] text-[3.75rem] lg:text-[5.5rem] 
-    
-    max-[639px]:text-[3.25rem]
-    sm:text-[3.75rem]
-    min-[1400px]:text-[6.25rem]
+    h-full w-full flex-1 z-20
+    flex flex-col items-center justify-center gap-6
+    md:order-2 md:pb-[4rem]
+    lg:gap-8 xl:gap-14
     `}
   }
-`;
 
-export const SubTitle = styled.h2`
-  ${tw`
-    text-center font-[600] 
-    px-[2rem] lg:px-2
-    break-words leading-[3rem]
-
-    min-[350px]:self-center
-    max-[639px]:text-[1.25rem]
-    sm:text-[1.75rem]
-    min-[1400px]:text-[1.6rem]
-    min-[1400px]:px-10
+  .hero {
+    ${tw`
+    h-full w-full flex-1 z-20
+    flex flex-col items-center justify-center
+    xs:hidden sm:hidden md:order-1 md:mt-[7rem]
     `}
+  }
+
+  .title h1,
+  .title span,
+  .title p {
+    ${tw`
+    text-[rgb(236,44,108)] dark:text-[rgb(238,60,119)]
+    tracking-wide
+    `}
+  }
+
+  .title h1 {
+    ${tw`
+    text-[3rem]
+    text-center
+    leading-[4rem]
+    px-5
+
+    lg:px-20 xl:px-20
+    lg:text-[3rem] xl:text-[5.75rem]
+  `}
+  }
+
+  .title span {
+    ${tw`
+    text-[3.5rem]
+    font-[700]
+    text-center
+    leading-[3rem]
+
+    lg:text-[3.75rem] xl:text-[6.5rem]
+    lg:leading-[6rem] xl:leading-[11rem]
+  `}
+  }
+
+  .title h2 {
+    ${tw`
+    text-[1.2rem]
+    font-[600]
+    text-center
+    leading-[3rem]
+    px-8
+
+    lg:leading-[2rem]
+    lg:text-[1.15rem] xl:text-[1.6rem]
+    lg:px-[7rem] xl:px-[7rem]
+  `}
+  }
 `;

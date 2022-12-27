@@ -1,59 +1,88 @@
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { images } from "assets";
 import { VariantComponents, UIComponents } from "components";
-import { BannerWrapper, TypographyCol, MainTitle, SubTitle } from "./style";
+import { StyledWrapper } from "styles/globals";
+import { BannerWrapper } from "./style";
+import { useEffect } from "react";
+import { motion } from "framer-motion";
 
 const MotionBannerWrapper = motion(BannerWrapper);
-const MotionTypographyCol = motion(TypographyCol);
 
 const Banner = () => {
   const { SampleDashboardBanner } = images;
   const { SignInButton } = VariantComponents;
   const { BackgroundCircles } = UIComponents;
 
-  return (
-    <MotionBannerWrapper
-      {...{
-        initial: { opacity: 0 },
-        animate: { opacity: 1 },
-        exit: { opacity: 0 },
-        transition: { duration: 0.5 },
-      }}
-    >
-      <BackgroundCircles positionClass="right-0 top-0" />
-      <MotionTypographyCol initial={{ x: -300 }} animate={{ x: 0 }} transition={{ duration: 1 }}>
-        <MainTitle>
-          HELP <span className="highlight">GROWING</span> BUSINESSES
-        </MainTitle>
-        <SubTitle>We're here to find the best advertisement deals for your business!</SubTitle>
+  useEffect(() => {
+    setTimeout(function () {
+      window.scroll({
+        top: 200,
+        behavior: "smooth",
+      });
+    }, 200);
+  });
 
-        {/* sign in button */}
-        <SignInButton
-          dimensionClass="md:w-[160px] md:h-[50px] mb-4 lg:mt-4"
-          extraTextBgClass="text-[12px] md:text-[18px]"
-        />
-      </MotionTypographyCol>
-      <motion.div
-        animate={{ y: [0, -20, 0] }}
-        transition={{
-          repeat: Infinity,
-          ease: "linear",
-          duration: 1.75,
+  return (
+    <StyledWrapper>
+      <MotionBannerWrapper
+        {...{
+          initial: { opacity: 0 },
+          whileInView: { opacity: 1 },
+          transition: { duration: 0.6 },
         }}
-        className="flex-col justify-center items-center hidden z-20
-        lg:pr-10 min-[768px]:flex"
       >
-        <Image
-          priority
-          src={SampleDashboardBanner}
-          alt="Home: sample dashboard banner"
-          className="w-[75%] lg:w-full object-cover mt-[4rem] lg:mt-0
-          rounded-2xl shadow-2xl
-          shadow-gray-300/60 dark:shadow-amber-500/50"
-        />
-      </motion.div>
-    </MotionBannerWrapper>
+        <div className="container">
+          <BackgroundCircles
+            positionClass="
+              xs:right-1/2 xs:top-1/2 
+              sm:right-1/2 sm:top-1/2 right-0 top-0
+            "
+          />
+          <BackgroundCircles
+            positionClass="
+              hidden 
+              md:flex lg:flex xl:flex 
+              md:left-0 md:bottom-0 l
+              g:left-0 lg:bottom-0 
+              xl:left-0 xl:bottom-0
+            "
+          />
+          <div className="title">
+            <h1>
+              HELP <span>GROWING</span> BUSINESSES
+            </h1>
+            <h2>We're here to find the best advertisement deals for your business!</h2>
+            <SignInButton className="scale-[1.15]" />
+          </div>
+
+          <motion.div
+            whileInView={{ y: [0, -40, 0] }}
+            transition={{
+              repeat: Infinity,
+              ease: "linear",
+              duration: 1.75,
+            }}
+            className="hero"
+          >
+            <Image
+              priority
+              src={SampleDashboardBanner}
+              alt="Home: sample dashboard banner"
+              className="
+                self-center
+                object-cover
+                shadow-gray-300/60 dark:shadow-amber-500/50
+                rounded-2xl shadow-2xl
+
+                md:w-[75%] 
+                lg:w-full xl:w-full
+                lg:pr-12 xl:pr-12
+                "
+            />
+          </motion.div>
+        </div>
+      </MotionBannerWrapper>
+    </StyledWrapper>
   );
 };
 

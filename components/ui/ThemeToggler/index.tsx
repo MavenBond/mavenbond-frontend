@@ -29,8 +29,7 @@ const ThemeToggler = ({ extraSunClass = "", extraMoonClass = "" }: ThemeTogglerP
     icon: ReactElement;
   }) => (
     <Button
-      dimensionClass="w-[34px] h-[34px] mx-auto lg:mx-0"
-      textBgClass={`text-[14px] cursor-pointer ${extraClass}`}
+      className={`w-[34px] h-[34px] mx-auto lg:mx-0 text-[14px] cursor-pointer ${extraClass}`}
       onClick={() => {
         setTheme(targetMode);
 
