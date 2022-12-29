@@ -1,10 +1,11 @@
-import Image from "next/image";
 import { images } from "assets";
-import { VariantComponents, UIComponents } from "components";
+import { UIComponents, VariantComponents } from "components";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { useEffect } from "react";
 import { StyledWrapper } from "styles/globals";
 import { BannerWrapper } from "./style";
-import { useEffect } from "react";
-import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 
 const MotionBannerWrapper = motion(BannerWrapper);
 
@@ -12,14 +13,17 @@ const Banner = () => {
   const { SampleDashboardBanner } = images;
   const { SignInButton } = VariantComponents;
   const { BackgroundCircles } = UIComponents;
+  const router = useRouter();
 
   useEffect(() => {
-    setTimeout(function () {
-      window.scroll({
-        top: 60,
-        behavior: "smooth",
-      });
-    }, 200);
+    if (!router.asPath.includes("#")) {
+      setTimeout(function () {
+        window.scroll({
+          top: 60,
+          behavior: "smooth",
+        });
+      }, 200);
+    }
   });
 
   return (
@@ -31,7 +35,7 @@ const Banner = () => {
           transition: { duration: 0.6 },
         }}
       >
-        <div className="container">
+        <div className="container" id="banner">
           <BackgroundCircles
             positionClass="
               xs:right-1/2 xs:top-1/2 

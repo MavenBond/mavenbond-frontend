@@ -3,7 +3,7 @@ import tw from "twin.macro";
 
 export const HeaderContainer = styled.header`
   ${tw`
-  text-black bg-[rgba(255,255,255,0.8)] dark:bg-[rgba(13, 22, 38, 0.8)]
+  text-[rgb(13, 22, 38)] bg-[rgba(255,255,255,0.8)] dark:bg-[rgba(13, 22, 38, 0.8)]
   sticky top-0 py-6 px-5 xl:px-10 z-[100] rounded-b-md
   flex justify-between items-center
   transition-all duration-300

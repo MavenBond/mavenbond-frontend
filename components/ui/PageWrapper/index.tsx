@@ -1,15 +1,16 @@
-import Head from "next/head";
 import _ from "lodash";
+import Head from "next/head";
 
 // components
 import { UIComponents } from "components";
 
 type PageWrapperProps = {
   headTitle: string;
+  showNav?: boolean;
   children: React.ReactNode;
 };
 
-const PageWrapper: React.FC<PageWrapperProps> = ({ headTitle, children }) => {
+const PageWrapper: React.FC<PageWrapperProps> = ({ headTitle = "", showNav = true, children }) => {
   const { Header } = UIComponents;
   return (
     <>
@@ -21,7 +22,7 @@ const PageWrapper: React.FC<PageWrapperProps> = ({ headTitle, children }) => {
       </Head>
       <div className="min-h-screen flex flex-col">
         {/* consistent menu bar */}
-        <Header />
+        {showNav && <Header />}
 
         {/* main body of the page */}
         <main className="flex-grow">{children}</main>

@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { images } from "assets";
-import { motion } from "framer-motion";
 import { UIComponents, VariantComponents } from "components";
+import { motion } from "framer-motion";
+import Image from "next/image";
 import { StyledWrapper } from "styles/globals";
 import { AboutWrapper } from "./style";
 
@@ -13,7 +13,7 @@ const About = () => {
   return (
     <StyledWrapper>
       <AboutWrapper>
-        <div className="container">
+        <div className="container" id="about-us">
           <BackgroundCircles
             positionClass="
                 lg:right-0 lg:bottom-0
@@ -23,9 +23,9 @@ const About = () => {
           />
 
           <motion.div
-            initial={{ y: 400 }}
-            whileInView={{ y: 0 }}
-            transition={{ duration: 1 }}
+            initial={{ opacity: 0, y: 125 }}
+            whileInView={{ opacity: 1, y: [125, -125, 0] }}
+            transition={{ duration: 1.5 }}
             className="special about"
           >
             <BackgroundCircles
@@ -130,8 +130,8 @@ const About = () => {
             <h2>About Us</h2>
             <motion.p
               {...{
-                initial: { x: 200 },
-                whileInView: { x: [-100, 50, 0] },
+                initial: { opacity: 0, x: -100 },
+                whileInView: { opacity: 1, x: [-100, 50, 0] },
                 transition: { duration: 1.25 },
               }}
               className="first-content"
@@ -147,9 +147,9 @@ const About = () => {
 
             <motion.p
               {...{
-                initial: { x: 200 },
-                whileInView: { x: [-100, 50, 0] },
-                transition: { duration: 1.25 },
+                initial: { opacity: 0, x: -100 },
+                whileInView: { opacity: 1, x: [-100, 50, 0] },
+                transition: { duration: 1.5 },
               }}
               className="second-content"
             >

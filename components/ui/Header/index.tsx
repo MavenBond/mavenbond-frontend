@@ -14,6 +14,9 @@ import { HeaderContainer, NavLinksWrapper } from "./style";
 import useScrollPosition from "@react-hook/window-scroll";
 import { useWindowWidth } from "@react-hook/window-size/throttled";
 
+// constants
+import { ColorScheme } from "consts";
+
 // motion init components
 const MotionHeader = motion(HeaderContainer);
 const MotionNavLinksWrapper = motion(NavLinksWrapper);
@@ -57,7 +60,7 @@ const Header = () => {
 
   const _FixedUtils = () => (
     <>
-      <NotiBell hasNoti textClass="text-black dark:text-white" />
+      <NotiBell hasNoti textClass={`text-[${ColorScheme.blue.dark}] dark:text-white`} />
       <ThemeToggler
         extraSunClass="pt-[3px] text-amber-500"
         extraMoonClass="pt-[2px] text-[rgba(124,58,237,1)]"
@@ -90,7 +93,7 @@ const Header = () => {
                   href={path}
                   className={`
                   ${router.pathname === path && "text-amber-500"} 
-                  ${router.pathname !== path && "text-black dark:text-white"} 
+                  ${router.pathname !== path && `text-[${ColorScheme.blue.dark}] dark:text-white`} 
                   nav-link
                   `}
                 >
@@ -113,7 +116,7 @@ const Header = () => {
                 <motion.div {...{ ...MOTION_COMMON_CONTROLS }}>
                   <Bars4Icon
                     onClick={() => setIsMobileNavShowing(!isMobileNavShowing)}
-                    className="h-9 w-9 cursor-pointer pt-[4px] text-black dark:text-white"
+                    className={`h-9 w-9 cursor-pointer pt-[4px] text-[${ColorScheme.blue.dark}] dark:text-white`}
                   />
                 </motion.div>
               )}
@@ -121,7 +124,7 @@ const Header = () => {
                 <motion.div {...{ ...MOTION_COMMON_CONTROLS }}>
                   <XMarkIcon
                     onClick={() => setIsMobileNavShowing(!isMobileNavShowing)}
-                    className="h-9 w-9 cursor-pointer pt-[4px] text-black dark:text-white"
+                    className={`h-9 w-9 cursor-pointer pt-[4px] text-[${ColorScheme.blue.dark}] dark:text-white`}
                   />
                 </motion.div>
               )}
