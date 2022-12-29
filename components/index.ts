@@ -7,4 +7,7 @@ import Sections from "./section";
 // variant
 import VariantComponents from "./variant";
 
-export { UIComponents, Sections, VariantComponents };
+// by page
+import ByPageComponents from "./bypage";
+
+export { UIComponents, Sections, VariantComponents, ByPageComponents };
