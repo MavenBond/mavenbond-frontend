@@ -1,15 +1,11 @@
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Client } from "react-hydration-provider";
 
 // components
-import { Bars4Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { SignInButton } from "components/variant";
 import { NotiBell, ThemeToggler } from "components/ui";
 import { ROUTES } from "routes";
-import { HeaderContainer, NavLinksWrapper } from "./style";
+import { Bars4Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 // hooks
 import useScrollPosition from "@react-hook/window-scroll";
@@ -17,25 +13,12 @@ import { useWindowWidth } from "@react-hook/window-size/throttled";
 
 // constants
 import { ColorScheme } from "consts";
-
-// motion init components
-const MotionHeader = motion(HeaderContainer);
-const MotionNavLinksWrapper = motion(NavLinksWrapper);
-
-// motion common controls
-const MOTION_COMMON_CONTROLS = {
-  initial: { opacity: 0 },
-  animate: { opacity: 1 },
-  exit: { opacity: 0 },
-  transition: { duration: 0.5 },
-};
+import { useTheme } from "next-themes";
+import { Client } from "react-hydration-provider";
 
 const Header = () => {
   // next router
   const router = useRouter();
-
-  // toggle nav bar for mobile based on screen width
-  const [isMobileNavShowing, setIsMobileNavShowing] = useState(false);
 
   // window width tracking
   const windowWidth = useWindowWidth();
@@ -43,6 +26,8 @@ const Header = () => {
   // execute style changes on scrolling
   const scrollY = useScrollPosition(60 /*frames per second*/);
   const [scrollStyles, setScrollStyles] = useState({});
+  const [isNavShown, setIsNavShown] = useState(false);
+  const { theme } = useTheme();
   useEffect(() => {
     if (scrollY <= 40) {
       setScrollStyles({});
@@ -50,85 +35,78 @@ const Header = () => {
     }
     setScrollStyles({
       boxShadow: "0 10px 10px -10px rgba(251, 191, 56, 0.3)",
-      backdropFilter: "saturate(120%) blur(5px)",
-      padding: windowWidth >= 1024 ? "1rem 4rem" : "1rem 1.5rem",
+      backdropFilter: "saturate(120%) blur(10px)",
     });
   }, [windowWidth, scrollY]);
 
-  const _FixedUtils = () => (
-    <>
-      <NotiBell hasNoti textClass={`text-[${ColorScheme.blue.dark}] dark:text-white`} />
-      <ThemeToggler
-        extraSunClass='pt-[3px] text-amber-500'
-        extraMoonClass='pt-[2px] text-[rgba(124,58,237,1)]'
-      />
-    </>
-  );
-
   return (
     <Client>
-      <MotionHeader style={scrollStyles} {...{ ...MOTION_COMMON_CONTROLS }}>
-        {/* logo on the left side */}
-        <Link href='/'>
-          <h1
-            className="
-            text-2xl font-['Inter'] font-semibold text-amber-500 select-none
-            md:text-[2rem] lg:text-[2.25rem] xl:text-[2.25rem]"
+      <div
+        style={scrollStyles}
+        className='
+            navbar bg-base-100 fixed z-[200] py-[1.1rem] px-[1.5rem]
+            transition-all duration-500 bg-transparent
+          '
+        data-theme={theme === "light" ? "lofi" : "halloween"}
+      >
+        <div className='navbar-start pt-2'>
+          <NotiBell hasNoti textClass={`text-[${ColorScheme.blue.dark}] dark:text-amber-500`} />
+        </div>
+        <div className='navbar-center'>
+          <Link href='/'>
+            <h1
+              className="
+                text-[1.6rem] mt-1 font-['Inter'] font-semibold text-amber-500 select-none
+                md:text-[2rem] lg:text-[2.25rem] xl:text-[2.25rem]
+              "
+            >
+              MAVENBOND
+            </h1>
+          </Link>
+        </div>
+        <div className='navbar-end'>
+          <button
+            className='btn btn-circle btn-ghost mt-1'
+            onClick={() => setIsNavShown(!isNavShown)}
           >
-            MAVENBOND
-          </h1>
-        </Link>
-
-        {/* nav items + (sign in / sign up || profile pic + name) on the right sides */}
-        <div className='flex flex-row justify-between items-center gap-8'>
-          {(isMobileNavShowing || windowWidth >= 1024) && (
-            <MotionNavLinksWrapper {...{ ...MOTION_COMMON_CONTROLS }}>
-              {/* navigation routes */}
+            {!isNavShown && <Bars4Icon className='h-8 w-8' />}
+            {isNavShown && <XMarkIcon className='h-8 w-8' />}
+          </button>
+          {isNavShown && (
+            <ul
+              tabIndex={0}
+              className='
+                  menu menu-compact
+                  absolute top-[3rem] right-[2.75rem]
+                  bg-base-100 shadow-md
+                  flex flex-col items-center justify-center 
+                  gap-2 p-5 transition-all duration-300
+                  rounded-box w-[14rem]
+                '
+            >
               {Object.values(ROUTES).map(({ displayName, path }) => (
                 <Link
                   key={displayName}
                   href={path}
                   className={`
-                  ${router.pathname === path && "text-amber-500"} 
-                  ${router.pathname !== path && `text-[${ColorScheme.blue.dark}] dark:text-white`} 
-                  nav-link
-                  `}
+                  ${router.pathname === path && "text-amber-500"}
+                  ${router.pathname !== path && `text-[${ColorScheme.blue.dark}] dark:text-white`}
+                `}
                 >
-                  {displayName}
+                  <li className='hover:opacity-40'>
+                    <span className='px-10 text-lg'>{displayName}</span>
+                  </li>
                 </Link>
               ))}
-
-              {windowWidth >= 1024 && <_FixedUtils />}
-
-              {/* sign in button */}
-              <SignInButton className='self-center' />
-            </MotionNavLinksWrapper>
-          )}
-
-          {/* icons to show and hide mobile nav */}
-          {windowWidth < 1024 && (
-            <div className='flex gap-6'>
-              <_FixedUtils />
-              {!isMobileNavShowing && (
-                <motion.div {...{ ...MOTION_COMMON_CONTROLS }}>
-                  <Bars4Icon
-                    onClick={() => setIsMobileNavShowing(!isMobileNavShowing)}
-                    className={`h-9 w-9 cursor-pointer pt-[4px] text-[${ColorScheme.blue.dark}] dark:text-white`}
-                  />
-                </motion.div>
-              )}
-              {isMobileNavShowing && (
-                <motion.div {...{ ...MOTION_COMMON_CONTROLS }}>
-                  <XMarkIcon
-                    onClick={() => setIsMobileNavShowing(!isMobileNavShowing)}
-                    className={`h-9 w-9 cursor-pointer pt-[4px] text-[${ColorScheme.blue.dark}] dark:text-white`}
-                  />
-                </motion.div>
-              )}
-            </div>
+              <div className='divider'></div>
+              <ThemeToggler
+                extraSunClass='text-amber-500 self-center'
+                extraMoonClass='text-[rgba(124,58,237,1)] self-center'
+              />
+            </ul>
           )}
         </div>
-      </MotionHeader>
+      </div>
     </Client>
   );
 };

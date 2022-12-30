@@ -158,7 +158,7 @@ const About = () => {
               running an ad campaign for your business with just a few clicks. So, what are you
               waiting for ✨
             </motion.p>
-            <SignInButton className='scale-[1.15] xs:my-2 sm:my-2 md:hidden lg:hidden xl:hidden' />
+            <SignInButton className='scale-[1.15] xs:my-1 sm:my-1 md:hidden lg:hidden xl:hidden' />
           </div>
         </div>
       </AboutWrapper>

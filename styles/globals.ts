@@ -31,8 +31,4 @@ export const StyledWrapper = styled.div`
       bg-white dark:bg-[#0d1626] text-[#0d1626] dark:text-white
     `}
   }
-
-  .xs-block {
-    ${tw`hidden xs:block relative h-full w-full`}
-  }
 `;

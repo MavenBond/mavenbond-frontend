@@ -1,4 +1,4 @@
-import _ from "lodash";
+import startCase from "lodash.startcase";
 import Head from "next/head";
 
 // components
@@ -14,7 +14,7 @@ const PageWrapper: React.FC<PageWrapperProps> = ({ headTitle = "", showNav = tru
   return (
     <>
       <Head>
-        <title>{_.startCase(headTitle)}</title>
+        <title>{startCase(headTitle)}</title>
         <meta name='description' content='MavenBond - The Strength of Influence Effect' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />

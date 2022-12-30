@@ -8,7 +8,7 @@ type NotiBellProps = {
 const NotiBell = ({ hasNoti = false, textClass = "" }: NotiBellProps) => {
   return (
     <div className='relative cursor-pointer'>
-      <BellIcon className={`h-8 w-8 mt-1 ${textClass}`} />
+      <BellIcon className={`h-9 w-9 ${textClass}`} />
       {hasNoti && (
         <>
           <span

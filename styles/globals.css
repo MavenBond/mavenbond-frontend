@@ -63,6 +63,7 @@ button {
 
   main {
     @apply bg-white dark:bg-[#0d1626] text-[#0d1626] dark:text-white;
+    @apply transition-colors duration-300;
   }
 
   h1,

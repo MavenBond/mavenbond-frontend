@@ -68,7 +68,7 @@ export const AboutWrapper = styled.div`
   .logo-container {
     ${tw`
     flex justify-center items-center
-    w-[7rem] h-[7rem]
+    w-[6.9rem] h-[6.9rem]
     rounded-full z-30 bg-gray-200/30
 
     md:hidden lg:hidden xl:hidden
