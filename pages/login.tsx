@@ -1,8 +1,9 @@
 // import { useRouter } from "next/router";
 // import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import { message } from "antd";
-import { ByPageComponents, UIComponents } from "components";
+import { Form } from "components/bypage/login";
 import { LoginWrapper } from "components/bypage/login/style";
+import { PageWrapper, ThemeToggler } from "components/ui";
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import Link from "next/link";
@@ -14,8 +15,6 @@ import { z } from "zod";
 
 export default function Login() {
   // comp destruct
-  const { PageWrapper, ThemeToggler } = UIComponents;
-  const { LoginByPageComps } = ByPageComponents;
   const { register, handleSubmit, reset } = useForm();
 
   // hooks
@@ -111,7 +110,7 @@ export default function Login() {
                 transition={{ duration: 1 }}
                 className='main-form'
               >
-                <LoginByPageComps.Form
+                <Form
                   flags={{ hasAccount, isSubmitting }}
                   formMethods={{ handleSubmit, handleSubmitData, register }}
                 />

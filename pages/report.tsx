@@ -1,7 +1,6 @@
-import { UIComponents } from "components";
+import { PageWrapper } from "components/ui";
 
 export default function Report() {
-  const { PageWrapper } = UIComponents;
   return (
     <PageWrapper headTitle='Report'>
       <div>Report</div>

@@ -1,5 +1,5 @@
 import { MoonIcon, SunIcon } from "@heroicons/react/24/solid";
-import { UIComponents } from "components";
+import { Button } from "components/ui";
 import { useTheme } from "next-themes";
 import { ReactElement, useEffect } from "react";
 
@@ -9,7 +9,6 @@ type ThemeTogglerProps = {
 };
 
 const ThemeToggler = ({ extraSunClass = "", extraMoonClass = "" }: ThemeTogglerProps) => {
-  const { Button } = UIComponents;
   const { theme, systemTheme, setTheme } = useTheme();
   const currentTheme = theme === "system" ? systemTheme : theme;
 

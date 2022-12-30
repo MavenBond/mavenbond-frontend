@@ -1,9 +1,7 @@
-import { UIComponents, Sections } from "components";
+import { HomeSections } from "components/section";
+import { PageWrapper } from "components/ui";
 
 export default function Home() {
-  const { PageWrapper } = UIComponents;
-  const { HomeSections } = Sections;
-
   return (
     <PageWrapper headTitle='Home'>
       <HomeSections.Banner />

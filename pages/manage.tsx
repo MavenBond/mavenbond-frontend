@@ -1,7 +1,6 @@
-import { UIComponents } from "components";
+import { PageWrapper } from "components/ui";
 
 export default function Manage() {
-  const { PageWrapper } = UIComponents;
   return (
     <PageWrapper headTitle='Manage'>
       <div>Manage</div>

@@ -1,5 +1,6 @@
 import { images } from "assets";
-import { UIComponents, VariantComponents } from "components";
+import { SignInButton } from "components/variant";
+import { BackgroundCircles } from "components/ui";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect } from "react";
@@ -11,8 +12,6 @@ const MotionBannerWrapper = motion(BannerWrapper);
 
 const Banner = () => {
   const { SampleDashboardBanner } = images;
-  const { SignInButton } = VariantComponents;
-  const { BackgroundCircles } = UIComponents;
   const router = useRouter();
 
   useEffect(() => {

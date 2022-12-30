@@ -1,5 +1,6 @@
 import { images } from "assets";
-import { UIComponents, VariantComponents } from "components";
+import { SignInButton } from "components/variant";
+import { BackgroundCircles } from "components/ui";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { StyledWrapper } from "styles/globals";
@@ -7,8 +8,6 @@ import { AboutWrapper } from "./style";
 
 const About = () => {
   const { CelebHorizontal, CelebVertical, LogoMajorBg } = images;
-  const { SignInButton } = VariantComponents;
-  const { BackgroundCircles } = UIComponents;
 
   return (
     <StyledWrapper>

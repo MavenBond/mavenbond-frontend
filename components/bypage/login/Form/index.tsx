@@ -1,6 +1,7 @@
 import { LoadingOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
-import { ByPageComponents, VariantComponents } from "components";
+import { Input } from "components/bypage/login";
+import { SignInButton } from "components/variant";
 import { LOGIN_FORM_MODEL } from "consts";
 import { FieldValues, UseFormHandleSubmit, UseFormRegister } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
@@ -16,8 +17,6 @@ type formMethodsType = {
 type FormProps = { flags: flagsType; formMethods: formMethodsType };
 
 const Form = ({ flags, formMethods }: FormProps) => {
-  const { LoginByPageComps } = ByPageComponents;
-  const { SignInButton } = VariantComponents;
   const { handleSubmit, handleSubmitData, register } = formMethods;
   const { hasAccount, isSubmitting } = flags;
 
@@ -36,7 +35,7 @@ const Form = ({ flags, formMethods }: FormProps) => {
       {LOGIN_FORM_MODEL.map(({ id, label, type, placeholders }) => {
         const [primary, secondary] = placeholders;
         return (
-          <LoginByPageComps.Input
+          <Input
             key={id}
             id={id}
             htmlFor={id}

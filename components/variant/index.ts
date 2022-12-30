@@ -1,3 +1,3 @@
 import SignInButton from "./LoginButton";
 
-export default { SignInButton };
+export { SignInButton };

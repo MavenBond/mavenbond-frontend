@@ -1,7 +1,6 @@
-import { UIComponents } from "components";
+import { PageWrapper } from "components/ui";
 
 export default function Browse() {
-  const { PageWrapper } = UIComponents;
   return (
     <PageWrapper headTitle='Browse'>
       <div>Browse</div>

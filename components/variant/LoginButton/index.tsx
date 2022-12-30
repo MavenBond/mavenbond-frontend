@@ -6,8 +6,8 @@ import z from "zod";
 
 // IMP: make it dynamic to take advantage of styled component passRef
 const StyledButton = dynamic(() => {
-  return import("components").then((result) => {
-    const StyledButton = styled(result.UIComponents.Button)`
+  return import("components/ui").then((result) => {
+    const StyledButton = styled(result.Button)`
       ${tw`
       w-[110px] h-[45px]
       text-white

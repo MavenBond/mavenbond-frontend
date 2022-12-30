@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "next build && yarn noice",
+    "build": "npx tailwindcss -o build.css --minify && yarn noice && next build && yarn start",
     "analyze": "ANALYZE=true yarn build",
-    "start": "next start",
+    "start": "next start --port=8888",
     "lint": "eslint '**/*.{js,jsx,ts,tsx}'",
     "noice": "prettier --write '**/*.{js,jsx,ts,tsx}'",
     "dev": "next dev"
@@ -39,6 +39,7 @@
     "react-redux": "^8.0.5",
     "react-responsive": "^9.0.2",
     "react-social-icons": "^5.15.0",
+    "sharp": "^0.31.3",
     "store2": "^2.14.2",
     "styled-components": "^5.3.6",
     "swr": "^2.0.0",
@@ -46,6 +47,7 @@
     "zod": "^3.20.2"
   },
   "devDependencies": {
+    "@next/eslint-plugin-next": "^13.1.1",
     "@types/lodash": "^4.14.191",
     "@types/node": "18.11.17",
     "@types/react": "18.0.26",

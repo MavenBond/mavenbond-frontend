@@ -5,4 +5,4 @@ import NotiBell from "./NotiBell";
 import ThemeToggler from "./ThemeToggler";
 import BackgroundCircles from "./BackgroundCircles";
 
-export default { PageWrapper, Header, Button, NotiBell, ThemeToggler, BackgroundCircles };
+export { PageWrapper, Header, Button, NotiBell, ThemeToggler, BackgroundCircles };

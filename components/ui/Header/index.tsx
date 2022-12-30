@@ -6,7 +6,8 @@ import { Client } from "react-hydration-provider";
 
 // components
 import { Bars4Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { UIComponents, VariantComponents } from "components";
+import { SignInButton } from "components/variant";
+import { NotiBell, ThemeToggler } from "components/ui";
 import { ROUTES } from "routes";
 import { HeaderContainer, NavLinksWrapper } from "./style";
 
@@ -30,10 +31,6 @@ const MOTION_COMMON_CONTROLS = {
 };
 
 const Header = () => {
-  // destruct components
-  const { NotiBell, ThemeToggler } = UIComponents;
-  const { SignInButton } = VariantComponents;
-
   // next router
   const router = useRouter();
 
