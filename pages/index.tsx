@@ -1,11 +1,14 @@
-import { HomeSections } from "components/section";
-import { PageWrapper } from "components/ui";
+import dynamic from "next/dynamic";
+
+const BannerSection = dynamic(() => import("components/section/home/Banner"));
+const AboutSection = dynamic(() => import("components/section/home/About"));
+const PageWrapper = dynamic(() => import("components/ui/PageWrapper"));
 
 export default function Home() {
   return (
     <PageWrapper headTitle='Home'>
-      <HomeSections.Banner />
-      <HomeSections.About />
+      <BannerSection />
+      <AboutSection />
     </PageWrapper>
   );
 }

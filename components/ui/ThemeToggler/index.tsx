@@ -1,8 +1,9 @@
 import { MoonIcon, SunIcon } from "@heroicons/react/24/solid";
-import { Button } from "components/ui";
 import { useTheme } from "next-themes";
+import dynamic from "next/dynamic";
 import { ReactElement, useEffect } from "react";
 
+const Button = dynamic(() => import("components/ui/Button"));
 type ThemeTogglerProps = {
   extraSunClass?: string;
   extraMoonClass?: string;

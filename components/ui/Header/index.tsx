@@ -1,9 +1,7 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 // components
-import { NotiBell, ThemeToggler } from "components/ui";
 import { ROUTES } from "routes";
 import { Bars4Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
@@ -15,6 +13,11 @@ import { useWindowWidth } from "@react-hook/window-size/throttled";
 import { ColorScheme } from "consts";
 import { useTheme } from "next-themes";
 import { Client } from "react-hydration-provider";
+import dynamic from "next/dynamic";
+
+const Link = dynamic(() => import("next/link"));
+const ThemeToggler = dynamic(() => import("components/ui/ThemeToggler"));
+const NotiBell = dynamic(() => import("components/ui/NotiBell"));
 
 const Header = () => {
   // next router

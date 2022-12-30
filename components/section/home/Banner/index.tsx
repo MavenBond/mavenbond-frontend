@@ -1,30 +1,14 @@
-import { images } from "assets";
-import { SignInButton } from "components/variant";
-import { BackgroundCircles } from "components/ui";
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useEffect } from "react";
-import { StyledWrapper } from "styles/globals";
 import { BannerWrapper } from "./style";
-import { useRouter } from "next/router";
 
 const MotionBannerWrapper = motion(BannerWrapper);
+const SignInButton = dynamic(() => import("components/variant/LoginButton"));
+const BackgroundCircles = dynamic(() => import("components/ui/BackgroundCircles"));
+const StyledWrapper = dynamic(() => import("styles/globals").then((rs) => rs.StyledWrapper));
 
 const Banner = () => {
-  const { SampleDashboardBanner } = images;
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!router.asPath.includes("#")) {
-      setTimeout(function () {
-        window.scroll({
-          top: 60,
-          behavior: "smooth",
-        });
-      }, 200);
-    }
-  });
-
   return (
     <StyledWrapper>
       <MotionBannerWrapper
@@ -70,18 +54,20 @@ const Banner = () => {
           >
             <Image
               priority
-              src={SampleDashboardBanner}
+              src='https://i.imgur.com/kbOnhef.png'
               alt='Home: sample dashboard banner'
+              width={1892}
+              height={1142}
               className='
                 self-center
-                object-cover
+                object-fill
                 shadow-gray-300/60 dark:shadow-amber-500/50
                 rounded-2xl shadow-2xl
 
                 md:w-[75%] 
                 lg:w-full xl:w-full
                 lg:mr-[8rem] xl:mr-[8rem]
-                '
+              '
             />
           </motion.div>
         </div>

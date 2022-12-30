@@ -1,23 +1,22 @@
-import { LoadingOutlined } from "@ant-design/icons";
-import { Spin } from "antd";
-import { Input } from "components/bypage/login";
-import { SignInButton } from "components/variant";
+import dynamic from "next/dynamic";
 import { LOGIN_FORM_MODEL } from "consts";
-import { FieldValues, UseFormHandleSubmit, UseFormRegister } from "react-hook-form";
+import type { FieldValues } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
-import { z } from "zod";
 
-const flagsZod = z.object({ hasAccount: z.boolean(), isSubmitting: z.boolean() });
-type flagsType = z.infer<typeof flagsZod>;
+const Input = dynamic(() => import("components/bypage/login/Input"));
+const SignInButton = dynamic(() => import("components/variant/LoginButton"));
+
+type flagsType = { hasAccount: boolean; isSubmitting: boolean };
 type formMethodsType = {
-  handleSubmit: UseFormHandleSubmit<FieldValues>;
   handleSubmitData: (data: FieldValues) => void;
-  register: UseFormRegister<FieldValues>;
 };
 type FormProps = { flags: flagsType; formMethods: formMethodsType };
 
 const Form = ({ flags, formMethods }: FormProps) => {
-  const { handleSubmit, handleSubmitData, register } = formMethods;
+  // comp destruct
+  const { register, handleSubmit } = useForm();
+  const { handleSubmitData } = formMethods;
   const { hasAccount, isSubmitting } = flags;
 
   return (
@@ -49,14 +48,7 @@ const Form = ({ flags, formMethods }: FormProps) => {
 
       {/* loading indicator & login button */}
       {isSubmitting ? (
-        <Spin
-          indicator={
-            <LoadingOutlined
-              style={{ fontSize: "2rem", color: "#fbbf24", margin: "2rem 0" }}
-              spin
-            />
-          }
-        />
+        <>Loading...</>
       ) : (
         <SignInButton
           // eslint-disable-next-line @typescript-eslint/no-explicit-any

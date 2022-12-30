@@ -1,4 +1,5 @@
-import { PageWrapper } from "components/ui";
+import dynamic from "next/dynamic";
+const PageWrapper = dynamic(() => import("components/ui/PageWrapper"));
 
 export default function Report() {
   return (

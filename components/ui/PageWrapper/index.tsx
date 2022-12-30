@@ -1,8 +1,9 @@
 import startCase from "lodash.startcase";
-import Head from "next/head";
 
 // components
-import { Header } from "components/ui";
+import dynamic from "next/dynamic";
+const Header = dynamic(() => import("components/ui/Header"));
+const Head = dynamic(() => import("next/head"));
 
 type PageWrapperProps = {
   headTitle: string;

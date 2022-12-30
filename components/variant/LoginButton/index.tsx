@@ -5,19 +5,15 @@ import tw from "twin.macro";
 import z from "zod";
 
 // IMP: make it dynamic to take advantage of styled component passRef
-const StyledButton = dynamic(() => {
-  return import("components/ui").then((result) => {
-    const StyledButton = styled(result.Button)`
-      ${tw`
-      w-[110px] h-[45px]
-      text-white
-      bg-gradient-to-r from-orange-600 to-amber-500
-      hover:shadow-amber-500
-      `}
-    `;
-    return StyledButton;
-  });
-});
+const Button = dynamic(() => import("components/ui/Button"));
+const StyledButton = styled(Button)`
+  ${tw`
+  w-[110px] h-[45px]
+  text-white
+  bg-gradient-to-r from-orange-600 to-amber-500
+  hover:shadow-amber-500
+  `}
+`;
 
 const onClickZod = z.function();
 type onClickType = z.infer<typeof onClickZod>;

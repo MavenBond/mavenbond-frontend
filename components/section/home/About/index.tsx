@@ -1,13 +1,15 @@
 import { images } from "assets";
-import { SignInButton } from "components/variant";
-import { BackgroundCircles } from "components/ui";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { StyledWrapper } from "styles/globals";
 import { AboutWrapper } from "./style";
+import dynamic from "next/dynamic";
+
+const SignInButton = dynamic(() => import("components/variant/LoginButton"));
+const BackgroundCircles = dynamic(() => import("components/ui/BackgroundCircles"));
+const StyledWrapper = dynamic(() => import("styles/globals").then((rs) => rs.StyledWrapper));
 
 const About = () => {
-  const { CelebHorizontal, CelebVertical, LogoMajorBg } = images;
+  const { CelebVertical, LogoMajorBg } = images;
 
   return (
     <StyledWrapper>
@@ -45,7 +47,7 @@ const About = () => {
               className='logo-container'
             >
               <Image
-                priority
+                loading='lazy'
                 src={LogoMajorBg}
                 alt='Home: site major logo'
                 className='object-fill z-20'
@@ -62,8 +64,7 @@ const About = () => {
               className='celeb-vertical'
             >
               <Image
-                priority
-                placeholder='blur'
+                loading='lazy'
                 src={CelebVertical}
                 alt='Home: horizontal celebrities focusing'
                 className='object-fill z-40'
@@ -71,14 +72,16 @@ const About = () => {
             </motion.div>
 
             <Image
-              priority
-              src={CelebHorizontal}
-              alt='Home: horizontal celebrities smiling'
               className='
-                absolute right-0 object-cover z-20
+                absolute right-0 object-fill z-20
                 rounded-[4rem] shadow-lg scale-[0.82]
               shadow-gray-300/60 dark:shadow-amber-500/30
               '
+              width={850}
+              height={500}
+              loading='lazy'
+              src='https://i.imgur.com/lg2AcJG.jpg'
+              alt='Home: horizontal celebrities smiling'
             />
           </motion.div>
 
@@ -101,7 +104,7 @@ const About = () => {
               className='logo-container'
             >
               <Image
-                priority
+                loading='lazy'
                 src={LogoMajorBg}
                 alt='Home: site major logo'
                 className='object-fill z-20'
@@ -118,7 +121,7 @@ const About = () => {
               '
             >
               <Image
-                priority
+                loading='lazy'
                 placeholder='blur'
                 src={CelebVertical}
                 alt='Home: horizontal celebrities focusing'

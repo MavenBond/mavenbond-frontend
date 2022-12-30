@@ -1,44 +1,53 @@
 // import { useRouter } from "next/router";
 // import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
-import { message } from "antd";
-import { Form } from "components/bypage/login";
-import { LoginWrapper } from "components/bypage/login/style";
-import { PageWrapper, ThemeToggler } from "components/ui";
-import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
+
 import { useTheme } from "next-themes";
-import Link from "next/link";
-import { useState } from "react";
-import { FieldValues, useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import type { FieldValues } from "react-hook-form";
 import { Client } from "react-hydration-provider";
-import { StyledWrapper } from "styles/globals";
-import { z } from "zod";
+
+const Form = dynamic(() => import("components/bypage/login/Form"));
+const Copyright = dynamic(() => import("components/bypage/login/Copyright"));
+const Link = dynamic(() => import("next/link"));
+const PageWrapper = dynamic(() => import("components/ui/PageWrapper"));
+const ThemeToggler = dynamic(() => import("components/ui/ThemeToggler"));
+const StyledWrapper = dynamic(() => import("styles/globals").then((rs) => rs.StyledWrapper));
+const LoginWrapper = dynamic(() =>
+  import("components/bypage/login/style").then((rs) => rs.LoginWrapper)
+);
 
 export default function Login() {
-  // comp destruct
-  const { register, handleSubmit, reset } = useForm();
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [schema, setSchema] = useState<any>(null);
   // hooks
   // const router = useRouter();
   // const supabaseClient = useSupabaseClient();
   // const supabaseUser = useUser();
 
+  useEffect(() => {
+    (async () => {
+      const { z } = await import("zod");
+      // custom fx
+      const fieldValuesSchema = z
+        .object({
+          email: z.string().email(),
+          password: z.string().min(8, { message: "At least 8 characters for password" }),
+          confirmPassword: z.string(),
+        })
+        .required()
+        .refine((data) => data.password === data.confirmPassword, {
+          message: "Passwords don't match",
+          path: ["matchingPasswords"], // path of error
+        });
+      setSchema(fieldValuesSchema);
+    })();
+  }, []);
+
   // states
   const [hasAccount, setHasAccount] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { theme } = useTheme();
-
-  // custom fx
-  const fieldValuesSchema = z
-    .object({
-      email: z.string().email(),
-      password: z.string().min(8, { message: "At least 8 characters for password" }),
-      confirmPassword: z.string(),
-    })
-    .required()
-    .refine((data) => data.password === data.confirmPassword, {
-      message: "Passwords don't match",
-      path: ["matchingPasswords"], // path of error
-    });
 
   const handleSubmitData = (data: FieldValues) => {
     setIsSubmitting(true);
@@ -50,19 +59,17 @@ export default function Login() {
         callback();
       }, 1000);
 
-    const executedSchema = fieldValuesSchema.safeParse(data);
+    const executedSchema = schema.safeParse(data);
     if (!executedSchema.success) {
       _faker(() => {
-        message.error(executedSchema.error.issues[0].message);
+        console.log(executedSchema.error.issues[0].message);
       });
     } else {
       // TODO: handle valid form data here
       console.log(executedSchema.data);
-      reset();
       _faker(() => {
         console.log(executedSchema.data);
-        message.success("Welcome back!");
-        reset();
+        console.log("Welcome back!");
       });
     }
   };
@@ -77,12 +84,7 @@ export default function Login() {
               data-theme={theme === "light" ? "lofi" : "halloween"}
             >
               {/* logo */}
-              <motion.div
-                initial={{ opacity: 0, y: -100 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1 }}
-                className='absolute top-[1rem] left-[2rem]'
-              >
+              <div className='absolute top-[1rem] left-[2rem]'>
                 <Link href='/'>
                   <h1
                     className="
@@ -93,7 +95,7 @@ export default function Login() {
                     MAVENBOND
                   </h1>
                 </Link>
-              </motion.div>
+              </div>
 
               {/* theme toggler */}
               <div className='absolute top-[1.25rem] right-[2rem]'>
@@ -104,16 +106,8 @@ export default function Login() {
               </div>
 
               {/* main form */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1 }}
-                className='main-form'
-              >
-                <Form
-                  flags={{ hasAccount, isSubmitting }}
-                  formMethods={{ handleSubmit, handleSubmitData, register }}
-                />
+              <div className='main-form'>
+                <Form flags={{ hasAccount, isSubmitting }} formMethods={{ handleSubmitData }} />
 
                 <div className='divider text-[#0d1626] dark:text-white bg-opacity-0'>
                   <a
@@ -131,22 +125,8 @@ export default function Login() {
                 </div>
 
                 {/* copyright */}
-                <motion.p
-                  initial={{ opacity: 0, y: 100 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1 }}
-                  className='copyright'
-                >
-                  <Link href='/'>
-                    <strong>Home </strong>
-                  </Link>
-                  <Link href='/#about-us'>
-                    |<strong> About Us </strong>
-                  </Link>
-                  | © 2022 <strong>MavenBond</strong>
-                  <span className='xs:hidden sm:hidden'>. All Rights Reserved</span>
-                </motion.p>
-              </motion.div>
+                <Copyright />
+              </div>
             </div>
           </Client>
         </LoginWrapper>
