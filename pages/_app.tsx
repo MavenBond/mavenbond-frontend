@@ -16,7 +16,7 @@ export default function App({
   return (
     <SessionContextProvider supabaseClient={supabase} initialSession={pageProps.initialSession}>
       <HydrationProvider>
-        <ThemeProvider attribute="class">
+        <ThemeProvider attribute='class'>
           <Component {...pageProps} />
         </ThemeProvider>
       </HydrationProvider>

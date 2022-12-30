@@ -1,7 +1,22 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "prettier", "react-hooks"],
+  "rules": {
+    "react-hooks/rules-of-hooks": "warn",
+    "no-unused-vars": "warn",
+    "comma-dangle": [
+      "warn",
+      {
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        "functions": "ignore"
+      }
+    ],
+    "semi": [1, "always"]
+  },
   "overrides": [
     {
       "files": ["*.js", "*.ts", "*.jsx", "*.tsx"],

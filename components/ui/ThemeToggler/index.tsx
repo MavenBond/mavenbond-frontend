@@ -41,9 +41,9 @@ const ThemeToggler = ({ extraSunClass = "", extraMoonClass = "" }: ThemeTogglerP
   );
 
   return currentTheme === "dark" ? (
-    <_IconContainer targetMode="light" extraClass={extraSunClass} icon={<SunIcon />} />
+    <_IconContainer targetMode='light' extraClass={extraSunClass} icon={<SunIcon />} />
   ) : (
-    <_IconContainer targetMode="dark" extraClass={extraMoonClass} icon={<MoonIcon />} />
+    <_IconContainer targetMode='dark' extraClass={extraMoonClass} icon={<MoonIcon />} />
   );
 };
 

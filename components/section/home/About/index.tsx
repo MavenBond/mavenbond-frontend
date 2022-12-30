@@ -13,27 +13,27 @@ const About = () => {
   return (
     <StyledWrapper>
       <AboutWrapper>
-        <div className="container" id="about-us">
+        <div className='container' id='about-us'>
           <BackgroundCircles
-            positionClass="
+            positionClass='
                 lg:right-0 lg:bottom-0
                 xl:right-0 xl:bottom-0
                 xs:hidden sm:hidden md:hidden
-              "
+              '
           />
 
           <motion.div
             initial={{ opacity: 0, y: 125 }}
             whileInView={{ opacity: 1, y: [125, -125, 0] }}
             transition={{ duration: 1.5 }}
-            className="special about"
+            className='special about'
           >
             <BackgroundCircles
-              positionClass="
+              positionClass='
                 lg:right-1/2 lg:bottom-1/2
                 xl:right-1/2 xl:bottom-1/2
                 xs:hidden sm:hidden md:hidden
-              "
+              '
             />
 
             <motion.div
@@ -43,13 +43,13 @@ const About = () => {
                 ease: "linear",
                 duration: 1.75,
               }}
-              className="logo-container"
+              className='logo-container'
             >
               <Image
                 priority
                 src={LogoMajorBg}
-                alt="Home: site major logo"
-                className="object-fill z-20"
+                alt='Home: site major logo'
+                className='object-fill z-20'
               />
             </motion.div>
 
@@ -60,37 +60,37 @@ const About = () => {
                 ease: "linear",
                 duration: 1.75,
               }}
-              className="celeb-vertical"
+              className='celeb-vertical'
             >
               <Image
                 priority
-                placeholder="blur"
+                placeholder='blur'
                 src={CelebVertical}
-                alt="Home: horizontal celebrities focusing"
-                className="object-fill z-40"
+                alt='Home: horizontal celebrities focusing'
+                className='object-fill z-40'
               />
             </motion.div>
 
             <Image
               priority
               src={CelebHorizontal}
-              alt="Home: horizontal celebrities smiling"
-              className="
+              alt='Home: horizontal celebrities smiling'
+              className='
                 absolute right-0 object-cover z-20
                 rounded-[4rem] shadow-lg scale-[0.82]
               shadow-gray-300/60 dark:shadow-amber-500/30
-              "
+              '
             />
           </motion.div>
 
-          <div className="about">
+          <div className='about'>
             <BackgroundCircles
-              positionClass="
+              positionClass='
                 xs:left-0 xs:bottom-1/2
                 sm:left-0 sm:bottom-1/2
                 md:top-1/4
                 lg:hidden xl:hidden
-              "
+              '
             />
             <motion.div
               animate={{ y: [15, 25, 15] }}
@@ -99,31 +99,31 @@ const About = () => {
                 ease: "linear",
                 duration: 1.75,
               }}
-              className="logo-container"
+              className='logo-container'
             >
               <Image
                 priority
                 src={LogoMajorBg}
-                alt="Home: site major logo"
-                className="object-fill z-20"
+                alt='Home: site major logo'
+                className='object-fill z-20'
               />
             </motion.div>
 
             <motion.div
-              className="
+              className='
                   overflow-hidden
                   h-[22rem] w-[22rem]
                   rounded-full z-30
                   border-[1.25rem] border-gray-200/40
                   xs:hidden sm:hidden lg:hidden xl:hidden
-              "
+              '
             >
               <Image
                 priority
-                placeholder="blur"
+                placeholder='blur'
                 src={CelebVertical}
-                alt="Home: horizontal celebrities focusing"
-                className="object-fill z-20"
+                alt='Home: horizontal celebrities focusing'
+                className='object-fill z-20'
               />
             </motion.div>
 
@@ -134,7 +134,7 @@ const About = () => {
                 whileInView: { opacity: 1, x: [-100, 50, 0] },
                 transition: { duration: 1.25 },
               }}
-              className="first-content"
+              className='first-content'
             >
               <strong>MAVENBOND</strong> is one of the best influencer marketing platforms that
               provides services for advertising campaigns. The influencer marketing platform helps
@@ -151,7 +151,7 @@ const About = () => {
                 whileInView: { opacity: 1, x: [-100, 50, 0] },
                 transition: { duration: 1.5 },
               }}
-              className="second-content"
+              className='second-content'
             >
               <strong>MAVENBOND</strong> is an all-in-one cloud-based platform that completely
               simplifies the management of ad campaigns, the creation of ad campaigns, and knowing
@@ -159,7 +159,7 @@ const About = () => {
               running an ad campaign for your business with just a few clicks. So, what are you
               waiting for ✨
             </motion.p>
-            <SignInButton className="scale-[1.15] xs:my-2 sm:my-2 md:hidden lg:hidden xl:hidden" />
+            <SignInButton className='scale-[1.15] xs:my-2 sm:my-2 md:hidden lg:hidden xl:hidden' />
           </div>
         </div>
       </AboutWrapper>

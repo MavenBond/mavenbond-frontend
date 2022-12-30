@@ -62,8 +62,8 @@ const Header = () => {
     <>
       <NotiBell hasNoti textClass={`text-[${ColorScheme.blue.dark}] dark:text-white`} />
       <ThemeToggler
-        extraSunClass="pt-[3px] text-amber-500"
-        extraMoonClass="pt-[2px] text-[rgba(124,58,237,1)]"
+        extraSunClass='pt-[3px] text-amber-500'
+        extraMoonClass='pt-[2px] text-[rgba(124,58,237,1)]'
       />
     </>
   );
@@ -72,7 +72,7 @@ const Header = () => {
     <Client>
       <MotionHeader style={scrollStyles} {...{ ...MOTION_COMMON_CONTROLS }}>
         {/* logo on the left side */}
-        <Link href="/">
+        <Link href='/'>
           <h1
             className="
             text-2xl font-['Inter'] font-semibold text-amber-500 select-none
@@ -83,7 +83,7 @@ const Header = () => {
         </Link>
 
         {/* nav items + (sign in / sign up || profile pic + name) on the right sides */}
-        <div className="flex flex-row justify-between items-center gap-8">
+        <div className='flex flex-row justify-between items-center gap-8'>
           {(isMobileNavShowing || windowWidth >= 1024) && (
             <MotionNavLinksWrapper {...{ ...MOTION_COMMON_CONTROLS }}>
               {/* navigation routes */}
@@ -104,13 +104,13 @@ const Header = () => {
               {windowWidth >= 1024 && <_FixedUtils />}
 
               {/* sign in button */}
-              <SignInButton className="self-center" />
+              <SignInButton className='self-center' />
             </MotionNavLinksWrapper>
           )}
 
           {/* icons to show and hide mobile nav */}
           {windowWidth < 1024 && (
-            <div className="flex gap-6">
+            <div className='flex gap-6'>
               <_FixedUtils />
               {!isMobileNavShowing && (
                 <motion.div {...{ ...MOTION_COMMON_CONTROLS }}>

@@ -5,7 +5,7 @@ export default function Home() {
   const { HomeSections } = Sections;
 
   return (
-    <PageWrapper headTitle="Home">
+    <PageWrapper headTitle='Home'>
       <HomeSections.Banner />
       <HomeSections.About />
     </PageWrapper>

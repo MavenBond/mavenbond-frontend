@@ -35,29 +35,29 @@ const Banner = () => {
           transition: { duration: 0.6 },
         }}
       >
-        <div className="container" id="banner">
+        <div className='container' id='banner'>
           <BackgroundCircles
-            positionClass="
+            positionClass='
               xs:right-1/2 xs:top-1/2 
               sm:right-1/2 sm:top-1/2 right-0 top-0
-            "
+            '
           />
           <BackgroundCircles
-            positionClass="
+            positionClass='
               hidden 
               md:flex lg:flex xl:flex 
               md:left-0 md:bottom-1/4
               g:left-0 lg:bottom-1/4 
               xl:left-0 xl:bottom-1/4
-            "
+            '
           />
 
-          <div className="title">
+          <div className='title'>
             <h1>
               HELP <span>GROWING</span> BUSINESSES
             </h1>
             <h2>We're here to find the best advertisement deals for your business!</h2>
-            <SignInButton className="scale-[1.15] xs:my-5 sm:my-5" />
+            <SignInButton className='scale-[1.15] xs:my-5 sm:my-5' />
           </div>
 
           <motion.div
@@ -67,13 +67,13 @@ const Banner = () => {
               ease: "linear",
               duration: 1.75,
             }}
-            className="hero"
+            className='hero'
           >
             <Image
               priority
               src={SampleDashboardBanner}
-              alt="Home: sample dashboard banner"
-              className="
+              alt='Home: sample dashboard banner'
+              className='
                 self-center
                 object-cover
                 shadow-gray-300/60 dark:shadow-amber-500/50
@@ -82,7 +82,7 @@ const Banner = () => {
                 md:w-[75%] 
                 lg:w-full xl:w-full
                 lg:mr-[8rem] xl:mr-[8rem]
-                "
+                '
             />
           </motion.div>
         </div>

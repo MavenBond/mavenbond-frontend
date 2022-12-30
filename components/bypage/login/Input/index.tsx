@@ -30,16 +30,16 @@ const Input = ({
       ${className}
       `}
     >
-      <span className="pl-5">{label}</span>
+      <span className='pl-5'>{label}</span>
       <input
         id={id}
-        className="
+        className='
         px-5 bg-opacity-40
         input
         input-bordered 
         input-primary 
         w-full rounded-[2rem]
-        "
+        '
         type={type}
         placeholder={placeholder}
         {...rest.register}

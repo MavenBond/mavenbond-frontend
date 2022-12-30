@@ -24,13 +24,13 @@ const Form = ({ flags, formMethods }: FormProps) => {
   return (
     <form
       onSubmit={handleSubmit((data: FieldValues) => handleSubmitData(data))}
-      className="flex flex-col gap-[1.2rem] items-center justify-center"
+      className='flex flex-col gap-[1.2rem] items-center justify-center'
     >
-      <button className="btn btn-primary w-full mb-4 mt-2 rounded-[10rem]">
-        <FcGoogle className="mr-2 text-[1.5rem]" />
+      <button className='btn btn-primary w-full mb-4 mt-2 rounded-[10rem]'>
+        <FcGoogle className='mr-2 text-[1.5rem]' />
         <span>{hasAccount ? "Sign In with Google" : "Sign Up with Google"}</span>
       </button>
-      <div className="divider text-[#0d1626] dark:text-white bg-opacity-0 m-0">OR</div>
+      <div className='divider text-[#0d1626] dark:text-white bg-opacity-0 m-0'>OR</div>
 
       {/* form fields */}
       {LOGIN_FORM_MODEL.map(({ id, label, type, placeholders }) => {
@@ -62,7 +62,7 @@ const Form = ({ flags, formMethods }: FormProps) => {
         <SignInButton
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           text={hasAccount ? "LOGIN" : "SIGN UP"}
-          className="my-4 font-[700]"
+          className='my-4 font-[700]'
         />
       )}
     </form>

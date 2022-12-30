@@ -69,12 +69,12 @@ export default function Login() {
   };
 
   return (
-    <PageWrapper headTitle="Sign In" showNav={false}>
+    <PageWrapper headTitle='Sign In' showNav={false}>
       <StyledWrapper>
         <LoginWrapper>
           <Client>
             <div
-              className="container container-extra"
+              className='container container-extra'
               data-theme={theme === "light" ? "lofi" : "halloween"}
             >
               {/* logo */}
@@ -82,9 +82,9 @@ export default function Login() {
                 initial={{ opacity: 0, y: -100 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1 }}
-                className="absolute top-[1rem] left-[2rem]"
+                className='absolute top-[1rem] left-[2rem]'
               >
-                <Link href="/">
+                <Link href='/'>
                   <h1
                     className="
                     text-[1.75rem] font-['Inter'] 
@@ -97,10 +97,10 @@ export default function Login() {
               </motion.div>
 
               {/* theme toggler */}
-              <div className="absolute top-[1.25rem] right-[2rem]">
+              <div className='absolute top-[1.25rem] right-[2rem]'>
                 <ThemeToggler
-                  extraSunClass="text-amber-500"
-                  extraMoonClass="text-[rgba(124,58,237,1)]"
+                  extraSunClass='text-amber-500'
+                  extraMoonClass='text-[rgba(124,58,237,1)]'
                 />
               </div>
 
@@ -109,20 +109,20 @@ export default function Login() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1 }}
-                className="main-form"
+                className='main-form'
               >
                 <LoginByPageComps.Form
                   flags={{ hasAccount, isSubmitting }}
                   formMethods={{ handleSubmit, handleSubmitData, register }}
                 />
 
-                <div className="divider text-[#0d1626] dark:text-white bg-opacity-0">
+                <div className='divider text-[#0d1626] dark:text-white bg-opacity-0'>
                   <a
-                    className="
+                    className='
                     text-[#0d1626] dark:text-white
                     cursor-pointer mx-auto 
                     xs:text-[0.9rem] sm:text-[0.9rem] text-[1rem]
-                  "
+                  '
                     onClick={() => setHasAccount(!hasAccount)}
                   >
                     {hasAccount
@@ -136,16 +136,16 @@ export default function Login() {
                   initial={{ opacity: 0, y: 100 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1 }}
-                  className="copyright"
+                  className='copyright'
                 >
-                  <Link href="/">
+                  <Link href='/'>
                     <strong>Home </strong>
                   </Link>
-                  <Link href="/#about-us">
+                  <Link href='/#about-us'>
                     |<strong> About Us </strong>
                   </Link>
                   | © 2022 <strong>MavenBond</strong>
-                  <span className="xs:hidden sm:hidden">. All Rights Reserved</span>
+                  <span className='xs:hidden sm:hidden'>. All Rights Reserved</span>
                 </motion.p>
               </motion.div>
             </div>
