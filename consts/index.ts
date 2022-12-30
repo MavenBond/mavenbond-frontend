@@ -26,3 +26,24 @@ export const ColorScheme = {
     },
   },
 };
+
+export const LOGIN_FORM_MODEL = [
+  {
+    id: "email",
+    label: "Email",
+    type: "text",
+    placeholders: ["Your email", "Use a lovely email"],
+  },
+  {
+    id: "password",
+    label: "Password",
+    type: "password",
+    placeholders: ["Your password", "Use a strong password"],
+  },
+  {
+    id: "confirmPassword",
+    label: "Confirm Password",
+    type: "password",
+    placeholders: ["Confirm your password"],
+  },
+];

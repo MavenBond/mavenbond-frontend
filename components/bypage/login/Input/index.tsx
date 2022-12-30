@@ -26,12 +26,11 @@ const Input = ({
       htmlFor={htmlFor}
       className={`
       font-[700] text-[1.1rem] 
-      tracking-[0.25rem] flex flex-col gap-4 w-full
+      flex flex-col gap-2 w-full
       ${className}
       `}
-      {...rest}
     >
-      {label}
+      <span className="pl-5">{label}</span>
       <input
         id={id}
         className="
@@ -43,6 +42,7 @@ const Input = ({
         "
         type={type}
         placeholder={placeholder}
+        {...rest.register}
       />
     </label>
   );

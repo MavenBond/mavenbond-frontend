@@ -35,9 +35,8 @@ const LoginButton = ({ className = "", text = "LOGIN", onClick = undefined }: Lo
       className={className}
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onClick={(e: any) => {
-        e.preventDefault();
         !onClick && router.push("/login");
-        onClick && onClick();
+        onClick && onClick(e);
       }}
     >
       {text}
