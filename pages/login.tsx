@@ -6,6 +6,7 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import type { FieldValues } from "react-hook-form";
 import { Client } from "react-hydration-provider";
+import { angry, happy } from "utils/toaster";
 
 const Form = dynamic(() => import("components/bypage/login/Form"));
 const Copyright = dynamic(() => import("components/bypage/login/Copyright"));
@@ -20,6 +21,7 @@ const LoginWrapper = dynamic(() =>
 export default function Login() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [schema, setSchema] = useState<any>(null);
+
   // hooks
   // const router = useRouter();
   // const supabaseClient = useSupabaseClient();
@@ -50,8 +52,6 @@ export default function Login() {
   const { theme } = useTheme();
 
   const handleSubmitData = (data: FieldValues) => {
-    setIsSubmitting(true);
-
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const _faker = (callback: any) =>
       setTimeout(() => {
@@ -60,16 +60,14 @@ export default function Login() {
       }, 1000);
 
     const executedSchema = schema.safeParse(data);
+    console.log(executedSchema);
     if (!executedSchema.success) {
-      _faker(() => {
-        console.log(executedSchema.error.issues[0].message);
-      });
+      _faker(() => angry(executedSchema.error.issues[0].message));
     } else {
       // TODO: handle valid form data here
-      console.log(executedSchema.data);
       _faker(() => {
         console.log(executedSchema.data);
-        console.log("Welcome back!");
+        happy("Welcome back!");
       });
     }
   };
@@ -107,7 +105,10 @@ export default function Login() {
 
               {/* main form */}
               <div className='main-form'>
-                <Form flags={{ hasAccount, isSubmitting }} formMethods={{ handleSubmitData }} />
+                <Form
+                  flags={{ hasAccount, isSubmitting }}
+                  formMethods={{ handleSubmitData, setIsSubmitting }}
+                />
 
                 <div className='divider text-[#0d1626] dark:text-white bg-opacity-0'>
                   <a

@@ -6,7 +6,6 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    formats: ["image/avif", "image/webp"],
     domains: ["i.imgur.com"],
   },
 };

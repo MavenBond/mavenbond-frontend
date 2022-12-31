@@ -1,3 +1,4 @@
+import { images } from "assets";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import Image from "next/image";
@@ -9,6 +10,7 @@ const BackgroundCircles = dynamic(() => import("components/ui/BackgroundCircles"
 const StyledWrapper = dynamic(() => import("styles/globals").then((rs) => rs.StyledWrapper));
 
 const Banner = () => {
+  const { HomeDashboard } = images;
   return (
     <StyledWrapper>
       <MotionBannerWrapper
@@ -44,17 +46,16 @@ const Banner = () => {
           </div>
 
           <motion.div
-            whileInView={{ y: [0, -40, 0] }}
+            initial={{ y: 200 }}
+            animate={{ y: 0 }}
             transition={{
-              repeat: Infinity,
-              ease: "linear",
-              duration: 1.75,
+              duration: 1.5,
             }}
             className='hero'
           >
             <Image
               priority
-              src='https://i.imgur.com/kbOnhef.png'
+              src={HomeDashboard}
               alt='Home: sample dashboard banner'
               width={1892}
               height={1142}

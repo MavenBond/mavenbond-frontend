@@ -3,6 +3,7 @@ import { LOGIN_FORM_MODEL } from "consts";
 import type { FieldValues } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
+import type { Dispatch, SetStateAction } from "react";
 
 const Input = dynamic(() => import("components/bypage/login/Input"));
 const SignInButton = dynamic(() => import("components/variant/LoginButton"));
@@ -10,13 +11,14 @@ const SignInButton = dynamic(() => import("components/variant/LoginButton"));
 type flagsType = { hasAccount: boolean; isSubmitting: boolean };
 type formMethodsType = {
   handleSubmitData: (data: FieldValues) => void;
+  setIsSubmitting: Dispatch<SetStateAction<boolean>>;
 };
 type FormProps = { flags: flagsType; formMethods: formMethodsType };
 
 const Form = ({ flags, formMethods }: FormProps) => {
   // comp destruct
   const { register, handleSubmit } = useForm();
-  const { handleSubmitData } = formMethods;
+  const { handleSubmitData, setIsSubmitting } = formMethods;
   const { hasAccount, isSubmitting } = flags;
 
   return (
@@ -47,15 +49,13 @@ const Form = ({ flags, formMethods }: FormProps) => {
       })}
 
       {/* loading indicator & login button */}
-      {isSubmitting ? (
-        <>Loading...</>
-      ) : (
-        <SignInButton
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          text={hasAccount ? "LOGIN" : "SIGN UP"}
-          className='my-4 font-[700]'
-        />
-      )}
+      <SignInButton
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        text={hasAccount ? "LOGIN" : "SIGN UP"}
+        className='my-4 font-[700] flex justify-center items-center'
+        onClick={() => setIsSubmitting(true)}
+        isLoading={isSubmitting}
+      />
     </form>
   );
 };

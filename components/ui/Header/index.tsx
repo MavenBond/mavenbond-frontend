@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 // components
@@ -20,9 +19,6 @@ const ThemeToggler = dynamic(() => import("components/ui/ThemeToggler"));
 const NotiBell = dynamic(() => import("components/ui/NotiBell"));
 
 const Header = () => {
-  // next router
-  const router = useRouter();
-
   // window width tracking
   const windowWidth = useWindowWidth();
 
@@ -69,6 +65,7 @@ const Header = () => {
         </div>
         <div className='navbar-end'>
           <button
+            aria-label='navbar-toggler'
             className='btn btn-circle btn-ghost mt-1'
             onClick={() => setIsNavShown(!isNavShown)}
           >
@@ -92,8 +89,11 @@ const Header = () => {
                   key={displayName}
                   href={path}
                   className={`
-                  ${router.pathname === path && "text-amber-500"}
-                  ${router.pathname !== path && `text-[${ColorScheme.blue.dark}] dark:text-white`}
+                  ${window.location.pathname === path && "text-amber-500"}
+                  ${
+                    window.location.pathname !== path &&
+                    `text-[${ColorScheme.blue.dark}] dark:text-white`
+                  }
                 `}
                 >
                   <li className='hover:opacity-40'>
@@ -101,7 +101,7 @@ const Header = () => {
                   </li>
                 </Link>
               ))}
-              <div className='divider'></div>
+              <div className='divider m-0'></div>
               <ThemeToggler
                 extraSunClass='text-amber-500 self-center'
                 extraMoonClass='text-[rgba(124,58,237,1)] self-center'

@@ -1,3 +1,5 @@
+import type { ToastOptions } from "react-toastify";
+
 // CAN BE USED TO READ ONLY
 export const ColorScheme = {
   purple: {
@@ -47,3 +49,12 @@ export const LOGIN_FORM_MODEL = [
     placeholders: ["Confirm your password"],
   },
 ];
+
+export const TOAST_CONFIG: ToastOptions = {
+  position: "top-center",
+  autoClose: 2000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: false,
+  draggable: true,
+};

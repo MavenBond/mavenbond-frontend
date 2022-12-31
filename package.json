@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "npx tailwindcss -o build.css --minify && yarn noice && next build",
+    "build": "yarn noice && next build",
     "analyze": "ANALYZE=true yarn build",
     "start": "next start --port=8888",
     "lint": "eslint '**/*.{js,jsx,ts,tsx}'",
     "noice": "prettier --write '**/*.{js,jsx,ts,tsx}'",
-    "dev": "next dev"
+    "dev": "next dev --port=9999"
   },
   "dependencies": {
     "@ant-design/icons": "^4.8.0",
@@ -33,8 +33,10 @@
     "react-hook-form": "^7.41.2",
     "react-hydration-provider": "^1.0.1",
     "react-icons": "^4.7.1",
+    "react-loader-spinner": "^5.3.4",
     "react-redux": "^8.0.5",
     "react-responsive": "^9.0.2",
+    "react-toastify": "^9.1.1",
     "sharp": "^0.31.3",
     "store2": "^2.14.2",
     "styled-components": "^5.3.6",

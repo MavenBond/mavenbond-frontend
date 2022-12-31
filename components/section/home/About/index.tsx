@@ -80,7 +80,7 @@ const About = () => {
               width={850}
               height={500}
               loading='lazy'
-              src='https://i.imgur.com/lg2AcJG.jpg'
+              src='https://i.imgur.com/dBWlmZO.jpg'
               alt='Home: horizontal celebrities smiling'
             />
           </motion.div>
