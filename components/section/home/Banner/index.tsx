@@ -1,8 +1,8 @@
-import { images } from "assets";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { BannerWrapper } from "./style";
+import HomeDashboard from "public/home_dashboard.webp";
 
 const MotionBannerWrapper = motion(BannerWrapper);
 const SignInButton = dynamic(() => import("components/variant/LoginButton"));
@@ -10,7 +10,6 @@ const BackgroundCircles = dynamic(() => import("components/ui/BackgroundCircles"
 const StyledWrapper = dynamic(() => import("styles/globals").then((rs) => rs.StyledWrapper));
 
 const Banner = () => {
-  const { HomeDashboard } = images;
   return (
     <StyledWrapper>
       <MotionBannerWrapper

@@ -1,4 +1,4 @@
-import z from "zod";
+import { z } from "zod";
 
 const onClickZod = z.function();
 type onClickType = z.infer<typeof onClickZod>;

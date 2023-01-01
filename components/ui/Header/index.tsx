@@ -52,12 +52,12 @@ const Header = () => {
           <NotiBell hasNoti textClass={`text-[${ColorScheme.blue.dark}] dark:text-amber-500`} />
         </div>
         <div className='navbar-center'>
-          <Link href='/'>
+          <Link href='/' prefetch={false}>
             <h1
-              className="
-                text-[1.6rem] mt-1 font-['Inter'] font-semibold text-amber-500 select-none
+              className='
+                text-[1.6rem] mt-1 font-semibold text-amber-500 select-none
                 md:text-[2rem] lg:text-[2.25rem] xl:text-[2.25rem]
-              "
+              '
             >
               MAVENBOND
             </h1>
@@ -86,6 +86,7 @@ const Header = () => {
             >
               {Object.values(ROUTES).map(({ displayName, path }) => (
                 <Link
+                  prefetch={false}
                   key={displayName}
                   href={path}
                   className={`

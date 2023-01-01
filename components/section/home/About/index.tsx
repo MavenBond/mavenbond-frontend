@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { AboutWrapper } from "./style";
 import dynamic from "next/dynamic";
+import CelebHorizontal from "public/celeb_horizontal.webp";
 
 const SignInButton = dynamic(() => import("components/variant/LoginButton"));
 const BackgroundCircles = dynamic(() => import("components/ui/BackgroundCircles"));
@@ -80,7 +81,7 @@ const About = () => {
               width={850}
               height={500}
               loading='lazy'
-              src='https://i.imgur.com/dBWlmZO.jpg'
+              src={CelebHorizontal}
               alt='Home: horizontal celebrities smiling'
             />
           </motion.div>

@@ -28,7 +28,8 @@ export const StyledWrapper = styled.div`
       mx-auto
       overflow-hidden
       lg:flex-row xl:flex-row
-      bg-white dark:bg-[#0d1626] text-[#0d1626] dark:text-white
+      bg-transparent dark:bg-[#0d1626] 
+      text-[#0d1626] dark:text-white
     `}
   }
 `;

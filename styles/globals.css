@@ -1,8 +1,3 @@
-/* custom font - Inter start */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
-/* custom font - Inter end */
-
 /* tailwindcss styles import start */
 @tailwind base;
 @tailwind components;
@@ -57,12 +52,12 @@ button {
 @layer base {
   body {
     @apply mx-auto;
-    @apply bg-white dark:bg-[#0d1626] text-[#0d1626] dark:text-white;
+    @apply bg-white/80 dark:bg-[#0d1626] text-[#0d1626] dark:text-white;
     @apply transition-colors duration-300;
   }
 
   main {
-    @apply bg-white dark:bg-[#0d1626] text-[#0d1626] dark:text-white;
+    @apply bg-white/80 dark:bg-[#0d1626] text-[#0d1626] dark:text-white;
     @apply transition-colors duration-300;
   }
 
