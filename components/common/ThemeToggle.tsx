@@ -33,6 +33,7 @@ const ThemeToggle = ({
     icon: ReactElement;
   }) => (
     <Button
+      ariaLabel='theme-toggle-button'
       className={`w-9 h-9 cursor-pointer ${className} ${extraClass}`}
       onClick={() => {
         setTheme(targetMode);

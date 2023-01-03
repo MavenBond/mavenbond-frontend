@@ -15,10 +15,10 @@ const HomeAboutSection = () => {
       <BgCircles className='lg:right-0 lg:bottom-0 hidden lg:flex' />
       <div className={`${HomeStyles.aboutCol} ${HomeStyles.aboutImgCol}`}>
         <Image
+          priority
           className={HomeStyles.celebHorizontal}
-          width={850}
-          height={500}
-          loading='lazy'
+          width={5837}
+          height={3891}
           src={CelebHorizontal}
           alt='Home: horizontal celebrities smiling'
         />
@@ -26,6 +26,7 @@ const HomeAboutSection = () => {
         <div className={HomeStyles.celebVertical}>
           <Image
             loading='lazy'
+            placeholder='blur'
             src={CelebVertical}
             alt='Home: horizontal celebrities focusing'
             className='object-fill z-40'
@@ -35,6 +36,7 @@ const HomeAboutSection = () => {
         <div className={HomeStyles.logoContainer}>
           <Image
             loading='lazy'
+            placeholder='blur'
             src={LogoMajorBg}
             alt='Home: site major logo'
             className='object-fill z-20'
@@ -45,6 +47,7 @@ const HomeAboutSection = () => {
         <div className={HomeStyles.logoContainerMobile}>
           <Image
             loading='lazy'
+            placeholder='blur'
             src={LogoMajorBg}
             alt='Home: site major logo'
             className='object-fill z-20'
@@ -70,7 +73,8 @@ const HomeAboutSection = () => {
         </p>
 
         <LoginButton
-          className='w-32 h-12 text-[1.2rem] bg-amber-500 rounded-md
+          className='text-[#0d1626] w-32 h-12 text-[1.2rem] 
+          bg-amber-500 rounded-md
             hover:shadow-xl hover:shadow-amber-500/40
             transition-shadow duration-300'
         >

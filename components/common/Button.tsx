@@ -3,6 +3,7 @@ const TailSpin = dynamic(() => import("react-loader-spinner").then((rs) => rs.Ta
 
 type ButtonProps = {
   className?: string;
+  ariaLabel?: string;
   disabled?: boolean;
   isLoading?: boolean;
   onClick?: () => void;
@@ -11,6 +12,7 @@ type ButtonProps = {
 
 const Button: React.FC<ButtonProps> = ({
   className = "",
+  ariaLabel = "",
   disabled = false,
   isLoading = false,
   onClick = undefined,
@@ -18,6 +20,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <button
+      aria-label={ariaLabel}
       disabled={isLoading}
       onClick={onClick}
       className={`

@@ -6,10 +6,12 @@ const LoginLogoSection = () => {
     <>
       <div className='absolute top-0 flex items-center justify-center w-full'>
         <h1 className='text-[2rem] lg:text-[3rem] font-bold text-amber-500 pt-5'>
-          <Link href='/'>MAVENBOND</Link>
+          <Link href='/' aria-label='Go Home from Logo'>
+            MAVENBOND
+          </Link>
         </h1>
       </div>
-      <Link href='/'>
+      <Link href='/' aria-label='Go Home from Mask Icon'>
         <XMarkIcon
           className='h-10 w-10 
             md:h-12 md:w-12 

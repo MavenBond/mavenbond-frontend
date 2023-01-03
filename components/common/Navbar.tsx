@@ -32,9 +32,9 @@ const Navbar = () => {
         {/* mobile menu and menu icon */}
         <ul className='menu menu-horizontal block lg:hidden ml-2'>
           <li>
-            <a>
+            <div>
               <Bars4Icon aria-label='navbar-toggler' className='h-8 w-8' />
-            </a>
+            </div>
             <ul className='px-6 py-4 bg-base-100 shadow-lg'>
               {Object.values(ROUTES).map(({ path, displayName }) => (
                 <li
@@ -54,7 +54,8 @@ const Navbar = () => {
               <div className='divider my-2'></div>
               {/* LOGIN button */}
               <LoginButton
-                className='w-36 h-10 bg-amber-500 rounded-md
+                className='text-[#0d1626] w-36 h-10 
+                bg-amber-500 rounded-md
                 hover:shadow-xl hover:shadow-amber-500/40
                 transition-shadow duration-500'
               >
@@ -108,7 +109,8 @@ const Navbar = () => {
 
         {/* LOGIN button */}
         <LoginButton
-          className='w-28 h-10 hidden lg:block bg-amber-500 rounded-md
+          className='text-[#0d1626] w-28 h-10 hidden lg:block 
+          bg-amber-500 rounded-md
           hover:shadow-xl hover:shadow-amber-500/40
           transition-shadow duration-300'
         >

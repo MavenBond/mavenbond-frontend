@@ -90,9 +90,9 @@ const LoginFormSection = () => {
           <Button
             isLoading={isSubmitting}
             className='bg-purple-600 w-full text-white px-10 py-4 
-          hover:shadow-xl hover:shadow-purple-500/40
-          transition-shadow duration-300
-          flex items-center justify-center mb-4 mt-2 rounded-[4rem]'
+            hover:shadow-xl hover:shadow-purple-500/40
+            transition-shadow duration-300
+            flex items-center justify-center mb-4 mt-2 rounded-[4rem]'
           >
             <FcGoogle className='mr-2 text-[1.5rem]' />
             <span>{hasAccount ? "LOGIN WITH GOOGLE" : "SIGN UP WITH GOOGLE"}</span>
@@ -117,7 +117,7 @@ const LoginFormSection = () => {
 
           {/* loading indicator & login Button */}
           <Button
-            className='w-full h-12 text-[1.2rem] bg-amber-500 rounded-[4rem]
+            className='text-[#0d1626] w-full h-12 text-[1.2rem] bg-amber-500 rounded-[4rem]
           hover:shadow-xl hover:shadow-amber-500/40 my-10 font-bold
           transition-shadow duration-300 flex items-center justify-center'
             isLoading={isSubmitting}

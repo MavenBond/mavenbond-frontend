@@ -27,7 +27,8 @@ const HomeBannerSection = () => {
         </h1>
         <h2>We're here to find the best advertisement deals for your business!</h2>
         <LoginButton
-          className='w-32 h-12 text-[1.2rem] bg-amber-500 rounded-md
+          className='text-[#0d1626] w-32 h-12 text-[1.2rem] 
+          bg-amber-500 rounded-md
             hover:shadow-xl hover:shadow-amber-500/40
             transition-shadow duration-300'
         >
