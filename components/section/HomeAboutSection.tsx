@@ -1,8 +1,8 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import CelebHorizontal from "public/celeb_horizontal.webp";
-import CelebVertical from "public/celeb_vertical.png";
-import LogoMajorBg from "public/logo_major_bg.png";
+import CelebVertical from "public/celeb_vertical.webp";
+import LogoMajorBg from "public/logo_major_bg.webp";
 import HomeStyles from "styles/Home.module.css";
 
 const BgCircles = dynamic(() => import("components/common/BgCircles"));
