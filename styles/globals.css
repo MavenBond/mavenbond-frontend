@@ -27,8 +27,10 @@ html {
 html,
 body {
   min-height: 100vh;
-  min-width: 100%;
+  max-width: 100vw;
   overscroll-behavior-y: none;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 h1,
@@ -39,7 +41,10 @@ h5,
 h6,
 p,
 img,
-button {
+button,
+li,
+a,
+ul {
   -webkit-user-drag: none;
   user-select: none;
   -moz-user-select: none;
@@ -52,12 +57,7 @@ button {
 @layer base {
   body {
     @apply mx-auto;
-    @apply bg-white/80 dark:bg-[#0d1626] text-[#0d1626] dark:text-white;
-    @apply transition-colors duration-300;
-  }
-
-  main {
-    @apply bg-white/80 dark:bg-[#0d1626] text-[#0d1626] dark:text-white;
+    @apply bg-white dark:bg-[#0d1626] text-[#0d1626] dark:text-white;
     @apply transition-colors duration-300;
   }
 
@@ -69,6 +69,13 @@ button {
   h6,
   p {
     @apply break-words;
+  }
+
+  .pageContainer {
+    @apply w-screen mx-auto max-h-screen animate-fadeIn 
+    snap-mandatory snap-y overflow-y-scroll
+    scrollbar-thin
+    scrollbar-track-gray-400/20 scrollbar-thumb-amber-500/90;
   }
 }
 /* continue with tailwindcss stylings end */

@@ -1,14 +1,26 @@
 import dynamic from "next/dynamic";
+import Head from "next/head";
 
-const BannerSection = dynamic(() => import("components/section/home/Banner"));
-const AboutSection = dynamic(() => import("components/section/home/About"));
-const PageWrapper = dynamic(() => import("components/ui/PageWrapper"));
+const Navbar = dynamic(() => import("components/common/Navbar"));
+const HomeBannerSection = dynamic(() => import("components/section/HomeBannerSection"));
+const HomeAboutSection = dynamic(() => import("components/section/HomeAboutSection"));
 
-export default function Home() {
+const Home = () => {
   return (
-    <PageWrapper headTitle='Home'>
-      <BannerSection />
-      <AboutSection />
-    </PageWrapper>
+    <>
+      <Head>
+        <title>Home - MavenBond</title>
+        <meta name='description' content='Home - MavenBond' />
+        <meta name='viewport' content='width=device-width, initial-scale=1' />
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
+      <div className='pageContainer'>
+        <Navbar />
+        <HomeBannerSection />
+        <HomeAboutSection />
+      </div>
+    </>
   );
-}
+};
+
+export default Home;

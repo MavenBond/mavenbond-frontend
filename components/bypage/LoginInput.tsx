@@ -25,20 +25,21 @@ const Input = ({
     <label
       htmlFor={htmlFor}
       className={`
-      font-[700] text-[1.1rem] 
-      flex flex-col gap-2 w-full
-      ${className}
-      `}
+        font-[700] text-[1.1rem] 
+        flex flex-col gap-2 w-full
+        ${className}
+        `}
     >
       <span className='pl-5'>{label}</span>
       <input
         id={id}
         className='
-        px-5 bg-opacity-40
-        input
-        input-bordered 
-        input-primary 
-        w-full rounded-[2rem]
+          bg-white
+          input
+          input-bordered 
+          input-primary 
+          px-5 bg-opacity-10
+          w-full rounded-[2rem]
         '
         type={type}
         placeholder={placeholder}

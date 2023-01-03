@@ -1,15 +1,20 @@
-import { MoonIcon, SunIcon } from "@heroicons/react/24/solid";
-import { useTheme } from "next-themes";
 import dynamic from "next/dynamic";
 import { ReactElement, useEffect } from "react";
+import { MoonIcon, SunIcon } from "@heroicons/react/24/solid";
+import { useTheme } from "next-themes";
 
-const Button = dynamic(() => import("components/ui/Button"));
-type ThemeTogglerProps = {
+const Button = dynamic(() => import("components/common/Button"));
+type ThemeToggleProps = {
   extraSunClass?: string;
   extraMoonClass?: string;
+  className?: string;
 };
 
-const ThemeToggler = ({ extraSunClass = "", extraMoonClass = "" }: ThemeTogglerProps) => {
+const ThemeToggle = ({
+  className = "",
+  extraSunClass = "",
+  extraMoonClass = "",
+}: ThemeToggleProps) => {
   const { theme, systemTheme, setTheme } = useTheme();
   const currentTheme = theme === "system" ? systemTheme : theme;
 
@@ -28,7 +33,7 @@ const ThemeToggler = ({ extraSunClass = "", extraMoonClass = "" }: ThemeTogglerP
     icon: ReactElement;
   }) => (
     <Button
-      className={`w-9 h-9 cursor-pointer ${extraClass}`}
+      className={`w-9 h-9 cursor-pointer ${className} ${extraClass}`}
       onClick={() => {
         setTheme(targetMode);
 
@@ -47,4 +52,4 @@ const ThemeToggler = ({ extraSunClass = "", extraMoonClass = "" }: ThemeTogglerP
   );
 };
 
-export default ThemeToggler;
+export default ThemeToggle;
