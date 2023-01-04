@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { Bars4Icon } from "@heroicons/react/24/solid";
 import { ROUTES } from "routes";
+import { signOut } from "supabase/supbaseClient";
 
 const ThemeToggle = dynamic(() => import("components/common/ThemeToggle"));
 const NotiBell = dynamic(() => import("components/common/NotiBell"));
@@ -83,10 +84,20 @@ const Navbar = () => {
       </div>
 
       <div id='nav-end' className='flex justify-between items-center gap-6'>
+        <button
+          onClick={async () => {
+            const { error } = await signOut();
+            console.log(error);
+          }}
+        >
+          LOGOUT
+        </button>
+
         {/* desktop menu and menu items + theme toggle + noti bell */}
-        <ul className='hidden lg:flex justify-between items-center gap-2'>
+        <ul className='hidden lg:flex items-center justify-between gap-2'>
           {Object.values(ROUTES).map(({ path, displayName }) => (
-            <li
+            <Link
+              href={path}
               key={path}
               className={`w-24 h-12
                 hover:bg-gray-400/40 hover:dark:bg-gray-200/40 hover:opacity-60
@@ -95,8 +106,8 @@ const Navbar = () => {
                 ${window.location.pathname === path && "text-amber-500"}
               `}
             >
-              <Link href={path}>{displayName}</Link>
-            </li>
+              <li>{displayName}</li>
+            </Link>
           ))}
         </ul>
 

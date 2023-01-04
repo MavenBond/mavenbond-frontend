@@ -7,7 +7,7 @@ export const TOAST_CONFIG: ToastOptions = {
   hideProgressBar: false,
   closeOnClick: true,
   pauseOnHover: false,
-  draggable: true,
+  draggable: false,
 };
 
 export const tasty = (msg: string) => toast.info(msg, TOAST_CONFIG);

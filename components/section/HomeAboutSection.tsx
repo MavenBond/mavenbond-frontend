@@ -38,7 +38,6 @@ const HomeAboutSection = () => {
 
         <div className={HomeStyles.logoContainer}>
           <Image
-            fill
             loading='lazy'
             placeholder='blur'
             src={LogoMajorBg}
@@ -52,7 +51,6 @@ const HomeAboutSection = () => {
       <div className={`${HomeStyles.aboutCol} ${HomeStyles.aboutTextCol}`}>
         <div className={HomeStyles.logoContainerMobile}>
           <Image
-            fill
             loading='lazy'
             placeholder='blur'
             src={LogoMajorBg}
