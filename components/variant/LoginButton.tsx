@@ -16,10 +16,13 @@ const LoginButton = ({
   isLoading = false,
   onClick = undefined,
 }: Props) => {
+  // common function for all logon buttons
   const commonWork = () => {
     console.log("LOGIN COMMON");
   };
 
+  // if there is no onClick defined when this button is used
+  // then it will lead to Login Page only
   return onClick ? (
     <Button
       isLoading={isLoading}

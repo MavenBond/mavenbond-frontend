@@ -4,6 +4,7 @@ import CelebHorizontal from "public/celeb_horizontal.webp";
 import CelebVertical from "public/celeb_vertical.webp";
 import LogoMajorBg from "public/logo_major_bg.webp";
 import HomeStyles from "styles/Home.module.css";
+import { HOME_ABOUT_CONTENT_1, HOME_ABOUT_CONTENT_2 } from "projConstants";
 
 const BgCircles = dynamic(() => import("components/common/BgCircles"));
 const LoginButton = dynamic(() => import("components/variant/LoginButton"));
@@ -13,6 +14,8 @@ const HomeAboutSection = () => {
     <div className={HomeStyles.aboutSection} id='about-us'>
       <BgCircles className='left-0 lg:left-1/4 bottom-1/2 lg:flex' />
       <BgCircles className='lg:right-0 lg:bottom-0 hidden lg:flex' />
+
+      {/* images column */}
       <div className={`${HomeStyles.aboutCol} ${HomeStyles.aboutImgCol}`}>
         <Image
           priority
@@ -44,6 +47,8 @@ const HomeAboutSection = () => {
           />
         </div>
       </div>
+
+      {/* text column */}
       <div className={`${HomeStyles.aboutCol} ${HomeStyles.aboutTextCol}`}>
         <div className={HomeStyles.logoContainerMobile}>
           <Image
@@ -57,21 +62,11 @@ const HomeAboutSection = () => {
         </div>
         <h2 className={HomeStyles.aboutTitle}>About Us</h2>
         <p className={`${HomeStyles.firstContent}`}>
-          <strong className={HomeStyles.contentStrong}>MAVENBOND</strong> is one of the best
-          influencer marketing platforms that provides services for advertising campaigns. The
-          influencer marketing platform helps you to create and run ad campaigns for your business
-          by hiring top content creators in the market. Receive advertising offers from advertisers
-          for your ad requests. In addition, this platform allows you to browse and check the
-          details of content creators. So, you are able to select the most suitable influences to
-          represent your business.
+          <strong className={HomeStyles.contentStrong}>MAVENBOND</strong> {HOME_ABOUT_CONTENT_1}
         </p>
 
         <p className={`${HomeStyles.secondContent}`}>
-          <strong className={HomeStyles.contentStrong}>MAVENBOND</strong> is an all-in-one
-          cloud-based platform that completely simplifies the management of ad campaigns, the
-          creation of ad campaigns, and knowing the status of ongoing campaigns. Saves up to 50-60%
-          of the time while creating and running an ad campaign for your business with just a few
-          clicks. So, what are you waiting for ✨
+          <strong className={HomeStyles.contentStrong}>MAVENBOND</strong> {HOME_ABOUT_CONTENT_2}
         </p>
 
         <LoginButton

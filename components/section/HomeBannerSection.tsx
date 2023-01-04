@@ -11,6 +11,8 @@ const HomeBannerSection = () => {
     <div className={HomeStyles.bannerSection}>
       <BgCircles className='right-1/2 top-1/2 lg:right-0 lg:top-0' />
       <BgCircles className='hidden lg:flex lg:left-0 lg:bottom-0 scale-[1.25]' />
+
+      {/* hero image column */}
       <div className={HomeStyles.hero}>
         <Image
           priority
@@ -21,6 +23,8 @@ const HomeBannerSection = () => {
           className={HomeStyles.heroImage}
         />
       </div>
+
+      {/* text column */}
       <div className={HomeStyles.title}>
         <h1>
           HELP <span>GROWING</span> BUSINESSES

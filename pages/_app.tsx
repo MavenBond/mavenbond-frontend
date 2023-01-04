@@ -1,5 +1,5 @@
-import { ThemeProvider, useTheme } from "next-themes";
 import type { AppProps } from "next/app";
+import { ThemeProvider, useTheme } from "next-themes";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/globals.css";

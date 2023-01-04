@@ -5,35 +5,16 @@ import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { angry, happy } from "utils/toaster";
 import LoginStyles from "styles/Login.module.css";
+import { LOGIN_FORM_MODEL } from "projConstants";
 
 const LoginInput = dynamic(() => import("components/bypage/LoginInput"));
 const Button = dynamic(() => import("components/common/Button"));
 
-export const LOGIN_FORM_MODEL = [
-  {
-    id: "email",
-    label: "Email",
-    type: "text",
-    placeholders: ["Your email", "Use a lovely email"],
-  },
-  {
-    id: "password",
-    label: "Password",
-    type: "password",
-    placeholders: ["Your password", "Use a strong password"],
-  },
-  {
-    id: "confirmPassword",
-    label: "Confirm Password",
-    type: "password",
-    placeholders: ["Confirm your password"],
-  },
-];
-
 const LoginFormSection = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [schema, setSchema] = useState<any>(null);
+  const [schema, setSchema] = useState<any>(null); // zod schema to validate form
 
+  // create zod schema for login/sign up form dynamically
   useEffect(() => {
     (async () => {
       const { z } = await import("zod");
@@ -53,22 +34,26 @@ const LoginFormSection = () => {
     })();
   }, []);
 
-  // states
-  const { register, handleSubmit } = useForm();
-  const [hasAccount, setHasAccount] = useState(true);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { register, handleSubmit } = useForm(); // react-hook-form methods
+  const [hasAccount, setHasAccount] = useState(true); // to check login or sign up
+  const [isSubmitting, setIsSubmitting] = useState(false); // submit state
 
+  // submit handler
   const handleSubmitData = (data: FieldValues) => {
     setIsSubmitting(true);
+
+    // fake loading
     const _faker = (callback: () => void) =>
       setTimeout(() => {
         setIsSubmitting(false);
         callback();
       }, 1000);
 
+    // used schema to validate
     const executedSchema = schema.safeParse(data);
     console.log(executedSchema);
 
+    // data handling
     if (!executedSchema.success) {
       _faker(() => angry(executedSchema.error.issues[0].message));
     } else {
