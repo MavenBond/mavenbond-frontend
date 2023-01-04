@@ -1,0 +1,25 @@
+.googleAuthBtn {
+  @apply bg-purple-600 w-full text-white px-10 py-4 
+    hover:shadow-xl hover:shadow-purple-500/40
+    transition-shadow duration-300
+    flex items-center justify-center mb-4 mt-2 rounded-[4rem];
+}
+
+.regularAuthBtn {
+  @apply text-[#0d1626] w-full h-12 text-[1.2rem] bg-amber-500 rounded-[4rem]
+    hover:shadow-xl hover:shadow-amber-500/40 my-10 font-bold
+    transition-shadow duration-300 flex items-center justify-center;
+}
+
+.signUpToggle {
+  @apply cursor-pointer mx-auto 
+    text-[0.9rem] md:text-[1rem];
+}
+
+.maskIcon {
+  @apply h-10 w-10 
+    md:h-12 md:w-12 
+    top-[0.125rem] right-[0.125rem]
+    md:top-[1rem] md:right-[1rem]
+    absolute cursor-pointer text-amber-500;
+}

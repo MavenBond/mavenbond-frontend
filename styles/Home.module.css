@@ -128,13 +128,13 @@ shadow-gray-200/20 dark:shadow-gray-200/40;
 .logoContainer {
   @apply absolute left-[1rem] top-1/3 animate-jump
   flex justify-center items-center
-  w-[7rem] h-[7rem]
-  rounded-full z-30 bg-gray-200/30;
+  w-[7rem] h-[7rem] overflow-hidden
+  rounded-full z-40 bg-gray-200/30;
 }
 
 .logoContainerMobile {
   @apply animate-jump 
   flex md:hidden justify-center items-center
-  w-[7rem] h-[7rem]
-  rounded-full z-30 bg-gray-200/30;
+  w-[7rem] h-[7rem] overflow-hidden
+  rounded-full z-40 bg-gray-200/30;
 }

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import LoginStyles from "styles/Login.module.css";
 
 const LoginLogoSection = () => {
   return (
@@ -12,13 +13,7 @@ const LoginLogoSection = () => {
         </h1>
       </div>
       <Link href='/' aria-label='Go Home from Mask Icon'>
-        <XMarkIcon
-          className='h-10 w-10 
-            md:h-12 md:w-12 
-            top-[0.125rem] right-[0.125rem]
-            md:top-[1rem] md:right-[1rem]
-            absolute cursor-pointer text-amber-500'
-        />
+        <XMarkIcon className={LoginStyles.maskIcon} />
       </Link>
     </>
   );

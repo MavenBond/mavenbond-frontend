@@ -4,6 +4,7 @@ import type { FieldValues } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { angry, happy } from "utils/toaster";
+import LoginStyles from "styles/Login.module.css";
 
 const LoginInput = dynamic(() => import("components/bypage/LoginInput"));
 const Button = dynamic(() => import("components/common/Button"));
@@ -87,13 +88,7 @@ const LoginFormSection = () => {
           className='flex flex-col gap-[1.2rem] items-center justify-center'
         >
           {/* Google provider button */}
-          <Button
-            isLoading={isSubmitting}
-            className='bg-purple-600 w-full text-white px-10 py-4 
-            hover:shadow-xl hover:shadow-purple-500/40
-            transition-shadow duration-300
-            flex items-center justify-center mb-4 mt-2 rounded-[4rem]'
-          >
+          <Button isLoading={isSubmitting} className={LoginStyles.googleAuthBtn}>
             <FcGoogle className='mr-2 text-[1.5rem]' />
             <span>{hasAccount ? "LOGIN WITH GOOGLE" : "SIGN UP WITH GOOGLE"}</span>
           </Button>
@@ -116,26 +111,14 @@ const LoginFormSection = () => {
           })}
 
           {/* loading indicator & login Button */}
-          <Button
-            className='text-[#0d1626] w-full h-12 text-[1.2rem] bg-amber-500 rounded-[4rem]
-          hover:shadow-xl hover:shadow-amber-500/40 my-10 font-bold
-          transition-shadow duration-300 flex items-center justify-center'
-            isLoading={isSubmitting}
-          >
+          <Button className={LoginStyles.regularAuthBtn} isLoading={isSubmitting}>
             {hasAccount ? "LOGIN" : "SIGN UP"}
           </Button>
         </form>
 
         {/* toggle to sign up */}
         <div className='divider text-[#0d1626] dark:text-white bg-opacity-0'>
-          <p
-            className='
-              text-[#0d1626] dark:text-white
-              cursor-pointer mx-auto 
-              text-[0.9rem] md:text-[1rem]
-            '
-            onClick={() => setHasAccount(!hasAccount)}
-          >
+          <p className={LoginStyles.signUpToggle} onClick={() => setHasAccount(!hasAccount)}>
             {hasAccount
               ? "Don't have an account yet? Sign Up 🚀"
               : "Already have an account? Login Now ✨"}

@@ -35,22 +35,24 @@ const HomeAboutSection = () => {
 
         <div className={HomeStyles.logoContainer}>
           <Image
+            fill
             loading='lazy'
             placeholder='blur'
             src={LogoMajorBg}
             alt='Home: site major logo'
-            className='object-fill z-20'
+            className='object-cover z-20'
           />
         </div>
       </div>
       <div className={`${HomeStyles.aboutCol} ${HomeStyles.aboutTextCol}`}>
         <div className={HomeStyles.logoContainerMobile}>
           <Image
+            fill
             loading='lazy'
             placeholder='blur'
             src={LogoMajorBg}
             alt='Home: site major logo'
-            className='object-fill z-20'
+            className='object-cover z-20'
           />
         </div>
         <h2 className={HomeStyles.aboutTitle}>About Us</h2>
