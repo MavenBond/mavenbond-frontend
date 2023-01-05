@@ -86,8 +86,8 @@ const Navbar = () => {
       <div id='nav-end' className='flex justify-between items-center gap-6'>
         <button
           onClick={async () => {
-            const { error } = await signOut();
-            console.log(error);
+            await signOut();
+            window.location.reload();
           }}
         >
           LOGOUT

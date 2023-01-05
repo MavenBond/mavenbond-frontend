@@ -1,13 +1,12 @@
 import dynamic from "next/dynamic";
-import { useRouter } from "next/router";
+import { LOGIN_FORM_MODEL } from "projConstants";
 import { useEffect, useState } from "react";
 import type { FieldValues } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
-import { angry, happy } from "utils/toaster";
 import LoginStyles from "styles/Login.module.css";
-import { LOGIN_FORM_MODEL } from "projConstants";
 import { signInEmailPwd, signInGoogle, signUpEmailPwd } from "supabase/supbaseClient";
+import { angry, happy } from "utils/toaster";
 
 const LoginInput = dynamic(() => import("components/bypage/LoginInput"));
 const Button = dynamic(() => import("components/common/Button"));
@@ -35,7 +34,6 @@ const LoginFormSection = () => {
     })();
   }, []);
 
-  const router = useRouter();
   const { register, handleSubmit, reset } = useForm(); // react-hook-form methods
   const [hasAccount, setHasAccount] = useState(true); // to check login or sign up
   const [isSubmitting, setIsSubmitting] = useState(false); // submit state
@@ -77,8 +75,10 @@ const LoginFormSection = () => {
         // rese4t form fields
         reset();
 
-        // if logging in, jump to Home
-        hasAccount && router.push("/");
+        setTimeout(() => {
+          // if logging in, jump to Home
+          if (hasAccount) window.location.pathname = "/";
+        }, 1500);
       }
 
       // after sign up hit, navigate to login form

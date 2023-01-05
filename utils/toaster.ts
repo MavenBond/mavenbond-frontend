@@ -1,14 +1,5 @@
 import { toast } from "react-toastify";
-import type { ToastOptions } from "react-toastify";
-
-export const TOAST_CONFIG: ToastOptions = {
-  position: "top-center",
-  autoClose: 2000,
-  hideProgressBar: false,
-  closeOnClick: true,
-  pauseOnHover: false,
-  draggable: false,
-};
+import { TOAST_CONFIG } from "projConstants";
 
 export const tasty = (msg: string) => toast.info(msg, TOAST_CONFIG);
 export const happy = (msg: string) => toast.success(msg, TOAST_CONFIG);

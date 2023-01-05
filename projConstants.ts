@@ -1,3 +1,13 @@
+import type { ToastOptions } from "react-toastify";
+export const TOAST_CONFIG: ToastOptions = {
+  position: "top-center",
+  autoClose: 1500,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: false,
+  draggable: false,
+};
+
 export const LOGIN_FORM_MODEL = [
   {
     id: "email",

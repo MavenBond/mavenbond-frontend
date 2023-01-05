@@ -1,18 +1,6 @@
-import { createClient } from "@supabase/supabase-js";
+import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 
-const getSupabase = () => {
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-    throw new Error(
-      "Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY env variables"
-    );
-  }
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL as string,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
-  );
-};
-
-export const supabaseClient = getSupabase();
+export const supabaseClient = createBrowserSupabaseClient();
 
 export const signOut = async () => {
   const { error } = await supabaseClient.auth.signOut();
@@ -57,11 +45,8 @@ export const getSessionData = async () => {
 
 /* Gets the current user details if there is an existing session. */
 export const getUserData = async () => {
-  const {
-    data: { user },
-    error,
-  } = await supabaseClient.auth.getUser();
-  return { user, error };
+  const { data, error } = await supabaseClient.auth.getUser();
+  return { data, error };
 };
 
 /*
