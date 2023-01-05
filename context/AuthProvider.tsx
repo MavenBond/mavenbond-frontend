@@ -8,11 +8,13 @@ type AuthContextType = {
   isAuthenticated?: boolean;
   isLoading?: boolean;
   user?: User;
+  provider?: string | undefined;
 };
 export const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
   isLoading: false,
   user: undefined,
+  provider: "",
 });
 export const AuthProvider = ({ children }: { children: React.ReactElement }) => {
   const [user, setUser] = useState<User | undefined>(undefined);
@@ -36,7 +38,9 @@ export const AuthProvider = ({ children }: { children: React.ReactElement }) => 
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated: !!user, isLoading, user }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated: !!user, isLoading, user, provider: user?.app_metadata?.provider }}
+    >
       {children}
     </AuthContext.Provider>
   );

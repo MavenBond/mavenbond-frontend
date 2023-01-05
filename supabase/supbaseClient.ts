@@ -26,6 +26,9 @@ export const signUpEmailPwd = async (email: string, password: string) => {
 export const signInGoogle = async () => {
   const { data, error } = await supabaseClient.auth.signInWithOAuth({
     provider: "google",
+    options: {
+      redirectTo: "http://localhost:1234/login", // DEV
+    },
   });
   return { data, error };
 };
