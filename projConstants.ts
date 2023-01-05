@@ -1,3 +1,27 @@
+import z from "zod";
+export const LOGIN_ZOD_MODEL = z
+  .object({
+    email: z.string().email(),
+    password: z.string().min(8, { message: "Password: at least 8 characters" }),
+  })
+  .required();
+
+export const SIGNUP_ZOD_MODEL = z
+  .object({
+    fullName: z
+      .string()
+      .regex(/[a-z]/gi, { message: "Invalid full name" })
+      .min(3, { message: "Fullname: at least 3 characters" }),
+    email: z.string().email(),
+    password: z.string().min(8, { message: "Password: at least 8 characters" }),
+    confirmPassword: z.string(),
+  })
+  .required()
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["matchingPasswords"], // path of error
+  });
+
 import type { ToastOptions } from "react-toastify";
 export const TOAST_CONFIG: ToastOptions = {
   position: "top-center",
@@ -10,21 +34,31 @@ export const TOAST_CONFIG: ToastOptions = {
 
 export const LOGIN_FORM_MODEL = [
   {
+    id: "fullName",
+    label: "Full Name",
+    type: "text",
+    required: true,
+    placeholders: ["Your full name", "Your lovely full name"],
+  },
+  {
     id: "email",
     label: "Email",
     type: "text",
+    required: true,
     placeholders: ["Your email", "Use a lovely email"],
   },
   {
     id: "password",
     label: "Password",
     type: "password",
+    required: true,
     placeholders: ["Your password", "Use a strong password"],
   },
   {
     id: "confirmPassword",
     label: "Confirm Password",
     type: "password",
+    required: true,
     placeholders: ["Confirm your password"],
   },
 ];

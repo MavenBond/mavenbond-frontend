@@ -6,7 +6,7 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["i.imgur.com"],
+    domains: ["lh3.googleusercontent.com", "pathwayactivities.co.uk"],
   },
 };
 

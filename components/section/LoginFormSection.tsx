@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import dynamic from "next/dynamic";
-import { LOGIN_FORM_MODEL } from "projConstants";
-import { useEffect, useState } from "react";
+import { LOGIN_FORM_MODEL, LOGIN_ZOD_MODEL, SIGNUP_ZOD_MODEL } from "projConstants";
+import { useState } from "react";
 import type { FieldValues } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
@@ -12,83 +13,100 @@ const LoginInput = dynamic(() => import("components/bypage/LoginInput"));
 const Button = dynamic(() => import("components/common/Button"));
 
 const LoginFormSection = () => {
-  // create zod schema for login/sign up form dynamically
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [schema, setSchema] = useState<any>(null); // zod schema to validate form
-  useEffect(() => {
-    (async () => {
-      const { z } = await import("zod");
-      // custom fx
-      const fieldValuesSchema = z
-        .object({
-          email: z.string().email(),
-          password: z.string().min(8, { message: "Password: at least 8 characters" }),
-          confirmPassword: z.string(),
-        })
-        .required()
-        .refine((data) => data.password === data.confirmPassword, {
-          message: "Passwords don't match",
-          path: ["matchingPasswords"], // path of error
-        });
-      setSchema(fieldValuesSchema);
-    })();
-  }, []);
-
-  const { register, handleSubmit, reset } = useForm(); // react-hook-form methods
+  const { register, handleSubmit, reset, resetField } = useForm(); // react-hook-form methods
   const [hasAccount, setHasAccount] = useState(true); // to check login or sign up
   const [isSubmitting, setIsSubmitting] = useState(false); // submit state
 
-  // submit handler
-  const handleSubmitData = async (data: FieldValues) => {
-    setIsSubmitting(true);
-
+  // private methods to work with schemas
+  const _executeSchema = (schema: any, data: FieldValues) => {
     // used schema to validate
     const executedSchema = schema.safeParse(data);
-
-    // DEV
-    console.log(executedSchema);
+    console.log(executedSchema); // DEV
 
     // FORM DATA IS INVALID
     if (!executedSchema.success) {
       // if error, toast error (form validation)
+      console.log(executedSchema.error.issues);
       angry(executedSchema.error.issues[0].message);
+
+      // reset submitting state
+      setIsSubmitting(false);
+      return [false, {}];
+    }
+
+    return [true, executedSchema];
+  };
+  const _loginWithSchema = async (executedSchema: any) => {
+    const { email, password } = executedSchema.data;
+    const { data: accountData, error } = await signInEmailPwd(email, password);
+
+    if (error) {
+      // if error, toast error
+      angry(error?.message);
 
       // reset submitting state
       setIsSubmitting(false);
       return;
     }
 
-    // FORM DATA IS VALID
-    // get form data
-    const { email, password } = executedSchema.data;
+    // if no error, toast msg
+    const happyMsg = `Welcome, ${accountData?.user?.email?.split("@")[0].toUpperCase()}!`;
+    happy(happyMsg);
 
-    // based on hasAccount -> login or sign up with Supabase
-    const { data: accountData, error } = hasAccount
-      ? await signInEmailPwd(email, password)
-      : await signUpEmailPwd(email, password);
+    // reset form fields
+    reset();
+
+    // if logging in, jump to Home
+    if (hasAccount)
+      setTimeout(() => {
+        window.location.pathname = "/dashboard";
+      }, 1500);
+  };
+  const _signUpWithSchema = async (executedSchema: any) => {
+    const { email, password, fullName } = executedSchema.data;
+    const { error } = await signUpEmailPwd(email, password, {
+      full_name: fullName,
+      email,
+    });
 
     if (error) {
       // if error, toast error
       angry(error?.message);
-    } else {
-      // if no error, toast msg based on hasAccount
-      const happyMsg = hasAccount
-        ? `Welcome back, ${accountData?.user?.email?.split("@")[0].toUpperCase()}!`
-        : `Please login to begin`;
-      happy(happyMsg);
 
-      // rese4t form fields
-      reset();
+      // reset submitting state
+      setIsSubmitting(false);
 
-      // if logging in, jump to Home
-      if (hasAccount)
-        setTimeout(() => {
-          window.location.pathname = "/dashboard";
-        }, 1500);
+      // reset fields
+      resetField("password");
+      resetField("confirmPassword");
+      return;
     }
 
+    // if no error, toast msg
+    const happyMsg = `Please login to continue`;
+    happy(happyMsg);
+
+    // reset form fields
+    reset();
+
     // after sign up hit, navigate to login form
-    !hasAccount && setHasAccount(true);
+    setHasAccount(true);
+  };
+
+  // submit handler
+  const handleSubmitData = async (data: FieldValues) => {
+    setIsSubmitting(true);
+
+    // LOGIN
+    if (hasAccount) {
+      const [isGood, executedSchema] = _executeSchema(LOGIN_ZOD_MODEL, data);
+      if (isGood) _loginWithSchema(executedSchema);
+      return;
+    }
+
+    // SIGN UP
+    const [isGood, executedSchema] = _executeSchema(SIGNUP_ZOD_MODEL, data);
+    if (isGood) _signUpWithSchema(executedSchema);
 
     // reset submitting state
     setIsSubmitting(false);
@@ -100,7 +118,13 @@ const LoginFormSection = () => {
         {/* Google provider button */}
         {hasAccount && (
           <>
-            <Button onClick={() => signInGoogle()} className={LoginStyles.googleAuthBtn}>
+            <Button
+              onClick={async () => {
+                const { error } = await signInGoogle();
+                angry(error?.message as string);
+              }}
+              className={LoginStyles.googleAuthBtn}
+            >
               <FcGoogle className='mr-2 text-[1.5rem]' />
               <span>LOGIN WITH GOOGLE</span>
             </Button>
@@ -113,10 +137,13 @@ const LoginFormSection = () => {
           className='flex flex-col gap-[1.2rem] items-center justify-center'
         >
           {/* form fields */}
-          {LOGIN_FORM_MODEL.map(({ id, label, type, placeholders }) => {
+          {LOGIN_FORM_MODEL.filter((_, idx) =>
+            hasAccount ? idx !== 0 && idx !== LOGIN_FORM_MODEL.length - 1 : idx !== -1
+          ).map(({ id, label, type, placeholders, required }) => {
             const [primary, secondary] = placeholders;
             return (
               <LoginInput
+                required={required}
                 key={id}
                 id={id}
                 htmlFor={id}

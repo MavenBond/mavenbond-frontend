@@ -15,10 +15,12 @@
 }
 
 .desktopMenuItems {
-  @apply w-32 h-12
-    hover:bg-gray-400/40 
-    hover:dark:bg-gray-200/40 
-    hover:opacity-60
+  @apply px-6 h-12
+    hover:bg-gray-300/40
+    hover:dark:bg-gray-200/40
+    hover:border-amber-500 
+    hover:border-double hover:border-r-[10px]
+    transition-all duration-300
     flex justify-center items-center rounded-md
     cursor-pointer;
 }

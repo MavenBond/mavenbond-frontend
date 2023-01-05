@@ -15,10 +15,19 @@ export const signInEmailPwd = async (email: string, password: string) => {
   return { data, error };
 };
 
-export const signUpEmailPwd = async (email: string, password: string) => {
+export const signUpEmailPwd = async (
+  email: string,
+  password: string,
+  metadata: { [key: string]: string }
+) => {
   const { data, error } = await supabaseClient.auth.signUp({
     email,
     password,
+    options: {
+      data: {
+        ...metadata,
+      },
+    },
   });
   return { data, error };
 };

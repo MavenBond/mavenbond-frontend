@@ -5,6 +5,7 @@ type InputProps = {
   className?: string;
   placeholder?: string;
   type?: string;
+  required?: boolean;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
@@ -19,6 +20,7 @@ const Input = ({
   className = "",
   placeholder = "Type here",
   type = "text",
+  required = false,
   ...rest
 }: InputProps) => {
   return (
@@ -30,7 +32,10 @@ const Input = ({
         ${className}
         `}
     >
-      <span className='pl-5'>{label}</span>
+      <span className='pl-5'>
+        {label}
+        {required && <span className='text-red-400'> * </span>}
+      </span>
       <input
         id={id}
         className='

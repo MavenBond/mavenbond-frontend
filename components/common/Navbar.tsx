@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { Bars4Icon } from "@heroicons/react/24/solid";
@@ -14,7 +15,7 @@ const LoginButton = dynamic(() => import("components/variant/LoginButton"));
 
 const Navbar = () => {
   const [mounted, setMounted] = useState(false);
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -29,104 +30,136 @@ const Navbar = () => {
     >
       {/* NAV START */}
       <div id='nav-start' className='flex items-center gap-2'>
-        {/* MOBILE menu and menu icon */}
-        <ul className='menu menu-horizontal block lg:hidden ml-2'>
-          <li>
-            <div>
-              <Bars4Icon aria-label='navbar-toggler' className='h-8 w-8' />
-            </div>
-            <ul className='px-6 py-4 bg-base-100 shadow-lg'>
-              {Object.values(ROUTES)
-                .filter((_, idx) => (isAuthenticated ? idx !== 0 : idx !== 1))
-                .map(({ path, displayName }) => (
-                  <li
-                    key={path}
-                    className={`
-                      ${NavStyles.mobileMenuItems}
-                      ${window.location.pathname === path && "text-amber-500"}
-                    `}
-                  >
-                    <Link className='flex items-center justify-center' href={path}>
-                      {displayName}
-                    </Link>
-                  </li>
-                ))}
-
-              <div className='divider my-2' />
-
-              {/* MOBILE LOGIN button */}
-              <LoginButton className={NavStyles.mobileLoginBtn}>LOGIN</LoginButton>
-
-              <div className='divider my-2' />
-              <div className='flex items-center justify-center'>
-                <ThemeToggle
-                  extraSunClass='text-amber-500'
-                  extraMoonClass='text-[rgba(124,58,237,1)]'
-                />
-              </div>
-            </ul>
-          </li>
-        </ul>
-
-        {/* MOBILE noti */}
-        <NotiBell hasNoti className='lg:hidden block' />
-
-        {/* DESKTOP logo */}
-        <h1 className='hidden lg:block text-2xl lg:text-3xl font-bold text-amber-500'>
+        {/* Logo */}
+        <h1 className='pl-5 lg:pl-0 text-2xl lg:text-3xl font-bold text-amber-500'>
           <Link href='/'>MAVENBOND</Link>
         </h1>
       </div>
 
       {/* NAV END */}
       <div id='nav-end' className='flex justify-between items-center gap-6'>
-        {/* LOGOUT button */}
-        <button
-          onClick={async () => {
-            await signOut();
-            await happy("Logged out. See ya!");
-            await setTimeout(() => {
-              window.location.pathname = "/";
-            }, 1500);
-          }}
-        >
-          LOGOUT
-        </button>
-
         {/* DESKTOP menu and menu items + theme toggle + noti bell */}
-        <ul className='hidden lg:flex items-center justify-between gap-2'>
+        <ul className='hidden lg:flex items-center justify-between gap-4'>
           {Object.values(ROUTES)
-            .filter((_, idx) => (isAuthenticated ? idx !== 0 : idx !== 1))
+            .filter((_, idx) =>
+              isAuthenticated ? idx !== 0 && idx !== Object.values(ROUTES).length - 1 : idx === -1
+            )
             .map(({ path, displayName }) => (
               <Link
                 href={path}
                 key={path}
                 className={`
                 ${NavStyles.desktopMenuItems}
-                ${window.location.pathname === path && "text-amber-500"}
+                ${window.location.pathname === path && `text-amber-500 `}
               `}
               >
                 <li>{displayName}</li>
               </Link>
             ))}
         </ul>
-
         <NotiBell hasNoti className='hidden lg:block' />
         <ThemeToggle
           className='hidden lg:block'
           extraSunClass='text-amber-500'
           extraMoonClass='text-[rgba(124,58,237,1)]'
         />
-
         {/* DESKTOP LOGIN button */}
-        <LoginButton className={NavStyles.desktopLoginBtn}>LOGIN</LoginButton>
+        {!isAuthenticated && <LoginButton className={NavStyles.desktopLoginBtn}>LOGIN</LoginButton>}
+        {isAuthenticated && (
+          <div className='dropdown dropdown-bottom dropdown-end'>
+            <label
+              tabIndex={0}
+              className='btn btn-circle
+              w-14 h-14 ml-5 hidden lg:block
+              border-[2px] overflow-hidden bg-white
+              border-amber-500'
+            >
+              <Image
+                alt='Navbar: profile picture with drop down menu'
+                src={
+                  user?.user_metadata?.avatar_url ||
+                  "https://pathwayactivities.co.uk/wp-content/uploads/2016/04/Profile_avatar_placeholder_large-circle-350x350.png"
+                }
+                width={400}
+                height={400}
+                className='object-cover'
+              />
+            </label>
+            <ul
+              tabIndex={0}
+              className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'
+            >
+              <li>
+                <Link href='/profile'>
+                  <strong>{user?.user_metadata?.full_name || "PROFILE"}</strong>
+                </Link>
+              </li>
 
-        {/* MOBILE logo */}
-        <h1
-          className='block lg:hidden text-2xl lg:text-3xl 
-          font-bold text-amber-500 pr-5'
-        >
-          <Link href='/'>MAVENBOND</Link>
-        </h1>
+              <li>
+                <button
+                  onClick={async () => {
+                    await happy("Logged out. See ya!");
+                    await signOut();
+                    setTimeout(() => {
+                      window.location.pathname = "/";
+                    }, 500);
+                  }}
+                >
+                  Log Out
+                </button>
+              </li>
+            </ul>
+          </div>
+        )}
+
+        <div className='flex items-center justify-center'>
+          {/* MOBILE noti */}
+          <NotiBell hasNoti className='lg:hidden block' />
+
+          {/* MOBILE menu and menu icon */}
+          <ul className='menu menu-horizontal block lg:hidden ml-2'>
+            <li>
+              <div>
+                <Bars4Icon aria-label='navbar-toggler' className='h-8 w-8' />
+              </div>
+              <ul className='px-6 py-4 bg-base-100 shadow-lg -translate-x-[9rem]'>
+                {Object.values(ROUTES)
+                  .filter((_, idx) => (isAuthenticated ? idx !== 0 : idx === -1))
+                  .map(({ path, displayName }) => (
+                    <li
+                      key={path}
+                      className={`
+                      ${NavStyles.mobileMenuItems}
+                      ${window.location.pathname === path && "text-amber-500"}
+                    `}
+                    >
+                      <Link className='flex items-center justify-center' href={path}>
+                        {displayName === "PROFILE" ? (
+                          <strong>{user?.user_metadata?.full_name || "PROFILE"}</strong>
+                        ) : (
+                          displayName
+                        )}
+                      </Link>
+                    </li>
+                  ))}
+
+                {/* MOBILE LOGIN button */}
+                <div className='divider my-2' />
+                <LoginButton className={NavStyles.mobileLoginBtn}>
+                  {isAuthenticated ? "LOG OUT" : "LOGIN"}
+                </LoginButton>
+
+                <div className='divider my-2' />
+                <div className='flex items-center justify-center'>
+                  <ThemeToggle
+                    extraSunClass='text-amber-500'
+                    extraMoonClass='text-[rgba(124,58,237,1)]'
+                  />
+                </div>
+              </ul>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
   );
