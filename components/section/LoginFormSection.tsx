@@ -44,49 +44,54 @@ const LoginFormSection = () => {
 
     // used schema to validate
     const executedSchema = schema.safeParse(data);
+
+    // DEV
     console.log(executedSchema);
 
-    // IMPORTANT: DATA HANDLING
+    // FORM DATA IS INVALID
     if (!executedSchema.success) {
       // if error, toast error (form validation)
       angry(executedSchema.error.issues[0].message);
 
       // reset submitting state
       setIsSubmitting(false);
-    } else {
-      // get form data
-      const { email, password } = executedSchema.data;
-
-      // based on hasAccount -> login or sign up with Supabase
-      const { data, error } = hasAccount
-        ? await signInEmailPwd(email, password)
-        : await signUpEmailPwd(email, password);
-
-      if (error) {
-        // if error, toast error
-        angry(error?.message);
-      } else {
-        // if no error, toast msg based on hasAccount
-        const happyMsg = hasAccount
-          ? `Welcome back, ${data?.user?.email?.split("@")[0].toUpperCase()}!`
-          : `Please login to begin`;
-        happy(happyMsg);
-
-        // rese4t form fields
-        reset();
-
-        setTimeout(() => {
-          // if logging in, jump to Home
-          if (hasAccount) window.location.pathname = "/";
-        }, 1500);
-      }
-
-      // after sign up hit, navigate to login form
-      !hasAccount && setHasAccount(true);
-
-      // reset submitting state
-      setIsSubmitting(false);
+      return;
     }
+
+    // FORM DATA IS VALID
+    // get form data
+    const { email, password } = executedSchema.data;
+
+    // based on hasAccount -> login or sign up with Supabase
+    const { data: accountData, error } = hasAccount
+      ? await signInEmailPwd(email, password)
+      : await signUpEmailPwd(email, password);
+
+    if (error) {
+      // if error, toast error
+      angry(error?.message);
+    } else {
+      // if no error, toast msg based on hasAccount
+      const happyMsg = hasAccount
+        ? `Welcome back, ${accountData?.user?.email?.split("@")[0].toUpperCase()}!`
+        : `Please login to begin`;
+      happy(happyMsg);
+
+      // rese4t form fields
+      reset();
+
+      // if logging in, jump to Home
+      if (hasAccount)
+        setTimeout(() => {
+          window.location.pathname = "/dashboard";
+        }, 1500);
+    }
+
+    // after sign up hit, navigate to login form
+    !hasAccount && setHasAccount(true);
+
+    // reset submitting state
+    setIsSubmitting(false);
   };
 
   return (
