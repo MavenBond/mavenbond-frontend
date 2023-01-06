@@ -20,6 +20,7 @@
     "@supabase/gotrue-js": "^2.6.2",
     "@supabase/supabase-js": "^2.2.3",
     "daisyui": "^2.46.0",
+    "moment": "^2.29.4",
     "next": "13.0.7",
     "next-themes": "^0.2.1",
     "prettier": "^2.2.1",
