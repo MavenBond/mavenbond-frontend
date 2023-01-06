@@ -1,3 +1,4 @@
+import BrowseContainer from "components/section/BrowseContainer";
 import dynamic from "next/dynamic";
 import { ROUTES } from "routes";
 
@@ -13,6 +14,7 @@ const Browse = () => {
       <Helmet title={description} description={description} />
       <main className='pageContainer'>
         <Navbar />
+        <BrowseContainer />
       </main>
     </>
   );
