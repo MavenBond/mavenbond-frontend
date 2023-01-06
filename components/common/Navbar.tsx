@@ -12,6 +12,13 @@ import NavStyles from "styles/Navbar.module.css";
 const ThemeToggle = dynamic(() => import("components/common/ThemeToggle"));
 const NotiBell = dynamic(() => import("components/common/NotiBell"));
 const LoginButton = dynamic(() => import("components/variant/LoginButton"));
+const logOut = async () => {
+  await happy("Logged out. See ya!");
+  await signOut();
+  setTimeout(() => {
+    window.location.pathname = "/";
+  }, 500);
+};
 
 const Navbar = () => {
   const [mounted, setMounted] = useState(false);
@@ -41,9 +48,7 @@ const Navbar = () => {
         {/* DESKTOP menu and menu items + theme toggle + noti bell */}
         <ul className='hidden lg:flex items-center justify-between gap-4'>
           {Object.values(ROUTES)
-            .filter((_, idx) =>
-              isAuthenticated ? idx !== 0 && idx !== Object.values(ROUTES).length - 1 : idx === -1
-            )
+            .filter((_, idx) => (isAuthenticated ? idx !== 0 : idx === -1))
             .map(({ path, displayName }) => (
               <Link
                 href={path}
@@ -89,24 +94,14 @@ const Navbar = () => {
               tabIndex={0}
               className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'
             >
-              <li>
-                <Link href='/profile'>
-                  <strong>{user?.user_metadata?.full_name || "PROFILE"}</strong>
-                </Link>
-              </li>
+              <div className='flex items-center px-3 py-3 text-[1.2rem]'>
+                <strong>Hi, {user?.user_metadata?.full_name}</strong>
+              </div>
+
+              <div className='divider m-0' />
 
               <li>
-                <button
-                  onClick={async () => {
-                    await happy("Logged out. See ya!");
-                    await signOut();
-                    setTimeout(() => {
-                      window.location.pathname = "/";
-                    }, 500);
-                  }}
-                >
-                  Log Out
-                </button>
+                <button onClick={logOut}>Log Out</button>
               </li>
             </ul>
           </div>
@@ -134,19 +129,18 @@ const Navbar = () => {
                     `}
                     >
                       <Link className='flex items-center justify-center' href={path}>
-                        {displayName === "PROFILE" ? (
-                          <strong>{user?.user_metadata?.full_name || "PROFILE"}</strong>
-                        ) : (
-                          displayName
-                        )}
+                        {displayName}
                       </Link>
                     </li>
                   ))}
 
                 {/* MOBILE LOGIN button */}
                 <div className='divider my-2' />
-                <LoginButton className={NavStyles.mobileLoginBtn}>
-                  {isAuthenticated ? "LOG OUT" : "LOGIN"}
+                <LoginButton
+                  onClick={isAuthenticated ? logOut : undefined}
+                  className={NavStyles.mobileLoginBtn}
+                >
+                  {isAuthenticated ? "Log Out" : "LOGIN"}
                 </LoginButton>
 
                 <div className='divider my-2' />

@@ -10,7 +10,10 @@ export const SIGNUP_ZOD_MODEL = z
   .object({
     fullName: z
       .string()
-      .regex(/[a-z]/gi, { message: "Invalid full name" })
+      .regex(
+        /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s\W|_]+$/,
+        { message: "Invalid full name" }
+      )
       .min(3, { message: "Fullname: at least 3 characters" }),
     email: z.string().email(),
     password: z.string().min(8, { message: "Password: at least 8 characters" }),
