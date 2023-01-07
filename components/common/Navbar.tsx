@@ -8,6 +8,7 @@ import { signOut } from "supabase/supbaseClient";
 import { useAuth } from "context/useAuth";
 import { happy } from "utils/toaster";
 import NavStyles from "styles/Navbar.module.css";
+import { FALLBACK_PROFILE_URL } from "projConstants";
 
 const ThemeToggle = dynamic(() => import("components/common/ThemeToggle"));
 const NotiBell = dynamic(() => import("components/common/NotiBell"));
@@ -22,7 +23,7 @@ const logOut = async () => {
 
 const Navbar = () => {
   const [mounted, setMounted] = useState(false);
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, profile } = useAuth();
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -81,10 +82,7 @@ const Navbar = () => {
             >
               <Image
                 alt='Navbar: profile picture with drop down menu'
-                src={
-                  user?.user_metadata?.avatar_url ||
-                  "https://pathwayactivities.co.uk/wp-content/uploads/2016/04/Profile_avatar_placeholder_large-circle-350x350.png"
-                }
+                src={user?.user_metadata?.avatar_url || FALLBACK_PROFILE_URL}
                 width={400}
                 height={400}
                 className='object-cover'
@@ -95,7 +93,7 @@ const Navbar = () => {
               className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'
             >
               <div className='flex items-center px-3 py-3 text-[1.2rem]'>
-                <strong>Hi, {user?.user_metadata?.full_name}</strong>
+                <strong>Hi, {profile?.full_name}</strong>
               </div>
 
               <div className='divider m-0' />

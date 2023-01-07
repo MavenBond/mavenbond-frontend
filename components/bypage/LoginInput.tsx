@@ -8,6 +8,9 @@ type InputProps = {
   required?: boolean;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  initialValue?: any;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 };
 
@@ -21,6 +24,7 @@ const Input = ({
   placeholder = "Type here",
   type = "text",
   required = false,
+  initialValue = "",
   ...rest
 }: InputProps) => {
   return (
@@ -48,6 +52,7 @@ const Input = ({
         '
         type={type}
         placeholder={placeholder}
+        defaultValue={initialValue}
         {...rest.register}
       />
     </label>

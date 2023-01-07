@@ -1,23 +1,28 @@
 import type { User } from "@supabase/gotrue-js";
 import Router from "next/router";
 import React, { createContext, useEffect, useState } from "react";
-import { getSessionData } from "supabase/supbaseClient";
+import { getSessionData, supabaseClient } from "supabase/supbaseClient";
 import { useAuth } from "./useAuth";
 
 type AuthContextType = {
   isAuthenticated?: boolean;
   isLoading?: boolean;
-  user?: User;
+  user?: User | undefined;
   provider?: string | undefined;
+  profile?: Record<string, string> | undefined;
 };
 export const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
   isLoading: false,
   user: undefined,
   provider: "",
+  profile: undefined,
 });
+
 export const AuthProvider = ({ children }: { children: React.ReactElement }) => {
   const [user, setUser] = useState<User | undefined>(undefined);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [profile, setProfile] = useState<any>(null);
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -25,11 +30,20 @@ export const AuthProvider = ({ children }: { children: React.ReactElement }) => 
       try {
         // check for active session
         const { data } = await getSessionData();
+
+        // get session profile
+        const { data: profileData } = await supabaseClient
+          .from("profiles")
+          .select()
+          .eq("id", data?.session?.user?.id);
+
         setUser(data?.session?.user);
+        setProfile(profileData ? profileData[0] : {});
         setLoading(false);
 
         // DEV
-        console.log(data?.session);
+        // profileData && console.log(profileData[0]);
+        // console.log(data?.session);
       } catch (error) {
         console.log(error);
         setLoading(false);
@@ -39,7 +53,13 @@ export const AuthProvider = ({ children }: { children: React.ReactElement }) => 
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated: !!user, isLoading, user, provider: user?.app_metadata?.provider }}
+      value={{
+        isAuthenticated: !!user,
+        isLoading,
+        user,
+        provider: user?.app_metadata?.provider,
+        profile,
+      }}
     >
       {children}
     </AuthContext.Provider>
@@ -47,7 +67,7 @@ export const AuthProvider = ({ children }: { children: React.ReactElement }) => 
 };
 
 export const ProtectedRoute = ({ children }: { children: React.ReactElement }) => {
-  const { isAuthenticated }: { isAuthenticated?: boolean; user?: User } = useAuth();
+  const { isAuthenticated }: { isAuthenticated?: boolean } = useAuth();
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     setMounted(true);

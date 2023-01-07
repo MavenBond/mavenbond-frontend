@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import dynamic from "next/dynamic";
+import { _executeSchema } from "pages/login";
 import { LOGIN_FORM_MODEL, LOGIN_ZOD_MODEL, SIGNUP_ZOD_MODEL } from "projConstants";
 import { useState } from "react";
 import type { FieldValues } from "react-hook-form";
@@ -18,24 +19,6 @@ const LoginFormSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false); // submit state
 
   // private methods to work with schemas
-  const _executeSchema = (schema: any, data: FieldValues) => {
-    // used schema to validate
-    const executedSchema = schema.safeParse(data);
-    console.log(executedSchema); // DEV
-
-    // FORM DATA IS INVALID
-    if (!executedSchema.success) {
-      // if error, toast error (form validation)
-      console.log(executedSchema.error.issues);
-      angry(executedSchema.error.issues[0].message);
-
-      // reset submitting state
-      setIsSubmitting(false);
-      return [false, {}];
-    }
-
-    return [true, executedSchema];
-  };
   const _loginWithSchema = async (executedSchema: any) => {
     const { email, password } = executedSchema.data;
     const { data: accountData, error } = await signInEmailPwd(email, password);
@@ -99,13 +82,17 @@ const LoginFormSection = () => {
 
     // LOGIN
     if (hasAccount) {
-      const [isGood, executedSchema] = _executeSchema(LOGIN_ZOD_MODEL, data);
+      const [isGood, executedSchema] = _executeSchema(LOGIN_ZOD_MODEL, data, () => {
+        setIsSubmitting(false);
+      });
       if (isGood) _loginWithSchema(executedSchema);
       return;
     }
 
     // SIGN UP
-    const [isGood, executedSchema] = _executeSchema(SIGNUP_ZOD_MODEL, data);
+    const [isGood, executedSchema] = _executeSchema(SIGNUP_ZOD_MODEL, data, () => {
+      setIsSubmitting(false);
+    });
     if (isGood) _signUpWithSchema(executedSchema);
 
     // reset submitting state
