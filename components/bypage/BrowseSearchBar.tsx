@@ -1,3 +1,7 @@
 export default function BrowseSearchBar() {
-  return <div className='bg-gradient-to-r from-cyan-500 to-blue-500 h-20'>Search Section </div>;
+  return (
+    <div className='my-2'>
+      <input type='text' placeholder='Search here' className='input input-bordered w-full ' />
+    </div>
+  );
 }

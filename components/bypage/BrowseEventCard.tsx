@@ -19,7 +19,7 @@ export default function BrowseEventCard({
   moneyMin = 100,
   moneyMax = 200,
   startDate = 1672997687,
-  endDate = 1673007687,
+  endDate = 1673997687,
   company = "Sneaky Sasquatch",
   country = "Vietnam",
   city = "Ho Chi Minh",
