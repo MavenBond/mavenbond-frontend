@@ -75,7 +75,8 @@ ul {
     @apply w-screen mx-auto max-h-screen animate-fadeIn 
     snap-mandatory snap-y overflow-y-scroll
     scrollbar-thin
-    scrollbar-track-gray-400/20 scrollbar-thumb-amber-500/90;
+    scrollbar-track-gray-400/20 
+    scrollbar-thumb-amber-500/90;
   }
 }
 /* continue with tailwindcss stylings end */

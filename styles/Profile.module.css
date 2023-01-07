@@ -1,0 +1,23 @@
+.formContainer {
+  @apply md:mt-16 lg:mt-24 
+  px-8 lg:px-20 py-14 
+  w-full h-screen lg:h-[88vh]
+  border-l-[2px] border-amber-500/60
+  overflow-y-scroll 
+  scrollbar-thin rounded-lg
+  scrollbar-track-gray-400/20 
+  scrollbar-thumb-amber-500/40
+  flex flex-col gap-3 items-center;
+}
+
+.photoPreview {
+  @apply object-fill mt-14 md:mt-8 lg:mt-0 h-32 w-32 
+  rounded-full border-amber-500 border-[4px];
+}
+
+.updateBtn {
+  @apply text-[#0d1626] text-[1.2rem]
+      my-10 font-bold py-2 px-8 rounded-lg
+      transition-colors duration-300
+      flex items-center justify-center;
+}
