@@ -1,6 +1,6 @@
 export enum DeliveryType {
-  VIDEO = "video",
-  POST = "post",
+  VIDEO = "Video",
+  POST = "Post",
 }
 
 export enum StatusType {

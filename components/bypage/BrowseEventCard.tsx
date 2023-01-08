@@ -1,44 +1,47 @@
+import { DeliveryType, PlatformType } from "models/enums";
 import { formatUnixTimeStamp } from "utils/time";
 
 type Props = {
   id: number;
   title: string;
-  content: string;
+  subject: string;
   company: string;
-  country: string;
-  city: string;
   moneyMin: number;
   moneyMax: number;
   startDate: number;
   endDate: number;
+  platform: PlatformType;
+  type: DeliveryType;
 };
 
 export default function BrowseEventCard({
   title = "Canh sat danh dan 24/7 Tet Nguyen Dan!",
-  content = "If a dog chews shoes whose shoes does he choose?",
+  subject = "If a dog chews shoes whose shoes does he choose?",
   moneyMin = 100,
   moneyMax = 200,
   startDate = 1672997687,
   endDate = 1673997687,
   company = "Sneaky Sasquatch",
-  country = "Vietnam",
-  city = "Ho Chi Minh",
+  platform = PlatformType.FACEBOOK,
+  type = DeliveryType.VIDEO
 }: Props) {
   return (
-    <div className='card w-97 bg-base-100 shadow-xl'>
+    <div className='card card-compact bg-white dark:bg-[#0d204c] shadow-lg border border-gray-200 dark:border-gray-800'>
       <div className='card-body'>
-        <h2 className='card-title'>{title}</h2>
+        <h2 className='card-title text-[rgba(124,58,237,1)] dark:text-amber-500'>
+          {title}
+          <div className="badge badge-primary">{platform}</div>
+          <div className="badge badge-secondary">{type}</div>
+        </h2>
 
-        <div className='divider' />
-
-        <p>{`Offered by: ${company}`}</p>
-        <p>{`Location: ${country} - ${city}`}</p>
-        <p>{`Objective: ${content}`}</p>
-        <p>{`Offer range: $${moneyMin} - $${moneyMax}`}</p>
+        {/* <div className='divider' /> */}
+        <p>{`${subject}`}</p>
+        <p>{`Company: ${company}`}</p>
         <p>{`${formatUnixTimeStamp(startDate)} - ${formatUnixTimeStamp(endDate)}`}</p>
+        <div className="stat-value text-xl">${moneyMin} - ${moneyMax}</div>
 
         <div className='card-actions justify-end'>
-          <button className='btn btn-primary'>Send Offer</button>
+          <button className='btn btn-primary '>Send Offer</button>
         </div>
       </div>
     </div>

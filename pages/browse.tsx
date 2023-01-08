@@ -3,7 +3,7 @@ import { ROUTES } from "routes";
 
 const Helmet = dynamic(() => import("components/common/Helmet"));
 const Navbar = dynamic(() => import("components/common/Navbar"));
-const BrowseContainer = dynamic(() => import("components/section/BrowseContainer"));
+const BrowseEventContainer = dynamic(() => import("components/section/BrowseEventContainer"));
 
 const Browse = () => {
   const { BROWSE } = ROUTES;
@@ -14,7 +14,7 @@ const Browse = () => {
       <Helmet title={description} description={description} />
       <main className='pageContainer'>
         <Navbar />
-        <BrowseContainer />
+        <BrowseEventContainer />
       </main>
     </>
   );

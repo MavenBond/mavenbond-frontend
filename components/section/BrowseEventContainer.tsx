@@ -46,9 +46,9 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-const BrowseContainer = () => {
+const BrowseEventContainer = () => {
   return (
-    <div className={BrowseStyles.container} id='browse-container'>
+    <div className={`${BrowseStyles.container} excludeNavContent`} id='browse-container'>
       <div>
         <div className='drawer drawer-end'>
           <input id='my-drawer-1' type='checkbox' className='drawer-toggle' />
@@ -56,8 +56,8 @@ const BrowseContainer = () => {
             {/* <!-- Page content here --> */}
             <main className='pageContainer'>
               <div className='w-full px-4 sm:px-6 lg:px-8'>
-                <div className='flex items-baseline justify-between border-b border-gray-200 pt-24 pb-6'>
-                  <h1 className='text-4xl font-bold tracking-tight text-gray-900'>Browse Events</h1>
+                <div className='flex items-baseline justify-between border-b border-gray-200 pb-6'>
+                  <h1 className='text-4xl font-bold tracking-tight'>Events</h1>
 
                   <div className='flex items-center'>
                     <div className='dropdown dropdown-end'>
@@ -120,7 +120,7 @@ const BrowseContainer = () => {
                             <div className='pt-6'>
                               <div className='space-y-4'>
                                 <h3 className='-my-3 flow-root'>
-                                  <span className='font-medium text-gray-900'>{section.name}</span>
+                                  <span className='font-medium'>{section.name}</span>
                                 </h3>
                                 {section.options.map((option, optionIdx) => (
                                   <div key={option.value} className='flex items-center'>
@@ -130,11 +130,11 @@ const BrowseContainer = () => {
                                       defaultValue={option.value}
                                       type='checkbox'
                                       defaultChecked={option.checked}
-                                      className='h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500'
+                                      className='h-4 w-4 rounded border-gray-300 focus:ring-indigo-500'
                                     />
                                     <label
                                       htmlFor={`filter-${section.id}-${optionIdx}`}
-                                      className='ml-3 text-sm text-gray-600'
+                                      className='ml-3 text-sm'
                                     >
                                       {option.label}
                                     </label>
@@ -204,4 +204,4 @@ const BrowseContainer = () => {
   );
 };
 
-export default BrowseContainer;
+export default BrowseEventContainer;
