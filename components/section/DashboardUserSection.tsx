@@ -4,7 +4,7 @@ const UserPreviewCard = dynamic(() => import("components/common/UserPreviewCard"
 
 const DashboardUserSection = () => {
   return (
-    <div className="flex mt-40 ml-40 justify-between">
+    <div className="flex p-4">
       <UserPreviewCard name="Cong Minh" city="Ho Chi Minh" country="Vietnam" isFavorite={false} />
     </div>
   )
