@@ -1,6 +1,6 @@
-export enum VideoType {
-  VIDEO = "video",
-  POST = "post",
+export enum DeliveryType {
+  VIDEO = "Video",
+  POST = "Post",
 }
 
 export enum StatusType {

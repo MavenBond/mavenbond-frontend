@@ -1,12 +1,12 @@
 import { Business } from "./business";
-import { PlatformType, StatusType, VideoType } from "./enums";
+import { PlatformType, StatusType, DeliveryType } from "./enums";
 import { Offer } from "./offer";
 
 export interface Event {
   id: number;
   title: string;
   subject: string;
-  type: VideoType;
+  type: DeliveryType;
   platform: PlatformType;
   moneyMin: number;
   moneyMax: number;
