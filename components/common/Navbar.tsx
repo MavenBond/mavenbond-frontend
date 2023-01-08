@@ -3,7 +3,6 @@ import { useAuth } from "context/useAuth";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import { downloadImage } from "pages/profile";
 import { FALLBACK_PROFILE_URL } from "projConstants";
 import { useEffect, useState } from "react";
 import { TailSpin } from "react-loader-spinner";
@@ -33,12 +32,15 @@ const Navbar = () => {
 
   useEffect(() => {
     setMounted(true);
-    if (INIT_AVATAR_URL && !INIT_AVATAR_URL.startsWith("http"))
-      downloadImage(INIT_AVATAR_URL, (imgUrl) => {
-        setAvatarUrl(imgUrl);
-        setIsDownloading(false);
-      });
-    else setIsDownloading(false);
+    (async () => {
+      if (INIT_AVATAR_URL && !INIT_AVATAR_URL.startsWith("http")) {
+        const _downloadImage = await (await import("utils/profile"))._downloadImage;
+        _downloadImage(INIT_AVATAR_URL, (imgUrl) => {
+          setAvatarUrl(imgUrl);
+          setIsDownloading(false);
+        });
+      } else setIsDownloading(false);
+    })();
   }, [INIT_AVATAR_URL]);
 
   if (!mounted) return null;

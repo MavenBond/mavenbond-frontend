@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import dynamic from "next/dynamic";
-import { _executeSchema } from "pages/login";
 import { LOGIN_FORM_MODEL, LOGIN_ZOD_MODEL, SIGNUP_ZOD_MODEL } from "projConstants";
 import { useState } from "react";
 import type { FieldValues } from "react-hook-form";
@@ -79,20 +78,17 @@ const LoginFormSection = () => {
   // submit handler
   const handleSubmitData = async (data: FieldValues) => {
     setIsSubmitting(true);
+    const _executeSchema = (await import("utils/profile"))._executeSchema;
 
     // LOGIN
     if (hasAccount) {
-      const [isGood, executedSchema] = _executeSchema(LOGIN_ZOD_MODEL, data, () => {
-        setIsSubmitting(false);
-      });
+      const [isGood, executedSchema] = _executeSchema(LOGIN_ZOD_MODEL, data);
       if (isGood) _loginWithSchema(executedSchema);
       return;
     }
 
     // SIGN UP
-    const [isGood, executedSchema] = _executeSchema(SIGNUP_ZOD_MODEL, data, () => {
-      setIsSubmitting(false);
-    });
+    const [isGood, executedSchema] = _executeSchema(SIGNUP_ZOD_MODEL, data);
     if (isGood) _signUpWithSchema(executedSchema);
 
     // reset submitting state
