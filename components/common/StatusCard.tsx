@@ -4,7 +4,7 @@ const StatusCard = ({ text = "", title = "", onClick = undefined }) => {
 
   return (
     <div
-      className='rounded-lg shadow-xl sm:w-[10rem] pt-5 pl-4 cursor-pointer bg-gray-200 dark:bg-[#0d204c] hover:bg-gray-300 dark:hover:bg-[#529ecc]'
+      className='rounded-lg shadow-md sm:w-[10rem] pt-4 pl-4 cursor-pointer bg-gray-100 dark:bg-[#0d204c] hover:bg-gray-200 dark:hover:bg-[#122D6B] border border-gray-200 dark:border-gray-700'
       onClick={onClick}
     >
       <div
@@ -19,7 +19,7 @@ const StatusCard = ({ text = "", title = "", onClick = undefined }) => {
       >
         {text}
       </div>
-      <div className='pt-2 pb-2'>
+      <div className='pt-1 pb-4'>
         <h5 className='text-md font-medium text-gray-700 dark:text-white'>{title}</h5>
       </div>
     </div>
