@@ -81,7 +81,10 @@ ul {
   }
 
   .excludeNavContent {
-    @apply w-screen h-[90.2vh] mt-[9.8vh] bg-gray-200 bg-opacity-40 dark:bg-opacity-0;
+    @apply w-screen
+    h-[92vh] mt-[8vh]
+    lg:h-[90.2vh] lg:mt-[9.8vh]
+    bg-gray-200 bg-opacity-40 dark:bg-opacity-0;
   }
 }
 /* continue with tailwindcss stylings end */

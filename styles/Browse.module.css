@@ -1,5 +1,5 @@
-.container {
-  @apply relative w-full h-screen py-20 lg:py-0
-  flex justify-center items-center snap-start
-  flex-col lg:flex-row overflow-hidden;
-}
+/* .container {
+  @apply relative w-full h-screen
+  flex justify-center items-center scrollbar-hide
+  flex-col lg:flex-row overflow-y-auto;
+} */
