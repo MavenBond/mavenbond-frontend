@@ -8,15 +8,32 @@ import type { ChangeEventHandler } from "react";
 import { useEffect, useState } from "react";
 import type { FieldValues } from "react-hook-form";
 import { useForm } from "react-hook-form";
+import { TailSpin } from "react-loader-spinner";
 import { ROUTES } from "routes";
 import ProfileStyles from "styles/Profile.module.css";
 import { supabaseClient, updateUserData } from "supabase/supbaseClient";
-import { angry, happy } from "utils/toaster";
+import { angry, happy, tasty } from "utils/toaster";
 import { undefined } from "zod";
 
 const Helmet = dynamic(() => import("components/common/Helmet"));
 const Navbar = dynamic(() => import("components/common/Navbar"));
 const Button = dynamic(() => import("components/common/Button"));
+
+// download image from storage if account has no profile pic from Google
+export const downloadImage = async (path: string, callback: (imgUrl: string) => void) => {
+  try {
+    const { data: downloadImgData, error: downloadImgError } = await supabaseClient.storage
+      .from("avatars")
+      .download(path);
+    if (downloadImgError) console.log(downloadImgError.message);
+    else {
+      const imgUrl = URL.createObjectURL(downloadImgData);
+      callback(imgUrl);
+    }
+  } catch (error) {
+    console.log(`Error downloading image: ${error}`);
+  }
+};
 
 const Profile = () => {
   const { PROFILE } = ROUTES;
@@ -37,10 +54,17 @@ const Profile = () => {
   };
 
   // form states
+  const [downloadUrl, setDownloadUrl] = useState<string>("");
+  const [avatarExt, setAvatarExt] = useState<string>(".png");
   const [avatarUrl, setAvatarUrl] = useState<string>(INIT_AVATAR_URL);
-  const [isUploading, setIsUploading] = useState<boolean>(false);
+  const [avatarTempUrl, setAvatarTempUrl] = useState<string>("");
+  const [avatarRawFile, setAvatarRawFile] = useState<File>();
+
   const [hasNoChanges, setHasNoChanges] = useState<boolean>(true);
+  const [isDownloading, setIsDownloading] = useState<boolean>(true);
   const [hasNoPwdChanges, setNoPwdChanges] = useState<boolean>(true);
+
+  const [isUploading, setIsUploading] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [updateSuccess, setUpdateSuccess] = useState<boolean>(false);
 
@@ -65,6 +89,16 @@ const Profile = () => {
     return () => subscription.unsubscribe();
   }, [watch]);
 
+  useEffect(() => {
+    if (INIT_AVATAR_URL && !INIT_AVATAR_URL.startsWith("http"))
+      downloadImage(INIT_AVATAR_URL, (imgUrl) => {
+        setAvatarUrl(imgUrl);
+        setDownloadUrl(imgUrl);
+        setIsDownloading(false);
+      });
+    else setIsDownloading(false);
+  }, [INIT_AVATAR_URL]);
+
   // when a photo file is changed
   const handlePhotoFileChange: ChangeEventHandler<HTMLInputElement> = async (event) => {
     try {
@@ -73,24 +107,25 @@ const Profile = () => {
 
       // if cancelled
       if (!event.target.files || event.target.files.length === 0) {
-        setAvatarUrl(profile?.avatar_url || FALLBACK_PROFILE_URL);
+        setAvatarUrl(downloadUrl || profile?.avatar_url || FALLBACK_PROFILE_URL);
+        tasty("Removed chosen photo.");
+        setAvatarTempUrl("");
         setHasNoChanges(true);
         return;
       }
 
       // get the first file
       const file = event.target.files[0];
+      setAvatarRawFile(file);
       setHasNoChanges(false);
 
       // update HOLDING avatar url with file path
-      setAvatarUrl(URL.createObjectURL(file)); // important
+      setAvatarTempUrl(URL.createObjectURL(file)); // important
+      tasty("Uploaded chosen photo.");
 
       // handle file name for later uploading to Supabase
       const fileExt = file.name.split(".").pop();
-      const fileName = `${profile?.id}.${fileExt}`;
-      const filePath = `${fileName}`;
-
-      // TODO: upload to Supabase profile photo
+      setAvatarExt(fileExt as string);
     } catch (error) {
       console.log(`${error}`);
     } finally {
@@ -100,19 +135,32 @@ const Profile = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const _updateWithSchema = async (executedSchema: any) => {
+    // update PROFILES basic info
     const { email, new_password, full_name } = executedSchema.data;
-
     const { error: updateDbError } = await supabaseClient
       .from("profiles")
-      .update({ full_name, email })
+      .update({ full_name, email, avatar_url: `${profile?.id}.${avatarExt}` })
       .eq("id", profile?.id);
 
+    // update PROFILES critical info
     const { error: updateAccError } = await updateUserData({
       email: email || undefined,
       password: new_password || undefined,
     });
 
-    if (updateDbError || updateAccError) {
+    // remove old avatar from STORAGE
+    const { error: removeError } = await supabaseClient.storage
+      .from("avatars")
+      .remove([profile?.avatar_url as string]);
+
+    // upload new avatar from STORAGE
+    const { error: uploadError } = await supabaseClient.storage
+      .from("avatars")
+      .upload(`${profile?.id}.${avatarExt}`, avatarRawFile as File, {
+        upsert: true,
+      });
+
+    if (uploadError || removeError || updateDbError || updateAccError) {
       // if error, toast error
       angry("Error updating profile. Try again later");
 
@@ -156,16 +204,33 @@ const Profile = () => {
             onSubmit={handleSubmit((data: FieldValues) => handleSubmitData(data))}
             className={ProfileStyles.formContainer}
           >
-            <div>
-              <Image
-                priority
-                width={500}
-                height={500}
-                src={avatarUrl || FALLBACK_PROFILE_URL}
-                alt='Profile: preview profile image'
-                className={ProfileStyles.photoPreview}
+            {isDownloading && (
+              <TailSpin
+                height='100'
+                width='100'
+                color='#f59e0b'
+                ariaLabel='tail-spin-loading'
+                radius='2'
+                wrapperStyle={{}}
+                wrapperClass='self-center'
+                visible={true}
               />
-            </div>
+            )}
+            {!isDownloading && (
+              <div>
+                <div className='relative w-32 h-32'>
+                  <Image
+                    fill
+                    priority
+                    src={avatarTempUrl || avatarUrl || FALLBACK_PROFILE_URL}
+                    alt='Profile: preview profile image'
+                    className={ProfileStyles.photoPreview}
+                    sizes='(max-width: 768px) 300px,
+                    (max-width: 1200px) 400px'
+                  />
+                </div>
+              </div>
+            )}
             <label className='input-group-md w-full text-right'>
               <span className='font-bold'>Profile Photo</span>
               <div

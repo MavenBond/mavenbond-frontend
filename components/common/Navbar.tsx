@@ -1,18 +1,21 @@
-import Link from "next/link";
-import Image from "next/image";
-import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
 import { Bars4Icon } from "@heroicons/react/24/solid";
-import { ROUTES } from "routes";
-import { signOut } from "supabase/supbaseClient";
 import { useAuth } from "context/useAuth";
-import { happy } from "utils/toaster";
-import NavStyles from "styles/Navbar.module.css";
+import dynamic from "next/dynamic";
+import Image from "next/image";
+import Link from "next/link";
+import { downloadImage } from "pages/profile";
 import { FALLBACK_PROFILE_URL } from "projConstants";
+import { useEffect, useState } from "react";
+import { TailSpin } from "react-loader-spinner";
+import { ROUTES } from "routes";
+import NavStyles from "styles/Navbar.module.css";
+import { signOut } from "supabase/supbaseClient";
+import { happy } from "utils/toaster";
 
 const ThemeToggle = dynamic(() => import("components/common/ThemeToggle"));
 const NotiBell = dynamic(() => import("components/common/NotiBell"));
 const LoginButton = dynamic(() => import("components/variant/LoginButton"));
+
 const logOut = async () => {
   await happy("Logged out. See ya!");
   await signOut();
@@ -23,10 +26,20 @@ const logOut = async () => {
 
 const Navbar = () => {
   const [mounted, setMounted] = useState(false);
-  const { isAuthenticated, user, profile } = useAuth();
+  const { isAuthenticated, profile } = useAuth();
+  const INIT_AVATAR_URL = profile?.avatar_url as string;
+  const [avatarUrl, setAvatarUrl] = useState<string>(INIT_AVATAR_URL);
+  const [isDownloading, setIsDownloading] = useState<boolean>(true);
+
   useEffect(() => {
     setMounted(true);
-  }, []);
+    if (INIT_AVATAR_URL && !INIT_AVATAR_URL.startsWith("http"))
+      downloadImage(INIT_AVATAR_URL, (imgUrl) => {
+        setAvatarUrl(imgUrl);
+        setIsDownloading(false);
+      });
+    else setIsDownloading(false);
+  }, [INIT_AVATAR_URL]);
 
   if (!mounted) return null;
   return (
@@ -75,18 +88,31 @@ const Navbar = () => {
           <div className='dropdown dropdown-bottom dropdown-end'>
             <label
               tabIndex={0}
-              className='btn btn-circle
+              className='btn btn-circle relative
               w-14 h-14 ml-5 hidden lg:block
-              border-[2px] overflow-hidden bg-white
+              border-[2px] overflow-hidden bg-amber-500
               border-amber-500'
             >
-              <Image
-                alt='Navbar: profile picture with drop down menu'
-                src={user?.user_metadata?.avatar_url || FALLBACK_PROFILE_URL}
-                width={400}
-                height={400}
-                className='object-cover'
-              />
+              {isDownloading && (
+                <TailSpin
+                  height='50'
+                  width='50'
+                  color='#fff'
+                  ariaLabel='tail-spin-loading'
+                  radius='2'
+                  wrapperStyle={{}}
+                  wrapperClass='self-center mx-auto'
+                  visible={true}
+                />
+              )}
+              {!isDownloading && (
+                <Image
+                  alt='Navbar: profile picture with drop down menu'
+                  src={avatarUrl || FALLBACK_PROFILE_URL}
+                  className='object-cover'
+                  fill
+                />
+              )}
             </label>
             <ul
               tabIndex={0}

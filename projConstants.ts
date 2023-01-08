@@ -87,7 +87,7 @@ export const CUSTOMER_FORM_MODEL = [
     required: false,
     placeholder: "Your new email",
     registerAs: "email",
-    tooltip: "A confirm email will be sent to your NEW email if changed",
+    tooltip: "A confirm email will be sent to your NEW email if you provide a NEW one",
   },
   {
     id: "phone",
