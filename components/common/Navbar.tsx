@@ -3,7 +3,6 @@ import { useAuth } from "context/useAuth";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import { downloadImage } from "pages/profile";
 import { FALLBACK_PROFILE_URL } from "projConstants";
 import { useEffect, useState } from "react";
 import { TailSpin } from "react-loader-spinner";
@@ -33,12 +32,15 @@ const Navbar = () => {
 
   useEffect(() => {
     setMounted(true);
-    if (INIT_AVATAR_URL && !INIT_AVATAR_URL.startsWith("http"))
-      downloadImage(INIT_AVATAR_URL, (imgUrl) => {
-        setAvatarUrl(imgUrl);
-        setIsDownloading(false);
-      });
-    else setIsDownloading(false);
+    (async () => {
+      if (INIT_AVATAR_URL && !INIT_AVATAR_URL.startsWith("http")) {
+        const _downloadImage = await (await import("utils/profile"))._downloadImage;
+        _downloadImage(INIT_AVATAR_URL, (imgUrl) => {
+          setAvatarUrl(imgUrl);
+          setIsDownloading(false);
+        });
+      } else setIsDownloading(false);
+    })();
   }, [INIT_AVATAR_URL]);
 
   if (!mounted) return null;
@@ -68,15 +70,16 @@ const Navbar = () => {
                 href={path}
                 key={path}
                 className={`
+                font-bold
                 ${NavStyles.desktopMenuItems}
-                ${window.location.pathname === path && `text-amber-500 `}
+                ${window.location.pathname === path && `text-amber-500`}
               `}
               >
                 <li>{displayName}</li>
               </Link>
             ))}
         </ul>
-        <NotiBell hasNoti className='hidden lg:block' />
+        {isAuthenticated && <NotiBell hasNoti className='hidden lg:block' />}
         <ThemeToggle
           className='hidden lg:block'
           extraSunClass='text-amber-500'
@@ -133,7 +136,12 @@ const Navbar = () => {
 
         <div className='flex items-center justify-center'>
           {/* MOBILE noti */}
-          <NotiBell hasNoti className='lg:hidden block' />
+          {isAuthenticated && <NotiBell hasNoti className='lg:hidden block mr-5' />}
+          <ThemeToggle
+            className='lg:hidden block'
+            extraSunClass='text-amber-500'
+            extraMoonClass='text-[rgba(124,58,237,1)]'
+          />
 
           {/* MOBILE menu and menu icon */}
           <ul className='menu menu-horizontal block lg:hidden ml-2'>
@@ -148,6 +156,7 @@ const Navbar = () => {
                     <li
                       key={path}
                       className={`
+                      font-bold
                       ${NavStyles.mobileMenuItems}
                       ${window.location.pathname === path && "text-amber-500"}
                     `}
@@ -168,12 +177,6 @@ const Navbar = () => {
                 </LoginButton>
 
                 <div className='divider my-2' />
-                <div className='flex items-center justify-center'>
-                  <ThemeToggle
-                    extraSunClass='text-amber-500'
-                    extraMoonClass='text-[rgba(124,58,237,1)]'
-                  />
-                </div>
               </ul>
             </li>
           </ul>

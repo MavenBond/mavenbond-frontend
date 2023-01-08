@@ -36,7 +36,10 @@ export const signInGoogle = async () => {
   const { data, error } = await supabaseClient.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: "http://localhost:1234/login", // DEV
+      redirectTo:
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:1234/login" // DEV
+          : "http://localhost:5678/login", // TODO: REPLACE THIS WITH DEPLOYMENT
     },
   });
   return { data, error };

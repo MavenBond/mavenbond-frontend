@@ -11,9 +11,10 @@ const Dashboard = () => {
       <Helmet title='Dashboard - MavenBond' description='Dashboard - MavenBond' />
       <main className='pageContainer'>
         <Navbar />
-
-        <DashboardEventSection />
-        <DashboardUserSection />
+        <div className='excludeNavContent'>
+          <DashboardEventSection />
+          <DashboardUserSection />
+        </div>
       </main>
     </>
   );
