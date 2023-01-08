@@ -78,7 +78,7 @@ const Navbar = () => {
               </Link>
             ))}
         </ul>
-        <NotiBell hasNoti className='hidden lg:block' />
+        {isAuthenticated && <NotiBell hasNoti className='hidden lg:block' />}
         <ThemeToggle
           className='hidden lg:block'
           extraSunClass='text-amber-500'
@@ -135,7 +135,12 @@ const Navbar = () => {
 
         <div className='flex items-center justify-center'>
           {/* MOBILE noti */}
-          <NotiBell hasNoti className='lg:hidden block' />
+          {isAuthenticated && <NotiBell hasNoti className='lg:hidden block mr-5' />}
+          <ThemeToggle
+            className='lg:hidden block'
+            extraSunClass='text-amber-500'
+            extraMoonClass='text-[rgba(124,58,237,1)]'
+          />
 
           {/* MOBILE menu and menu icon */}
           <ul className='menu menu-horizontal block lg:hidden ml-2'>
@@ -170,12 +175,6 @@ const Navbar = () => {
                 </LoginButton>
 
                 <div className='divider my-2' />
-                <div className='flex items-center justify-center'>
-                  <ThemeToggle
-                    extraSunClass='text-amber-500'
-                    extraMoonClass='text-[rgba(124,58,237,1)]'
-                  />
-                </div>
               </ul>
             </li>
           </ul>
