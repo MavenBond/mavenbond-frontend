@@ -70,8 +70,9 @@ const Navbar = () => {
                 href={path}
                 key={path}
                 className={`
+                font-bold
                 ${NavStyles.desktopMenuItems}
-                ${window.location.pathname === path && `text-amber-500 `}
+                ${window.location.pathname === path && `text-amber-500`}
               `}
               >
                 <li>{displayName}</li>
@@ -155,6 +156,7 @@ const Navbar = () => {
                     <li
                       key={path}
                       className={`
+                      font-bold
                       ${NavStyles.mobileMenuItems}
                       ${window.location.pathname === path && "text-amber-500"}
                     `}

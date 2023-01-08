@@ -9,6 +9,7 @@ const Dashboard = () => {
       <Helmet title='Dashboard - MavenBond' description='Dashboard - MavenBond' />
       <main className='pageContainer'>
         <Navbar />
+        <div className='excludeNavContent'></div>
       </main>
     </>
   );
