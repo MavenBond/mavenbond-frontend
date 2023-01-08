@@ -4,7 +4,7 @@ const StatusCard = ({ text = "", title = "", onClick = undefined }) => {
 
   return (
     <div
-      className='rounded-lg shadow-md sm:w-[10rem] pt-4 pl-4 cursor-pointer bg-gray-100 dark:bg-[#0d204c] hover:bg-gray-200 dark:hover:bg-[#122D6B] border border-gray-200 dark:border-gray-700'
+      className='rounded-lg shadow-lg sm:w-[10rem] pt-4 pl-4 cursor-pointer bg-white dark:bg-[#0d204c] hover:bg-gray-100 dark:hover:bg-[#122D6B] border border-gray-200 dark:border-gray-700'
       onClick={onClick}
     >
       <div
