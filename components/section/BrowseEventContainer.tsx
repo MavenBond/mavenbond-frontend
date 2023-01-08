@@ -15,7 +15,7 @@ const filters = [
     id: "platform",
     name: "Platform",
     options: [
-      { value: "facebook", label: "Facebook", checked: true },
+      { value: "facebook", label: "Facebook", checked: false },
       { value: "tiktok", label: "TikTok", checked: false },
       { value: "youtube", label: "Youtube", checked: false },
       { value: "twitter", label: "Twitter", checked: false },
@@ -27,7 +27,7 @@ const filters = [
     options: [
       { value: "0to100", label: "$0 - $100", checked: false },
       { value: "100to500", label: "$100 - $500", checked: false },
-      { value: "500to1000", label: "$500 - $1000", checked: true },
+      { value: "500to1000", label: "$500 - $1000", checked: false },
     ],
   },
   {
@@ -48,7 +48,7 @@ function classNames(...classes: string[]) {
 
 const BrowseEventContainer = () => {
   return (
-    <div className={`${BrowseStyles.container} excludeNavContent`} id='browse-container'>
+    <div className={BrowseStyles.container} id='browse-container'>
       <div>
         <div className='drawer drawer-end'>
           <input id='my-drawer-1' type='checkbox' className='drawer-toggle' />

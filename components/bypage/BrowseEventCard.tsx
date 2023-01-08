@@ -28,7 +28,7 @@ export default function BrowseEventCard({
   return (
     <div className='card card-compact bg-white dark:bg-[#0d204c] shadow-lg border border-gray-200 dark:border-gray-800'>
       <div className='card-body'>
-        <h2 className='card-title text-[rgba(124,58,237,1)] dark:text-amber-500'>
+        <h2 className='card-title text-amber-500'>
           {title}
           <div className="badge badge-primary">{platform}</div>
           <div className="badge badge-secondary">{type}</div>
