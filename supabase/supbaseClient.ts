@@ -18,7 +18,7 @@ export const signInEmailPwd = async (email: string, password: string) => {
 export const signUpEmailPwd = async (
   email: string,
   password: string,
-  metadata: { [key: string]: string }
+  metadata: Record<string, string>
 ) => {
   const { data, error } = await supabaseClient.auth.signUp({
     email,
@@ -36,7 +36,10 @@ export const signInGoogle = async () => {
   const { data, error } = await supabaseClient.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: "http://localhost:1234/login", // DEV
+      redirectTo:
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:1234/login" // DEV
+          : "http://localhost:5678/login", // TODO: REPLACE THIS WITH DEPLOYMENT
     },
   });
   return { data, error };
@@ -64,7 +67,9 @@ export const getUserData = async () => {
 To only send a confirmation link to the user's new email, 
 disable Secure email change in your project's email auth provider settings.
 */
-export const updateUserData = async (updateInfos: { [key: string]: string }) => {
+export const updateUserData = async (
+  updateInfos: Record<string, string | Record<string, string>>
+) => {
   const { data, error } = await supabaseClient.auth.updateUser(updateInfos);
   return { data, error };
 };

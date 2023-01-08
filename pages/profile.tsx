@@ -3,6 +3,7 @@ import { ROUTES } from "routes";
 
 const Helmet = dynamic(() => import("components/common/Helmet"));
 const Navbar = dynamic(() => import("components/common/Navbar"));
+const ProfileForm = dynamic(() => import("components/bypage/ProfileForm"));
 
 const Profile = () => {
   const { PROFILE } = ROUTES;
@@ -11,8 +12,9 @@ const Profile = () => {
   return (
     <>
       <Helmet title={description} description={description} />
-      <main className='pageContainer'>
+      <main className='pageContainer scrollbar-hide'>
         <Navbar />
+        <ProfileForm />
       </main>
     </>
   );

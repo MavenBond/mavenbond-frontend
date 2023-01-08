@@ -18,24 +18,6 @@ const LoginFormSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false); // submit state
 
   // private methods to work with schemas
-  const _executeSchema = (schema: any, data: FieldValues) => {
-    // used schema to validate
-    const executedSchema = schema.safeParse(data);
-    console.log(executedSchema); // DEV
-
-    // FORM DATA IS INVALID
-    if (!executedSchema.success) {
-      // if error, toast error (form validation)
-      console.log(executedSchema.error.issues);
-      angry(executedSchema.error.issues[0].message);
-
-      // reset submitting state
-      setIsSubmitting(false);
-      return [false, {}];
-    }
-
-    return [true, executedSchema];
-  };
   const _loginWithSchema = async (executedSchema: any) => {
     const { email, password } = executedSchema.data;
     const { data: accountData, error } = await signInEmailPwd(email, password);
@@ -96,6 +78,7 @@ const LoginFormSection = () => {
   // submit handler
   const handleSubmitData = async (data: FieldValues) => {
     setIsSubmitting(true);
+    const _executeSchema = (await import("utils/profile"))._executeSchema;
 
     // LOGIN
     if (hasAccount) {

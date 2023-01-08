@@ -22,14 +22,14 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       aria-label={ariaLabel}
-      disabled={isLoading}
+      disabled={disabled || isLoading}
       onClick={onClick}
       className={`
         border-none
         hover:shadow-[0_8px_18px_-5px_rgba(255,255,255,0)]
+        ${className}
         ${disabled && "cursor-not-allowed bg-gray-400 hover:bg-gray-400 hover:shadow-none"}
         ${isLoading && "cursor-not-allowed bg-gray-400 hover:shadow-none"}
-        ${className}
     `}
     >
       {!isLoading && children}

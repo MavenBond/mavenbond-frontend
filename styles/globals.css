@@ -72,10 +72,16 @@ ul {
   }
 
   .pageContainer {
-    @apply w-screen mx-auto max-h-screen animate-fadeIn 
+    @apply w-screen max-h-screen 
+    mx-auto animate-fadeIn 
     snap-mandatory snap-y overflow-y-scroll
     scrollbar-thin
-    scrollbar-track-gray-400/20 scrollbar-thumb-amber-500/90;
+    scrollbar-track-gray-400/20 
+    scrollbar-thumb-amber-500/90;
+  }
+
+  .excludeNavContent {
+    @apply w-screen h-[90.2vh] mt-[9.8vh] bg-gray-200 bg-opacity-40 dark:bg-opacity-0;
   }
 }
 /* continue with tailwindcss stylings end */

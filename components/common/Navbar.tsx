@@ -1,17 +1,20 @@
-import Link from "next/link";
-import Image from "next/image";
-import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
 import { Bars4Icon } from "@heroicons/react/24/solid";
-import { ROUTES } from "routes";
-import { signOut } from "supabase/supbaseClient";
 import { useAuth } from "context/useAuth";
-import { happy } from "utils/toaster";
+import dynamic from "next/dynamic";
+import Image from "next/image";
+import Link from "next/link";
+import { FALLBACK_PROFILE_URL } from "projConstants";
+import { useEffect, useState } from "react";
+import { TailSpin } from "react-loader-spinner";
+import { ROUTES } from "routes";
 import NavStyles from "styles/Navbar.module.css";
+import { signOut } from "supabase/supbaseClient";
+import { happy } from "utils/toaster";
 
 const ThemeToggle = dynamic(() => import("components/common/ThemeToggle"));
 const NotiBell = dynamic(() => import("components/common/NotiBell"));
 const LoginButton = dynamic(() => import("components/variant/LoginButton"));
+
 const logOut = async () => {
   await happy("Logged out. See ya!");
   await signOut();
@@ -22,10 +25,23 @@ const logOut = async () => {
 
 const Navbar = () => {
   const [mounted, setMounted] = useState(false);
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, profile } = useAuth();
+  const INIT_AVATAR_URL = profile?.avatar_url as string;
+  const [avatarUrl, setAvatarUrl] = useState<string>(INIT_AVATAR_URL);
+  const [isDownloading, setIsDownloading] = useState<boolean>(true);
+
   useEffect(() => {
     setMounted(true);
-  }, []);
+    (async () => {
+      if (INIT_AVATAR_URL && !INIT_AVATAR_URL.startsWith("http")) {
+        const _downloadImage = await (await import("utils/profile"))._downloadImage;
+        _downloadImage(INIT_AVATAR_URL, (imgUrl) => {
+          setAvatarUrl(imgUrl);
+          setIsDownloading(false);
+        });
+      } else setIsDownloading(false);
+    })();
+  }, [INIT_AVATAR_URL]);
 
   if (!mounted) return null;
   return (
@@ -54,15 +70,16 @@ const Navbar = () => {
                 href={path}
                 key={path}
                 className={`
+                font-bold
                 ${NavStyles.desktopMenuItems}
-                ${window.location.pathname === path && `text-amber-500 `}
+                ${window.location.pathname === path && `text-amber-500`}
               `}
               >
                 <li>{displayName}</li>
               </Link>
             ))}
         </ul>
-        <NotiBell hasNoti className='hidden lg:block' />
+        {isAuthenticated && <NotiBell hasNoti className='hidden lg:block' />}
         <ThemeToggle
           className='hidden lg:block'
           extraSunClass='text-amber-500'
@@ -74,28 +91,38 @@ const Navbar = () => {
           <div className='dropdown dropdown-bottom dropdown-end'>
             <label
               tabIndex={0}
-              className='btn btn-circle
+              className='btn btn-circle relative
               w-14 h-14 ml-5 hidden lg:block
-              border-[2px] overflow-hidden bg-white
+              border-[2px] overflow-hidden bg-amber-500
               border-amber-500'
             >
-              <Image
-                alt='Navbar: profile picture with drop down menu'
-                src={
-                  user?.user_metadata?.avatar_url ||
-                  "https://pathwayactivities.co.uk/wp-content/uploads/2016/04/Profile_avatar_placeholder_large-circle-350x350.png"
-                }
-                width={400}
-                height={400}
-                className='object-cover'
-              />
+              {isDownloading && (
+                <TailSpin
+                  height='50'
+                  width='50'
+                  color='#fff'
+                  ariaLabel='tail-spin-loading'
+                  radius='2'
+                  wrapperStyle={{}}
+                  wrapperClass='self-center mx-auto'
+                  visible={true}
+                />
+              )}
+              {!isDownloading && (
+                <Image
+                  alt='Navbar: profile picture with drop down menu'
+                  src={avatarUrl || FALLBACK_PROFILE_URL}
+                  className='object-cover'
+                  fill
+                />
+              )}
             </label>
             <ul
               tabIndex={0}
               className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'
             >
               <div className='flex items-center px-3 py-3 text-[1.2rem]'>
-                <strong>Hi, {user?.user_metadata?.full_name}</strong>
+                <strong>Hi, {profile?.full_name}</strong>
               </div>
 
               <div className='divider m-0' />
@@ -109,7 +136,12 @@ const Navbar = () => {
 
         <div className='flex items-center justify-center'>
           {/* MOBILE noti */}
-          <NotiBell hasNoti className='lg:hidden block' />
+          {isAuthenticated && <NotiBell hasNoti className='lg:hidden block mr-5' />}
+          <ThemeToggle
+            className='lg:hidden block'
+            extraSunClass='text-amber-500'
+            extraMoonClass='text-[rgba(124,58,237,1)]'
+          />
 
           {/* MOBILE menu and menu icon */}
           <ul className='menu menu-horizontal block lg:hidden ml-2'>
@@ -124,6 +156,7 @@ const Navbar = () => {
                     <li
                       key={path}
                       className={`
+                      font-bold
                       ${NavStyles.mobileMenuItems}
                       ${window.location.pathname === path && "text-amber-500"}
                     `}
@@ -144,12 +177,6 @@ const Navbar = () => {
                 </LoginButton>
 
                 <div className='divider my-2' />
-                <div className='flex items-center justify-center'>
-                  <ThemeToggle
-                    extraSunClass='text-amber-500'
-                    extraMoonClass='text-[rgba(124,58,237,1)]'
-                  />
-                </div>
               </ul>
             </li>
           </ul>
