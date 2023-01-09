@@ -39,13 +39,14 @@ const ProfileForm = () => {
     instagram_url: "",
   };
   const PROFILE_INIT_VALUES: Record<string, string> = {
+    ...(profile?.user_role === "business" ? BUSINESS_INIT_VALUES : INFLUENECER_INIT_VALUES),
     email: profile?.email as string,
     full_name: profile?.full_name as string,
     new_password: "",
     confirm_password: "",
     phone: "",
     country: "",
-    ...(profile?.user_role === "business" ? BUSINESS_INIT_VALUES : INFLUENECER_INIT_VALUES),
+    city: "",
   };
 
   // form states
@@ -101,10 +102,20 @@ const ProfileForm = () => {
   // detect changes, ONLY enable submit when there is changes
   useEffect(() => {
     const subscription = watch((value) => {
-      const changesCheck = _isShallowEqual(PROFILE_INIT_VALUES, value);
+      const FINAL_INIT_VALUES = {
+        ...(profile?.user_role === "business" ? BUSINESS_INIT_VALUES : INFLUENECER_INIT_VALUES),
+        ...PROFILE_INIT_VALUES,
+      };
+
+      const hasNoPwdChangesCheck = value.new_password === PROFILE_INIT_VALUES.new_password;
+      if (hasNoPwdChangesCheck) delete FINAL_INIT_VALUES.confirm_password;
+      const changesCheck = _isShallowEqual(FINAL_INIT_VALUES, {
+        ...value,
+      });
+
       setFormState({
         hasNoChanges: changesCheck,
-        hasNoPwdChanges: value.new_password === PROFILE_INIT_VALUES.new_password,
+        hasNoPwdChanges: hasNoPwdChangesCheck,
       });
     });
 

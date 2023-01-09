@@ -133,7 +133,7 @@ export const BUSINESS_FORM_MODEL = [
     id: "companyName",
     label: "Company Name",
     type: "text",
-    required: true,
+    required: false,
     placeholder: "Your company name",
     registerAs: "company_name",
     tooltip: "",
