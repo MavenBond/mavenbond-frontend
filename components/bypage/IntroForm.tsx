@@ -57,7 +57,7 @@ const IntroForm = () => {
             Influencers
           </option>
           <option className='scale-75 md:scale-100' value='influencer'>
-            Advertisers
+            Businesses
           </option>
         </select>
         <span className='text-[0.9rem] md:text-[1.4rem] pr-3 font-bold'>

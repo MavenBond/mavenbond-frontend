@@ -1,7 +1,13 @@
 import { useAuth } from "context/useAuth";
 import dynamic from "next/dynamic";
 import Router from "next/router";
-import { CUSTOMER_FORM_MODEL, FALLBACK_PROFILE_URL, PROFILE_ZOD_MODEL } from "projConstants";
+import {
+  BUSINESS_FORM_MODEL,
+  INFLUENCER_FORM_MODEL,
+  CUSTOMER_FORM_MODEL,
+  FALLBACK_PROFILE_URL,
+  PROFILE_ZOD_MODEL,
+} from "projConstants";
 import { ChangeEventHandler, useEffect, useReducer } from "react";
 import type { FieldValues } from "react-hook-form";
 import { useForm } from "react-hook-form";
@@ -21,6 +27,17 @@ const ProfileForm = () => {
 
   // init states
   const INIT_AVATAR_URL = profile?.avatar_url as string;
+  const BUSINESS_INIT_VALUES: Record<string, string> = {
+    company_name: "",
+    company_email: "",
+    website_url: "",
+  };
+  const INFLUENECER_INIT_VALUES: Record<string, string> = {
+    tiktok_url: "",
+    youtube_url: "",
+    facebook_url: "",
+    instagram_url: "",
+  };
   const PROFILE_INIT_VALUES: Record<string, string> = {
     email: profile?.email as string,
     full_name: profile?.full_name as string,
@@ -28,7 +45,7 @@ const ProfileForm = () => {
     confirm_password: "",
     phone: "",
     country: "",
-    city: "",
+    ...(profile?.user_role === "business" ? BUSINESS_INIT_VALUES : INFLUENECER_INIT_VALUES),
   };
 
   // form states
@@ -56,6 +73,30 @@ const ProfileForm = () => {
     }),
     FORM_INIT_STATE
   );
+
+  // create inputs based on models
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const _genInput = (model: Record<string, any>[]) => {
+    return [...model].map(({ id, label, type, required, placeholder, registerAs, tooltip }) => (
+      <label key={id} htmlFor={id} className='input-group-md w-full text-right'>
+        <span className='font-bold'>{label}</span>
+        <div className='tooltip w-full' data-tip={id === "email" ? tooltip : label}>
+          <input
+            {...register(registerAs, {
+              setValueAs: (v) => (v ? v.trim() : v),
+            })}
+            defaultValue={PROFILE_INIT_VALUES[id]}
+            required={required}
+            disabled={(formState.isSubmitting as boolean) || (formState.updateSuccess as boolean)}
+            id={registerAs}
+            type={type}
+            placeholder={placeholder}
+            className='input input-bordered input-primary w-full'
+          />
+        </div>
+      </label>
+    ));
+  };
 
   // detect changes, ONLY enable submit when there is changes
   useEffect(() => {
@@ -226,30 +267,8 @@ const ProfileForm = () => {
           onChange={handlePhotoFileChange}
         />
 
-        {/* form inout fields */}
-        {[...CUSTOMER_FORM_MODEL].map(
-          ({ id, label, type, required, placeholder, registerAs, tooltip }) => (
-            <label key={id} htmlFor={id} className='input-group-md w-full text-right'>
-              <span className='font-bold'>{label}</span>
-              <div className='tooltip w-full' data-tip={id === "email" ? tooltip : label}>
-                <input
-                  {...register(registerAs, {
-                    setValueAs: (v) => (v ? v.trim() : v),
-                  })}
-                  defaultValue={PROFILE_INIT_VALUES[id]}
-                  required={required}
-                  disabled={
-                    (formState.isSubmitting as boolean) || (formState.updateSuccess as boolean)
-                  }
-                  id={registerAs}
-                  type={type}
-                  placeholder={placeholder}
-                  className='input input-bordered input-primary w-full'
-                />
-              </div>
-            </label>
-          )
-        )}
+        {/* form common inputs */}
+        {_genInput(CUSTOMER_FORM_MODEL)}
 
         {/* confirm password input */}
         {!formState.hasNoPwdChanges && !(formState.updateSuccess as boolean) && (
@@ -273,6 +292,9 @@ const ProfileForm = () => {
             />
           </label>
         )}
+
+        {/* exclusive inputs */}
+        {_genInput(profile?.user_role === "business" ? BUSINESS_FORM_MODEL : INFLUENCER_FORM_MODEL)}
 
         {/* submit button */}
         <Button

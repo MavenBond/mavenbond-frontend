@@ -79,6 +79,7 @@ export const CUSTOMER_FORM_MODEL = [
     required: false,
     placeholder: "Your new full name",
     registerAs: "full_name",
+    tooltip: "",
   },
   {
     id: "email",
@@ -96,6 +97,7 @@ export const CUSTOMER_FORM_MODEL = [
     required: false,
     placeholder: "Optional and will not be validated",
     registerAs: "phone",
+    tooltip: "",
   },
   {
     id: "country",
@@ -104,6 +106,7 @@ export const CUSTOMER_FORM_MODEL = [
     required: false,
     placeholder: "Optional and will not be validated",
     registerAs: "country",
+    tooltip: "",
   },
   {
     id: "city",
@@ -112,6 +115,7 @@ export const CUSTOMER_FORM_MODEL = [
     required: false,
     placeholder: "Optional and will not be validated",
     registerAs: "city",
+    tooltip: "",
   },
   {
     id: "new_password",
@@ -120,6 +124,7 @@ export const CUSTOMER_FORM_MODEL = [
     required: false,
     placeholder: "Leave blank to remain old password",
     registerAs: "new_password",
+    tooltip: "",
   },
 ];
 
@@ -131,6 +136,7 @@ export const BUSINESS_FORM_MODEL = [
     required: true,
     placeholder: "Your company name",
     registerAs: "company_name",
+    tooltip: "",
   },
   {
     id: "companyEmail",
@@ -139,14 +145,16 @@ export const BUSINESS_FORM_MODEL = [
     required: false,
     placeholder: "Your company email",
     registerAs: "company_email",
+    tooltip: "",
   },
   {
     id: "websiteUrl",
-    label: "Website",
+    label: "Company Website",
     type: "text",
     required: false,
     placeholder: "Your representative website",
     registerAs: "website_url",
+    tooltip: "",
   },
 ];
 
@@ -158,6 +166,7 @@ export const INFLUENCER_FORM_MODEL = [
     required: false,
     placeholder: "Your Tiktok URL",
     registerAs: "tiktok_url",
+    tooltip: "",
   },
   {
     id: "youtubeUrl",
@@ -165,7 +174,8 @@ export const INFLUENCER_FORM_MODEL = [
     type: "text",
     required: false,
     placeholder: "Your YouTube URL",
-    registerAs: "website_url",
+    registerAs: "youtube_url",
+    tooltip: "",
   },
   {
     id: "facebookUrl",
@@ -174,6 +184,7 @@ export const INFLUENCER_FORM_MODEL = [
     required: false,
     placeholder: "Your Facebook URL",
     registerAs: "facebook_url",
+    tooltip: "",
   },
   {
     id: "instagramUrl",
@@ -182,6 +193,7 @@ export const INFLUENCER_FORM_MODEL = [
     required: false,
     placeholder: "Your Instagram URL",
     registerAs: "instagram_url",
+    tooltip: "",
   },
 ];
 
