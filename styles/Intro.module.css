@@ -1,0 +1,28 @@
+.introContent {
+  @apply w-full h-screen overflow-hidden
+    flex flex-col relative items-center justify-center
+    py-5 gap-10 lg:gap-14;
+}
+
+.mainTitle {
+  @apply text-[2rem] md:text-[3rem] px-2 md:px-20 
+    font-bold break-words text-center z-40;
+}
+
+.selectWrapper {
+  @apply select select-bordered select-md
+    scale-75 md:scale-100 
+    w-[11.4rem] text-[1.4rem]
+    flex flex-col items-center justify-center 
+    z-40;
+}
+
+.letgoBtn {
+  @apply text-[#0d1626] text-[1.2rem] 
+    flex-shrink-0 cursor-pointer
+  bg-amber-500 rounded-lg
+    hover:shadow-xl 
+    hover:shadow-amber-500/40
+    font-bold py-3 px-8 z-40
+    transition-shadow duration-300;
+}

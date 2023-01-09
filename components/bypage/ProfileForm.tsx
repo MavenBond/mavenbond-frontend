@@ -157,6 +157,7 @@ const ProfileForm = () => {
         full_name,
         email,
         avatar_url: final_photo_url,
+        updated_at: new Date().toISOString(),
       })
       .eq("id", profile?.id);
 

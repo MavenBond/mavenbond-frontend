@@ -1,12 +1,14 @@
 import type { User } from "@supabase/gotrue-js";
 import Router from "next/router";
 import React, { createContext, useEffect, useState } from "react";
+import type { ReactElement } from "react";
 import { getSessionData, supabaseClient } from "supabase/supbaseClient";
 import { useAuth } from "./useAuth";
 
 type AuthContextType = {
   isAuthenticated?: boolean;
   isLoading?: boolean;
+  isFirstTime: boolean;
   user?: User | undefined;
   provider?: string | undefined;
   profile?: Record<string, string> | undefined;
@@ -14,12 +16,13 @@ type AuthContextType = {
 export const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
   isLoading: false,
-  user: undefined,
+  isFirstTime: true,
   provider: "",
+  user: undefined,
   profile: undefined,
 });
 
-export const AuthProvider = ({ children }: { children: React.ReactElement }) => {
+export const AuthProvider = ({ children }: { children: ReactElement }) => {
   const [user, setUser] = useState<User | undefined>(undefined);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [profile, setProfile] = useState<any>(null);
@@ -43,7 +46,7 @@ export const AuthProvider = ({ children }: { children: React.ReactElement }) => 
 
         // DEV
         // profileData && console.log(profileData[0]);
-        // console.log(data?.session);
+        console.log(data?.session);
       } catch (error) {
         console.log(error);
         setLoading(false);
@@ -59,6 +62,7 @@ export const AuthProvider = ({ children }: { children: React.ReactElement }) => 
         user,
         provider: user?.app_metadata?.provider,
         profile,
+        isFirstTime: profile?.user_role === null || profile?.user_role === "",
       }}
     >
       {children}
@@ -67,7 +71,14 @@ export const AuthProvider = ({ children }: { children: React.ReactElement }) => 
 };
 
 export const ProtectedRoute = ({ children }: { children: React.ReactElement }) => {
-  const { isAuthenticated }: { isAuthenticated?: boolean } = useAuth();
+  const {
+    isAuthenticated,
+    isFirstTime,
+  }: {
+    isAuthenticated?: boolean;
+    isFirstTime?: boolean;
+    profile?: Record<string, string> | undefined;
+  } = useAuth();
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     setMounted(true);
@@ -92,8 +103,10 @@ export const ProtectedRoute = ({ children }: { children: React.ReactElement }) =
     isAuthenticated &&
     (window.location.pathname === "/login" || window.location.pathname === "/")
   ) {
-    Router.push("/dashboard");
+    if (!isFirstTime) Router.push("/dashboard");
+    else Router.push("/intro");
     return null;
   }
+
   return children;
 };

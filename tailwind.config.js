@@ -24,6 +24,7 @@ module.exports = {
         fadeIn: "fadeIn 0.6s ease-in-out",
         breath: "breath 1s ease-in-out",
         jump: "jump 2s ease-in-out infinite",
+        "gradient-xy": "gradient-xy 8s ease infinite",
       },
 
       keyframes: () => ({
@@ -39,6 +40,16 @@ module.exports = {
           "0%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(1rem)" },
           "100%": { transform: "translateY(0)" },
+        },
+        "gradient-xy": {
+          "0%, 100%": {
+            "background-size": "400% 400%",
+            "background-position": "left center",
+          },
+          "50%": {
+            "background-size": "200% 200%",
+            "background-position": "right center",
+          },
         },
       }),
     },

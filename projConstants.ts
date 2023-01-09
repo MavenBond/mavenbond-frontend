@@ -64,7 +64,7 @@ export const PROFILE_ZOD_MODEL = z
 import type { ToastOptions } from "react-toastify";
 export const TOAST_CONFIG: ToastOptions = {
   position: "top-center",
-  autoClose: 1500,
+  autoClose: 1000,
   hideProgressBar: false,
   closeOnClick: true,
   pauseOnHover: false,
