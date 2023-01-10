@@ -16,7 +16,10 @@ const Browse = () => {
       <main className='pageContainer'>
         <Navbar />
         <MobileNoticeWrapper>
-          <BrowseEventContainer />
+          <div className='flex flex-col h-screen'>
+            <div className='h-[90px]' />
+            <BrowseEventContainer />
+          </div>
         </MobileNoticeWrapper>
       </main>
     </>

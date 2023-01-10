@@ -81,9 +81,7 @@ ul {
   }
 
   .excludeNavContent {
-    @apply w-screen
-    h-[92vh] mt-[8vh]
-    lg:h-[90.2vh] lg:mt-[9.8vh]
+    @apply w-screen flex-1
     transition-colors duration-300
     bg-gray-200 bg-opacity-40 dark:bg-opacity-0;
   }

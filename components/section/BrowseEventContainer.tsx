@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import BrowseStyles from "styles/Browse.module.css";
+// import BrowseStyles from "styles/Browse.module.css";
 
 import { ChevronDownIcon, FunnelIcon, Squares2X2Icon } from "@heroicons/react/20/solid";
 
