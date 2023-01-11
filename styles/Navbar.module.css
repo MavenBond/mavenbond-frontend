@@ -1,7 +1,7 @@
 .navContainer {
   @apply w-full transition-shadow duration-500
     flex justify-between items-center
-    shadow-md dark:shadow-[0_10px_10px_-10px_rgba(251,191,56,0.6)]
+    shadow-md border-b-[2px] border-amber-400/20
     fixed top-0 z-[100]
     lg:px-10 py-2 lg:py-4;
 }

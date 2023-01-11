@@ -70,7 +70,7 @@ const Navbar = () => {
                 href={path}
                 key={path}
                 className={`
-                font-bold
+                font-bold text-[1.1rem]
                 ${NavStyles.desktopMenuItems}
                 ${window.location.pathname === path && `text-amber-500`}
               `}

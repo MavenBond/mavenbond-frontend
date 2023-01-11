@@ -1,0 +1,18 @@
+.cardContainer {
+  @apply flex-shrink-0 shadow-lg 
+    dark:shadow-white/30 hover:-translate-y-2
+    h-[8rem] w-[12rem] rounded-[2rem] 
+    transition-transform duration-300
+    bg-white pb-4 pt-2 px-8 cursor-pointer;
+}
+
+.scheduleCol {
+  @apply flex flex-col 
+    w-[32rem] border-l-[2px]
+  dark:border-gray-200/20;
+}
+
+.statCardsRow {
+  @apply min-w-0 flex gap-8 items-center basis-1/4 
+    py-10 px-6 overflow-y-scroll scrollbar-hide;
+}
