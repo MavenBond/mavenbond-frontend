@@ -1,18 +1,42 @@
 .cardContainer {
-  @apply flex-shrink-0 shadow-lg 
-    dark:shadow-white/30 hover:-translate-y-2
-    h-[8rem] w-[12rem] rounded-[2rem] 
+  @apply flex flex-col gap-10 overflow-auto
+    flex-shrink-0 shadow-lg break-words
+    hover:-translate-y-2 shadow-gray-200
+    aspect-[4/3] rounded-[2rem] 
+    h-full min-h-[7.5rem] min-w-[12rem]
     transition-transform duration-300
     bg-white pb-4 pt-2 px-8 cursor-pointer;
 }
 
 .scheduleCol {
   @apply flex flex-col 
-    w-[32rem] border-l-[2px]
+  w-[32rem] border-l-[2px]
   dark:border-gray-200/20;
 }
 
 .statCardsRow {
-  @apply min-w-0 flex gap-8 items-center basis-1/4 
-    py-10 px-6 overflow-y-scroll scrollbar-hide;
+  @apply min-w-0 flex 
+    gap-8 items-center basis-1/4
+    pb-8 pt-8 px-6 overflow-y-scroll scrollbar-hide;
+}
+
+.cardsSectionTitle {
+  @apply divider
+  text-[2rem] font-bold;
+}
+
+.cardsScrollContainer {
+  @apply px-12 pt-2 xl:pl-6 pb-5 animate-fadeIn
+  rounded-[1.5rem] overflow-y-scroll
+  grid grid-cols-1 xl:grid-cols-2
+  flex-[1_1_0px] gap-6 mt-5
+  scrollbar-hide;
+}
+
+.dashboardCard {
+  @apply transition-transform duration-300 
+  cursor-pointer flex-shrink-0 px-6 py-4 
+  text-[#0d1626] col-span-1 min-h-[15rem] 
+  bg-white shadow-lg shadow-gray-200 rounded-[2rem]
+  hover:-translate-y-2 font-bold text-[2rem];
 }

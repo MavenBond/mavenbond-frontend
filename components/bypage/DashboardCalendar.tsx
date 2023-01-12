@@ -59,11 +59,11 @@ const DashboardCalendar = () => {
   };
 
   return (
-    <div className='w-full mx-auto px-10 py-4'>
+    <div className='w-full px-10 py-4 mx-auto'>
       <div className='grid grid-cols-1 divide-x divide-gray-800'>
         <div
           className='bg-white text-[#0d1626] rounded-[1.5rem] 
-            px-4 pb-2 pt-4 shadow-lg dark:shadow-white/50'
+            px-4 pb-2 pt-4 shadow-lg shadow-gray-200 dark:shadow-white/50'
         >
           <div className='flex items-center'>
             <h2
@@ -145,7 +145,7 @@ const DashboardCalendar = () => {
                 <div className='w-1 h-1 mx-auto mt-1'>
                   {DUMMY_MEETINGS.some((meeting) =>
                     isSameDay(parseISO(meeting.startDatetime), day)
-                  ) && <div className='w-1 h-1 rounded-full bg-green-500'></div>}
+                  ) && <div className='w-1 h-1 bg-green-500 rounded-full'></div>}
                 </div>
               </div>
             ))}

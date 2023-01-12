@@ -49,20 +49,20 @@ const Navbar = () => {
       style={{
         backdropFilter: "saturate(110%) blur(5px)",
       }}
-      className={NavStyles.navContainer}
+      className={`dark:shadow-gray-200/30 ${NavStyles.navContainer}`}
     >
       {/* NAV START */}
       <div id='nav-start' className='flex items-center gap-2'>
         {/* Logo */}
-        <h1 className='pl-5 lg:pl-0 text-2xl lg:text-3xl font-bold text-amber-500'>
+        <h1 className='pl-5 text-2xl font-bold lg:pl-0 lg:text-3xl text-amber-500'>
           <Link href='/'>MAVENBOND</Link>
         </h1>
       </div>
 
       {/* NAV END */}
-      <div id='nav-end' className='flex justify-between items-center gap-6'>
+      <div id='nav-end' className='flex items-center justify-between gap-6'>
         {/* DESKTOP menu and menu items + theme toggle + noti bell */}
-        <ul className='hidden lg:flex items-center justify-between gap-4'>
+        <ul className='items-center justify-between hidden gap-4 lg:flex'>
           {Object.values(ROUTES)
             .filter((_, idx) => (isAuthenticated ? idx !== 0 : idx === -1))
             .map(({ path, displayName }) => (
@@ -119,13 +119,13 @@ const Navbar = () => {
             </label>
             <ul
               tabIndex={0}
-              className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'
+              className='p-2 shadow dropdown-content menu bg-base-100 rounded-box w-52'
             >
               <div className='flex items-center px-3 py-3 text-[1.2rem]'>
                 <strong>Hi, {profile?.full_name}</strong>
               </div>
 
-              <div className='divider m-0' />
+              <div className='m-0 divider' />
 
               <li>
                 <button onClick={logOut}>Log Out</button>
@@ -136,18 +136,18 @@ const Navbar = () => {
 
         <div className='flex items-center justify-center'>
           {/* MOBILE noti */}
-          {isAuthenticated && <NotiBell hasNoti className='lg:hidden block mr-5' />}
+          {isAuthenticated && <NotiBell hasNoti className='block mr-5 lg:hidden' />}
           <ThemeToggle
-            className='lg:hidden block'
+            className='block lg:hidden'
             extraSunClass='text-amber-500'
             extraMoonClass='text-[rgba(124,58,237,1)]'
           />
 
           {/* MOBILE menu and menu icon */}
-          <ul className='menu menu-horizontal block lg:hidden ml-2'>
+          <ul className='block ml-2 menu menu-horizontal lg:hidden'>
             <li>
               <div>
-                <Bars4Icon aria-label='navbar-toggler' className='h-8 w-8' />
+                <Bars4Icon aria-label='navbar-toggler' className='w-8 h-8' />
               </div>
               <ul className='px-6 py-4 bg-base-100 shadow-lg -translate-x-[9rem]'>
                 {Object.values(ROUTES)
@@ -168,7 +168,7 @@ const Navbar = () => {
                   ))}
 
                 {/* MOBILE LOGIN button */}
-                <div className='divider my-2' />
+                <div className='my-2 divider' />
                 <LoginButton
                   onClick={isAuthenticated ? logOut : undefined}
                   className={NavStyles.mobileLoginBtn}
@@ -176,7 +176,7 @@ const Navbar = () => {
                   {isAuthenticated ? "Log Out" : "LOGIN"}
                 </LoginButton>
 
-                <div className='divider my-2' />
+                <div className='my-2 divider' />
               </ul>
             </li>
           </ul>

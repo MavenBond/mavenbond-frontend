@@ -5,7 +5,7 @@ const DashboardCalendar = dynamic(() => import("components/bypage/DashboardCalen
 
 const DashboardScheduleColumn = () => {
   return (
-    <div className={DashboardStyles.scheduleCol}>
+    <div className={`dark:border-l-gray-200/30 ${DashboardStyles.scheduleCol}`}>
       <h2 className='pl-10 pt-6 font-bold text-[2rem]'>Ads Schedule</h2>
       <DashboardCalendar />
     </div>

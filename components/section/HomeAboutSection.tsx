@@ -13,7 +13,7 @@ const HomeAboutSection = () => {
   return (
     <div className={HomeStyles.aboutSection} id='about-us'>
       <BgCircles className='left-0 lg:left-1/4 bottom-1/2 lg:flex' />
-      <BgCircles className='lg:right-0 lg:bottom-0 hidden lg:flex' />
+      <BgCircles className='hidden lg:right-0 lg:bottom-0 lg:flex' />
 
       {/* images column */}
       <div className={`${HomeStyles.aboutCol} ${HomeStyles.aboutImgCol}`}>
@@ -32,7 +32,7 @@ const HomeAboutSection = () => {
             placeholder='blur'
             src={CelebVertical}
             alt='Home: horizontal celebrities focusing'
-            className='object-fill z-40'
+            className='z-40 object-fill'
           />
         </div>
 
@@ -42,7 +42,7 @@ const HomeAboutSection = () => {
             placeholder='blur'
             src={LogoMajorBg}
             alt='Home: site major logo'
-            className='object-cover z-20'
+            className='z-20 object-cover'
           />
         </div>
       </div>
@@ -55,7 +55,7 @@ const HomeAboutSection = () => {
             placeholder='blur'
             src={LogoMajorBg}
             alt='Home: site major logo'
-            className='object-cover z-20'
+            className='z-20 object-cover'
           />
         </div>
         <h2 className={HomeStyles.aboutTitle}>About Us</h2>

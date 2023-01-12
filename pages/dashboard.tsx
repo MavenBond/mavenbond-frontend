@@ -15,7 +15,7 @@ const Dashboard = () => {
         <MobileNoticeWrapper>
           <div className='flex flex-col h-screen'>
             <div className='h-[90px]' />
-            <div className='excludeNavContent flex'>
+            <div className='flex excludeNavContent'>
               <DashboardCardsColumn />
               <DashboardScheduleColumn />
             </div>
