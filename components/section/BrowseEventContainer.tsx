@@ -56,13 +56,13 @@ type Filter = {
   pageSize: number;
   sortBy: string;
   sortDir: string; // 'asc' or 'desc'
-  platform: PlatformType[];
-  delivery: DeliveryType[];
-  moneyMax: number;
-  moneyMin: number;
+  // platform: PlatformType[];
+  // delivery: DeliveryType[];
+  // moneyMax: number;
+  // moneyMin: number;
 };
 
-const response = {
+const mockData = {
   data: {
     content: [
       {
@@ -228,10 +228,10 @@ const BrowseEventContainer = () => {
     pageSize: PAGE_LIMIT,
     sortBy: "",
     sortDir: "", // 'asc' or 'desc'
-    platform: [],
-    delivery: [],
-    moneyMin: 0,
-    moneyMax: 99999999,
+    // platform: [],
+    // delivery: [],
+    // moneyMin: 0,
+    // moneyMax: 99999999,
   });
 
   const handleDataChange = (e) => {
@@ -249,14 +249,21 @@ const BrowseEventContainer = () => {
   // Populate Data
   const fetchData = async (filter: Filter) => {
     try {
-      // const response = await userAPI.getAllData(loggedUser.logUserId, filter);
-      const data = response.data;
-      const dataContent = data.content;
+      // API HERE
 
-      setData({
-        dataList: dataContent as Event[],
-        total: data.totalElements,
-      });
+      // const response = await userAPI.getAllData(loggedUser.logUserId, filter);
+      const apiCall = await fetch("http://localhost:8090/api/v1/events/")
+        .then((res) => {
+          res.json().then((response) => {
+            const data = response.content;
+
+            setData({
+              dataList: data as Event[],
+              total: response.totalElements,
+            });
+          });
+        })
+        .catch((err) => console.log(err));
 
       setIsLoading(false);
     } catch (error) {
