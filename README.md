@@ -2,7 +2,21 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+First, install all package dependencies
+
+```bash
+yarn install
+```
+
+Create a local `.env.local` for Supabase authentication service. Remember to keep the `NEXT_PUBLIC_` prefix for every environment variables.
+
+```
+NEXT_PUBLIC_SUPABASE_URL=<YOUR_SUPABASE_URL>
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<YOUR_SUPABASE_ANON_KEY>
+NEXT_PUBLIC_DB_PASSWORD=<YOUR_SUPABASE_DB_PASSWORD>
+```
+
+Finally, run the development server:
 
 ```bash
 npm run dev

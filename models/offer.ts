@@ -1,12 +1,13 @@
 import { StatusType } from "./enums";
-import { Influencer } from "./influencer";
 
 export interface Offer {
   id: number;
-  duration: number;
   money: number;
+  duration: number;
   status: StatusType;
-  influencer: Influencer;
+  influencerId: string;
+  businessId: string;
+  businessEmail: string;
+  businessName: string;
   message: string;
-  event: Event;
 }

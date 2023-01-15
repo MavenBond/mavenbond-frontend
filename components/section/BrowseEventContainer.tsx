@@ -2,14 +2,17 @@ import dynamic from "next/dynamic";
 // import BrowseStyles from "styles/Browse.module.css";
 
 import { ChevronDownIcon, FunnelIcon, Squares2X2Icon } from "@heroicons/react/20/solid";
+import { useEffect, useState } from "react";
+import { DeliveryType, PlatformType, StatusType } from "models/enums";
+import { Event } from "models/event";
 
 const sortOptions = [
-  { name: "Most Popular", href: "#", current: true },
-  { name: "Best Rating", href: "#", current: false },
-  { name: "Newest", href: "#", current: false },
+  { name: "Latest", href: "#", current: true },
+  { name: "Oldest", href: "#", current: false },
   { name: "Price: Low to High", href: "#", current: false },
   { name: "Price: High to Low", href: "#", current: false },
 ];
+
 const filters = [
   {
     id: "platform",
@@ -41,12 +44,248 @@ const filters = [
 ];
 const BrowseEventList = dynamic(() => import("components/bypage/BrowseEventList"));
 const BrowseSearchBar = dynamic(() => import("components/bypage/BrowseSearchBar"));
+const Pagination = dynamic(() => import("components/common/Pagination"));
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
+type Filter = {
+  key: string;
+  pageNo: number;
+  pageSize: number;
+  sortBy: string;
+  sortDir: string; // 'asc' or 'desc'
+  platform: PlatformType[];
+  delivery: DeliveryType[];
+  moneyMax: number;
+  moneyMin: number;
+};
+
+const response = {
+  data: {
+    content: [
+      {
+        id: 1,
+        title: "Canh sat danh dan 24/7 Tet Nguyen Dan!",
+        subject: "If a dog chews shoes whose shoes does he choose?",
+        description: "Yo yoy yy oy oyo yo yoy ",
+        moneyMin: 100,
+        moneyMax: 200,
+        startDate: 1672997687,
+        endDate: 1673997687,
+        businessId: "B002",
+        businessEmail: "ssq@gmail.com",
+        businessName: "Sneaky Sasquatch",
+        platform: PlatformType.FACEBOOK,
+        type: DeliveryType.VIDEO,
+        status: StatusType.OPEN,
+        offers: [],
+      },
+      {
+        id: 2,
+        title: "Canh sat danh dan 24/7 Tet Nguyen Dan!",
+        subject: "If a dog chews shoes whose shoes does he choose?",
+        description: "Yo yoy yy oy oyo yo yoy ",
+        moneyMin: 100,
+        moneyMax: 200,
+        startDate: 1672997687,
+        endDate: 1673997687,
+        businessId: "B002",
+        businessEmail: "ssq@gmail.com",
+        businessName: "Sneaky Sasquatch",
+        platform: PlatformType.FACEBOOK,
+        type: DeliveryType.VIDEO,
+        status: StatusType.OPEN,
+        offers: [],
+      },
+      {
+        id: 3,
+        title: "Canh sat danh dan 24/7 Tet Nguyen Dan!",
+        subject: "If a dog chews shoes whose shoes does he choose?",
+        description: "Yo yoy yy oy oyo yo yoy ",
+        moneyMin: 100,
+        moneyMax: 200,
+        startDate: 1672997687,
+        endDate: 1673997687,
+        businessId: "B002",
+        businessEmail: "ssq@gmail.com",
+        businessName: "Sneaky Sasquatch",
+        platform: PlatformType.FACEBOOK,
+        type: DeliveryType.VIDEO,
+        status: StatusType.OPEN,
+        offers: [],
+      },
+      {
+        id: 4,
+        title: "Canh sat danh dan 24/7 Tet Nguyen Dan!",
+        subject: "If a dog chews shoes whose shoes does he choose?",
+        description: "Yo yoy yy oy oyo yo yoy ",
+        moneyMin: 100,
+        moneyMax: 200,
+        startDate: 1672997687,
+        endDate: 1673997687,
+        businessId: "B002",
+        businessEmail: "ssq@gmail.com",
+        businessName: "Sneaky Sasquatch",
+        platform: PlatformType.FACEBOOK,
+        type: DeliveryType.VIDEO,
+        status: StatusType.OPEN,
+        offers: [],
+      },
+      {
+        id: 5,
+        title: "Canh sat danh dan 24/7 Tet Nguyen Dan!",
+        subject: "If a dog chews shoes whose shoes does he choose?",
+        description: "Yo yoy yy oy oyo yo yoy ",
+        moneyMin: 100,
+        moneyMax: 200,
+        startDate: 1672997687,
+        endDate: 1673997687,
+        businessId: "B002",
+        businessEmail: "ssq@gmail.com",
+        businessName: "Sneaky Sasquatch",
+        platform: PlatformType.FACEBOOK,
+        type: DeliveryType.VIDEO,
+        status: StatusType.OPEN,
+        offers: [],
+      },
+      {
+        id: 6,
+        title: "Canh sat danh dan 24/7 Tet Nguyen Dan!",
+        subject: "If a dog chews shoes whose shoes does he choose?",
+        description: "Yo yoy yy oy oyo yo yoy ",
+        moneyMin: 100,
+        moneyMax: 200,
+        startDate: 1672997687,
+        endDate: 1673997687,
+        businessId: "B002",
+        businessEmail: "ssq@gmail.com",
+        businessName: "Sneaky Sasquatch",
+        platform: PlatformType.FACEBOOK,
+        type: DeliveryType.VIDEO,
+        status: StatusType.OPEN,
+        offers: [],
+      },
+      {
+        id: 7,
+        title: "Canh sat danh dan 24/7 Tet Nguyen Dan!",
+        subject: "If a dog chews shoes whose shoes does he choose?",
+        description: "Yo yoy yy oy oyo yo yoy ",
+        moneyMin: 100,
+        moneyMax: 200,
+        startDate: 1672997687,
+        endDate: 1673997687,
+        businessId: "B002",
+        businessEmail: "ssq@gmail.com",
+        businessName: "Sneaky Sasquatch",
+        platform: PlatformType.FACEBOOK,
+        type: DeliveryType.VIDEO,
+        status: StatusType.OPEN,
+        offers: [],
+      },
+      {
+        id: 8,
+        title: "Canh sat danh dan 24/7 Tet Nguyen Dan!",
+        subject: "If a dog chews shoes whose shoes does he choose?",
+        description: "Yo yoy yy oy oyo yo yoy ",
+        moneyMin: 100,
+        moneyMax: 200,
+        startDate: 1672997687,
+        endDate: 1673997687,
+        businessId: "B002",
+        businessEmail: "ssq@gmail.com",
+        businessName: "Sneaky Sasquatch",
+        platform: PlatformType.FACEBOOK,
+        type: DeliveryType.VIDEO,
+        status: StatusType.OPEN,
+        offers: [],
+      },
+    ],
+    totalElements: 9,
+  },
+};
+
 const BrowseEventContainer = () => {
+  const PAGE_LIMIT = 8;
+  const [isLoading, setIsLoading] = useState(true);
+
+  const [data, setData] = useState<{ dataList: Event[]; total: number }>({
+    dataList: [],
+    total: 0,
+  });
+
+  const [currentPage, setCurrentPage] = useState(1);
+  console.log("currentPage: ", currentPage);
+
+  // Input search value
+  const [searchValue, setSearchValue] = useState("");
+
+  // Filter
+  const [filterData, setFilterData] = useState<Filter>({
+    key: "",
+    pageNo: currentPage - 1,
+    pageSize: PAGE_LIMIT,
+    sortBy: "",
+    sortDir: "", // 'asc' or 'desc'
+    platform: [],
+    delivery: [],
+    moneyMin: 0,
+    moneyMax: 99999999,
+  });
+
+  const handleDataChange = (e) => {
+    setSearchValue(e.target.value);
+    if (e.target.value === "") {
+      const currentFilter = filterData;
+      // Reset default
+      currentFilter.pageNo = 0;
+      currentFilter.key = "";
+      setFilterData(currentFilter);
+      fetchData(filterData);
+    }
+  };
+
+  // Populate Data
+  const fetchData = async (filter: Filter) => {
+    try {
+      // const response = await userAPI.getAllData(loggedUser.logUserId, filter);
+      const data = response.data;
+      const dataContent = data.content;
+
+      setData({
+        dataList: dataContent as Event[],
+        total: data.totalElements,
+      });
+
+      setIsLoading(false);
+    } catch (error) {
+      console.log("Fail to fetch: ", error);
+    }
+  };
+
+  // Submit search name Data
+  const handleSearchData = () => {
+    const currentFilter = filterData;
+    // Reset default
+    currentFilter.pageNo = 0;
+    currentFilter.key = searchValue;
+    setFilterData(currentFilter);
+    fetchData(filterData);
+  };
+
+  const fetchUpdatedData = () => {
+    const currentFilter = filterData;
+    currentFilter.pageNo = currentPage - 1;
+    setFilterData(currentFilter);
+    fetchData(filterData);
+  };
+
+  useEffect(() => {
+    fetchData(filterData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage]);
+
   return (
     <div className='drawer drawer-end overflow-hidden'>
       <input id='my-drawer-1' type='checkbox' className='drawer-toggle' />
@@ -147,11 +386,19 @@ const BrowseEventContainer = () => {
                 <div className='lg:col-span-3'>
                   {/* Replace with your content */}
                   <BrowseSearchBar />
+                  <Pagination
+                    onPageChange={(page: number) => {
+                      setCurrentPage(page);
+                    }}
+                    currentPage={currentPage}
+                    pageSize={PAGE_LIMIT}
+                    totalCount={data.total}
+                  />
                   <div
                     className='overflow-scroll h-[72.25vh] pb-8 rounded-[2rem] 
                     scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-amber-500/40'
                   >
-                    <BrowseEventList />
+                    <BrowseEventList eventList={data.dataList} />
                   </div>
                   {/* /End replace */}
                 </div>
