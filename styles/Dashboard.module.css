@@ -34,9 +34,19 @@
 }
 
 .dashboardCard {
-  @apply transition-transform duration-300 
-  cursor-pointer flex-shrink-0 px-6 py-4 
-  text-[#0d1626] col-span-1 min-h-[15rem] 
+  @apply transition-transform duration-300
+  flex flex-col relative
+  flex-shrink-0 px-8 pt-10 pb-6
+  col-span-1 min-h-[21rem]
   bg-white shadow-lg shadow-gray-200 rounded-[2rem]
-  hover:-translate-y-2 font-bold text-[2rem];
+  hover:-translate-y-2;
+}
+
+.dashboardCardTitle {
+  @apply text-[#0d1626] font-bold text-[1.1rem] 
+  line-clamp-1 break-words;
+}
+
+.dashboardCardItems {
+  @apply text-[#0d1626] text-[1.1rem];
 }

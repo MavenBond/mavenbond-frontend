@@ -3,9 +3,9 @@ import dynamic from "next/dynamic";
 import Router from "next/router";
 import {
   BUSINESS_FORM_MODEL,
-  INFLUENCER_FORM_MODEL,
   CUSTOMER_FORM_MODEL,
   FALLBACK_PROFILE_URL,
+  INFLUENCER_FORM_MODEL,
   PROFILE_ZOD_MODEL,
 } from "projConstants";
 import { ChangeEventHandler, useEffect, useReducer } from "react";
@@ -20,7 +20,6 @@ const Button = dynamic(() => import("components/common/Button"));
 const ProfileImageInput = dynamic(() => import("components/bypage/ProfileImageInput"));
 type FormStateType = Record<string, string | boolean | File | undefined>;
 
-// TODO: handle form content by user's ROLE
 const ProfileForm = () => {
   const { profile } = useAuth();
   const { register, handleSubmit, watch } = useForm(); // react-hook-form methods

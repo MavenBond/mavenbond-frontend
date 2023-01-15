@@ -54,7 +54,12 @@ module.exports = {
       }),
     },
   },
-  plugins: [require("daisyui"), require("tailwind-scrollbar"), require("tailwind-scrollbar-hide")],
+  plugins: [
+    require("daisyui"),
+    require("tailwind-scrollbar"),
+    require("tailwind-scrollbar-hide"),
+    require("@tailwindcss/line-clamp"),
+  ],
   daisyui: {
     themes: [
       "light",

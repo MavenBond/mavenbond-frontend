@@ -1,13 +1,13 @@
 import DashboardStyles from "styles/Dashboard.module.css";
 
 type Props = {
-  children?: React.ReactElement;
+  children?: React.ReactNode;
 };
 
 const DashboardCard = ({ children }: Props) => {
   return (
     <div
-      className={`dark:shadow-white/40 
+      className={`dark:shadow-white/40
       ${DashboardStyles.dashboardCard}`}
     >
       {children}
