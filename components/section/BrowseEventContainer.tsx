@@ -217,7 +217,7 @@ const BrowseEventContainer = () => {
   });
 
   const [currentPage, setCurrentPage] = useState(1);
-  console.log("currentPage: ", currentPage);
+  // console.log("currentPage: ", currentPage);
 
   // Input search value
   const [searchValue, setSearchValue] = useState("");

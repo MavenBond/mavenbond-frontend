@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import DashboardStyles from "styles/Dashboard.module.css";
 import moment from "moment";
 import api from "api";
+import { angry, happy } from "utils/toaster";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type FormStateType = Record<string, any>;
@@ -84,14 +85,22 @@ const CreateNewAdForm = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSubmitData = async (e: any) => {
     e.preventDefault();
-    // setFormState({ isSubmitting: true });
+    setFormState({ isSubmitting: true });
 
     const createNewRes = await api.post("http://184.73.229.188:8090/api/v1/events/", {
       ...formState.data,
     });
 
     const createSuccess = (await createNewRes.status) === 201;
-    if (!createSuccess) reset();
+    if (!createSuccess) {
+      setFormState({ isSubmitting: false });
+      angry("Cannot create new event add");
+      return;
+    }
+
+    reset();
+    happy("Created new event ad!");
+    setFormState({ isSubmitting: false });
   };
 
   // detect changes

@@ -71,6 +71,48 @@ export const TOAST_CONFIG: ToastOptions = {
   draggable: false,
 };
 
+export const SENDOFFER_FORM_MODEL = [
+  {
+    id: "influencerId",
+    registerAs: "influencerId",
+    label: "Influencer Id",
+    tooltip: "",
+    type: "password",
+    required: true,
+    placeholder: "",
+    disabled: true,
+  },
+  {
+    id: "status",
+    registerAs: "status",
+    label: "Status",
+    tooltip: "",
+    type: "text",
+    required: true,
+    placeholder: "",
+    disabled: true,
+  },
+  {
+    id: "message",
+    registerAs: "message",
+    label: "Message to Partner",
+    tooltip: "",
+    type: "text",
+    required: true,
+    placeholder: "Enter a few words to your partner",
+  },
+  {
+    id: "duration",
+    registerAs: "duration",
+    label: "Your offer expires in (days)",
+    tooltip: "",
+    type: "number",
+    min: 1,
+    required: true,
+    placeholder: "Enter a deadline for your offer",
+  },
+];
+
 export const NEWAD_FORM_MODEL = [
   {
     id: "businessId",

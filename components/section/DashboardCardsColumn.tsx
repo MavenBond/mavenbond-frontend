@@ -91,7 +91,7 @@ const DashboardCardsColumn = () => {
             }}
           />
 
-          {/* new ad modal */}
+          {/* new ad drawer */}
           <Drawer
             {...{
               title: "CREATE NEW EVENT AD",
@@ -102,7 +102,7 @@ const DashboardCardsColumn = () => {
             <CreateNewAdForm />
           </Drawer>
 
-          {/* card details modal */}
+          {/* card details drawer */}
           <Drawer
             {...{
               title: isBusiness ? "ADS DETAILS" : "OFFER DETAILS",
@@ -122,9 +122,10 @@ const DashboardCardsColumn = () => {
             onAnimationEnd={() => setSectionFadedIn(false)}
           >
             <div className={DashboardStyles.cardsSectionTitle}>{currSectionTitle}</div>
-            {!CURRENT_LIST?.records && (
-              <div className='w-full flex justify-center py-10 italic'>Currently no records</div>
-            )}
+            {!CURRENT_LIST?.records ||
+              (CURRENT_LIST?.records?.length <= 0 && (
+                <div className='w-full flex justify-center py-10 italic'>Currently no records</div>
+              ))}
             <div id='cardsScrollContainer' className={DashboardStyles.cardsScrollContainer}>
               {CURRENT_LIST?.records &&
                 CURRENT_LIST?.records?.length > 0 &&

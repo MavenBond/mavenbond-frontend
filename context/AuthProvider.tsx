@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }: { children: ReactElement }) => {
 
         // DEV
         // profileData && console.log(profileData[0]);
-        console.log(data?.session);
+        // console.log(data?.session);
       } catch (error) {
         console.log(error);
         setLoading(false);
