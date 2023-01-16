@@ -8,10 +8,10 @@ import { Event } from "models/event";
 import useSWR from "swr";
 
 const sortOptions = [
-  { name: "Latest", href: "#", current: true },
-  { name: "Oldest", href: "#", current: false },
-  { name: "Price: Low to High", href: "#", current: false },
-  { name: "Price: High to Low", href: "#", current: false },
+  { name: "Latest", value: "latest", current: true },
+  { name: "Oldest", value: "oldest", current: false },
+  { name: "Price: Low to High", value: "priceAsc", current: false },
+  { name: "Price: High to Low", value: "priceDesc", current: false },
 ];
 
 const filters = [
@@ -19,10 +19,10 @@ const filters = [
     id: "platform",
     name: "Platform",
     options: [
-      { value: "facebook", label: "Facebook", checked: false },
-      { value: "tiktok", label: "TikTok", checked: false },
-      { value: "youtube", label: "Youtube", checked: false },
-      { value: "twitter", label: "Twitter", checked: false },
+      { value: "FACEBOOK", label: "Facebook", checked: false },
+      { value: "TIKTOK", label: "TikTok", checked: false },
+      { value: "YOUTUBE", label: "Youtube", checked: false },
+      { value: "TWITTER", label: "Twitter", checked: false },
     ],
   },
   {
@@ -38,8 +38,8 @@ const filters = [
     id: "delivery",
     name: "Delivery",
     options: [
-      { value: "video", label: "Video", checked: false },
-      { value: "post", label: "Post", checked: false },
+      { value: "VIDEO", label: "Video", checked: false },
+      { value: "POST", label: "Post", checked: false },
     ],
   },
 ];
@@ -52,11 +52,11 @@ function classNames(...classes: string[]) {
 }
 
 type Filter = {
-  key: string;
+  search: string;
   pageNo: number;
   pageSize: number;
   sortBy: string;
-  sortDir: string; // 'asc' or 'desc'
+  isAsc: boolean; // 'asc' or 'desc'
   // platform: PlatformType[];
   // delivery: DeliveryType[];
   // moneyMax: number;
@@ -217,18 +217,17 @@ const BrowseEventContainer = () => {
   });
 
   const [currentPage, setCurrentPage] = useState(1);
-  // console.log("currentPage: ", currentPage);
 
   // Input search value
   const [searchValue, setSearchValue] = useState("");
 
   // Filter
   const [filterData, setFilterData] = useState<Filter>({
-    key: "",
+    search: "",
     pageNo: currentPage - 1,
     pageSize: PAGE_LIMIT,
-    sortBy: "",
-    sortDir: "", // 'asc' or 'desc'
+    sortBy: "startDate",
+    isAsc: true, // 'asc' or 'desc'
     // platform: [],
     // delivery: [],
     // moneyMin: 0,
@@ -241,19 +240,55 @@ const BrowseEventContainer = () => {
       const currentFilter = filterData;
       // Reset default
       currentFilter.pageNo = 0;
-      currentFilter.key = "";
+      currentFilter.search = "";
       setFilterData(currentFilter);
       fetchData(filterData);
     }
   };
 
+  const handleSortChange = (value: string) => {
+    sortOptions.map((option) => {
+      if (option.value === value) option.current = true;
+      else option.current = false;
+      return option;
+    });
+
+    const currentFilter = filterData;
+    // Reset default
+    currentFilter.pageNo = 0;
+    currentFilter.search = "";
+
+    if (value === "latest") {
+      currentFilter.isAsc = false;
+      currentFilter.sortBy = "startDate";
+    } else if (value === "oldest") {
+      currentFilter.isAsc = true;
+      currentFilter.sortBy = "startDate";
+    } else if (value === "priceAsc") {
+      currentFilter.isAsc = true;
+      currentFilter.sortBy = "moneyMin";
+    } else if (value === "priceDesc") {
+      currentFilter.isAsc = false;
+      currentFilter.sortBy = "moneyMax";
+    }
+
+    setFilterData(currentFilter);
+    fetchData(filterData);
+  };
+
+  const onFilterChange = (e: { target: { value: SetStateAction<string> } }) => {
+    console.log(e.target.value);
+  };
+
   // Populate Data
-  const fetchData = async (filter: Filter) => {
+  const fetchData = async (filter: any) => {
     try {
       // API HERE
 
       // const response = await userAPI.getAllData(loggedUser.logUserId, filter);
-      const apiCall = await fetch("http://184.73.229.188:8090/api/v1/events/")
+      const apiCall = await fetch(
+        "http://184.73.229.188:8090/api/v1/events/?" + new URLSearchParams(filter)
+      )
         .then((res) => {
           res.json().then((response) => {
             const data = response.content;
@@ -277,7 +312,9 @@ const BrowseEventContainer = () => {
     const currentFilter = filterData;
     // Reset default
     currentFilter.pageNo = 0;
-    currentFilter.key = searchValue;
+    currentFilter.search = "title:*" + searchValue + "*";
+
+    console.log("search: ", currentFilter.search);
     setFilterData(currentFilter);
     fetchData(filterData);
   };
@@ -290,7 +327,7 @@ const BrowseEventContainer = () => {
   };
 
   useEffect(() => {
-    fetchData(filterData);
+    fetchUpdatedData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
@@ -322,7 +359,7 @@ const BrowseEventContainer = () => {
                     {sortOptions.map((option) => (
                       <li key={option.name}>
                         <a
-                          href={option.href}
+                          onClick={() => handleSortChange(option.value)}
                           className={classNames(
                             option.current ? "font-medium text-gray-900" : "text-gray-500",
                             "block px-4 py-2 text-sm"
@@ -376,6 +413,7 @@ const BrowseEventContainer = () => {
                                 type='checkbox'
                                 defaultChecked={option.checked}
                                 className='h-4 w-4 rounded border-gray-300 focus:ring-indigo-500'
+                                onChange={onFilterChange}
                               />
                               <label
                                 htmlFor={`filter-${section.id}-${optionIdx}`}
@@ -394,7 +432,11 @@ const BrowseEventContainer = () => {
                 {/* Product grid */}
                 <div className='lg:col-span-3'>
                   {/* Replace with your content */}
-                  <BrowseSearchBar />
+                  <BrowseSearchBar
+                    value={searchValue}
+                    onChange={handleDataChange}
+                    onClick={handleSearchData}
+                  />
                   <Pagination
                     onPageChange={(page: number) => {
                       setCurrentPage(page);

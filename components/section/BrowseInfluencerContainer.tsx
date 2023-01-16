@@ -1,7 +1,5 @@
-import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { Influencer } from "models/influencer";
 import dynamic from "next/dynamic";
-import { stringify } from "querystring";
 import { SetStateAction, useEffect, useState } from "react";
 
 const BrowseInfluencerList = dynamic(() => import("components/bypage/BrowseInfluencerList"));
@@ -26,7 +24,6 @@ const BrowseInfluencerContainer = () => {
   });
 
   const [currentPage, setCurrentPage] = useState(1);
-  console.log("currentPage: ", currentPage);
 
   // Input search value
   const [searchValue, setSearchValue] = useState("");
@@ -63,6 +60,7 @@ const BrowseInfluencerContainer = () => {
         .then((res) => {
           res.json().then((response) => {
             const data = response.content;
+            console.log("data: ", data);
 
             setData({
               dataList: data as Influencer[],
@@ -103,7 +101,7 @@ const BrowseInfluencerContainer = () => {
   return (
     // ANDREW OI SKELETON GIUP MINH
     <div className='px-10'>
-      <BrowseSearchBar />
+      <BrowseSearchBar value={searchValue} onChange={handleDataChange} onClick={handleSearchData} />
       <Pagination
         onPageChange={(page: number) => {
           setCurrentPage(page);
