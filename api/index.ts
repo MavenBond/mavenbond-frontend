@@ -4,7 +4,7 @@ import type { AxiosInstance, AxiosRequestConfig } from "axios";
 const instance = axios.create({
   baseURL:
     process.env.NODE_ENV === "development"
-      ? "http://184.73.229.188:8080/api/v1" // DEV
+      ? "http://localhost:8080/api/v1"
       : "http://184.73.229.188:8080/api/v1",
   headers: {
     "Content-Type": "application/json",

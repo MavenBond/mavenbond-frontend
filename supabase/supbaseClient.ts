@@ -39,7 +39,7 @@ export const signInGoogle = async () => {
       redirectTo:
         process.env.NODE_ENV === "development"
           ? "http://localhost:1234/login"
-          : "http://localhost:5678/login",
+          : "https://mavenbond-v1.vercel.app/",
     },
   });
   return { data, error };
