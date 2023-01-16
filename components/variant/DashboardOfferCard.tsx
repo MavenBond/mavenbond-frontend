@@ -8,23 +8,11 @@ const DashboardCard = dynamic(() => import("components/bypage/DashboardCard"));
 type Props = { data: OfferInfo; idx: number; onClick?: () => void };
 
 const DashboardOfferCard = ({ data, idx, onClick = undefined }: Props) => {
-  const {
-    unit,
-    acceptedPrice,
-    status,
-    startDate,
-    endDate,
-    offerId,
-    eventName,
-    companyName,
-    platform,
-  } = data;
-
-  const handleStatusToText = (enumValue: number) =>
-    ["Open", "In Progress", "Completed"][enumValue] || "N/A";
+  const { unit, acceptPrice, status, startDate, endDate, id, eventName, companyName, platform } =
+    data;
 
   return (
-    <DashboardCard key={offerId}>
+    <DashboardCard key={id}>
       <span
         className='scale-[0.8] 
         absolute top-[0.9rem] 
@@ -32,7 +20,7 @@ const DashboardOfferCard = ({ data, idx, onClick = undefined }: Props) => {
       text-white self-end px-4 py-1 
         rounded-2xl mb-2'
       >
-        {handleStatusToText(status as number)}
+        {status}
       </span>
       <div
         style={{ position: "absolute", flexShrink: 0, bottom: "1.75rem", left: "2rem" }}
@@ -63,7 +51,7 @@ const DashboardOfferCard = ({ data, idx, onClick = undefined }: Props) => {
           ${DashboardStyles.dashboardCardItems}`}
         >
           <p>
-            <strong>Offer ID:</strong> {offerId}
+            <strong>Offer ID:</strong> {id}
           </p>
           <p className='line-clamp-1'>
             <strong>Start Date:</strong> {formatted(startDate as number)}
@@ -72,7 +60,7 @@ const DashboardOfferCard = ({ data, idx, onClick = undefined }: Props) => {
             <strong>End Date:</strong> {formatted(endDate as number)}
           </p>
           <p>
-            <strong>Accepted Price:</strong> {acceptedPrice} {unit}
+            <strong>Accepted Price:</strong> {acceptPrice} {unit}
           </p>
         </div>
 

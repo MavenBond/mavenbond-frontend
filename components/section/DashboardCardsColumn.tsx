@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import DashboardStyles from "styles/Dashboard.module.css";
 import useSWR from "swr";
 import {
-  ALL_OFFERS,
   BUSINESS_STAT_MODEL,
   distributeDataToModel,
   EventInfo,
@@ -50,6 +49,8 @@ const DashboardCardsColumn = () => {
 
   // data
   const { data: allEventsData } = useSWR(`http://184.73.229.188:8090/api/v1/events/?pageSize=100`);
+  const { data: allOffersData } = useSWR(`http://184.73.229.188:8090/api/v1/offers/?pageSize=100`);
+
   useEffect(() => {
     // DEV
     const BUSINESS_STAT_CARDS: (OfferStatCards | EventStatCards)[] | undefined =
@@ -61,9 +62,13 @@ const DashboardCardsColumn = () => {
 
     // DEV
     const INFLUENCE_STAT_CARDS: (OfferStatCards | EventStatCards)[] | undefined =
-      distributeDataToModel(ALL_OFFERS, INFLUENCE_STAT_MODEL);
+      distributeDataToModel(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        allOffersData?.content?.filter((item: any) => item.influencerId === profile?.id),
+        INFLUENCE_STAT_MODEL
+      );
 
-    console.log(allEventsData?.content); // DEV
+    console.log(allOffersData?.content); // DEV
     setTargetCards(isBusiness ? BUSINESS_STAT_CARDS : INFLUENCE_STAT_CARDS);
   }, [allEventsData]);
 
