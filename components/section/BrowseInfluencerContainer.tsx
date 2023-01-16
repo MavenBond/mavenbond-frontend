@@ -7,7 +7,7 @@ const BrowseSearchBar = dynamic(() => import("components/bypage/BrowseSearchBar"
 const Pagination = dynamic(() => import("components/common/Pagination"));
 
 type Filter = {
-  key: string;
+  search: string;
   pageNo: number;
   pageSize: number;
   sortBy: string;
@@ -30,7 +30,7 @@ const BrowseInfluencerContainer = () => {
 
   // Filter
   const [filterData, setFilterData] = useState<Filter>({
-    key: "",
+    search: "",
     pageNo: currentPage - 1,
     pageSize: PAGE_LIMIT,
     sortBy: "",
@@ -43,7 +43,7 @@ const BrowseInfluencerContainer = () => {
       const currentFilter = filterData;
       // Reset default
       currentFilter.pageNo = 0;
-      currentFilter.key = "";
+      currentFilter.search = "";
       setFilterData(currentFilter);
       fetchData(filterData);
     }
@@ -81,7 +81,7 @@ const BrowseInfluencerContainer = () => {
     const currentFilter = filterData;
     // Reset default
     currentFilter.pageNo = 0;
-    currentFilter.key = searchValue;
+    currentFilter.search = searchValue;
     setFilterData(currentFilter);
     fetchData(filterData);
   };
