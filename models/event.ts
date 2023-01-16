@@ -1,4 +1,3 @@
-import { Business } from "./business";
 import { PlatformType, StatusType, DeliveryType } from "./enums";
 import { Offer } from "./offer";
 
@@ -8,11 +7,14 @@ export interface Event {
   subject: string;
   type: DeliveryType;
   platform: PlatformType;
+  description: string;
   moneyMin: number;
   moneyMax: number;
   status: StatusType;
-  business: Business;
+  businessId: string;
+  businessEmail: string;
+  businessName: string;
   startDate: number;
   endDate: number;
-  offers: Offer;
+  offers: Offer[];
 }
