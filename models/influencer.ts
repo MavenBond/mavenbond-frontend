@@ -1,8 +1,8 @@
 import { Customer } from "./customer";
 
 export interface Influencer extends Customer {
-  tiktokURL: string;
-  youtubeURL: string;
-  facebookURL: string;
-  instagramURL: string;
+  tiktok_url: string;
+  youtube_url: string;
+  facebook_url: string;
+  instagram_url: string;
 }

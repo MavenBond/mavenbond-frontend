@@ -1,8 +1,8 @@
 export interface Customer {
   id: string;
-  imageURL: string;
+  avatar_url: string;
   email: string;
-  fullName: string;
+  full_name: string;
 
   country: string;
   city: string;
