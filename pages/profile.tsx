@@ -8,7 +8,6 @@ const ProfileForm = dynamic(() => import("components/bypage/ProfileForm"));
 const Profile = () => {
   const { PROFILE } = ROUTES;
   const { description } = PROFILE;
-
   return (
     <>
       <Helmet title={description} description={description} />

@@ -13,7 +13,7 @@ export default function ({ title, isOpen, closeModal, children }: Props) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as='div' className='relative z-[200]' onClose={closeModal}>
-        <div className='fixed inset-0 bg-gray-300/60 overflow-y-auto scrollbar-hide'>
+        <div className='fixed inset-0 bg-gray-400/60 overflow-y-auto scrollbar-hide'>
           <Transition.Child
             as={Fragment}
             enter='ease-in-out duration-500'
@@ -25,7 +25,7 @@ export default function ({ title, isOpen, closeModal, children }: Props) {
           >
             <Dialog.Panel
               className='absolute flex flex-col h-full right-0 w-[600px] 
-                transform overflow-hidden rounded-2xl
+                transform overflow-hidden
                bg-white p-6 text-left align-middle shadow-xl transition-all'
             >
               <h2 className='text-[1.25rem] font-bold text-[#0d1626]'>

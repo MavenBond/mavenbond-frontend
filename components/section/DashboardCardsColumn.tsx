@@ -564,17 +564,20 @@ const DashboardCardsColumn = () => {
         <div id='cardsScrollContainer' className={DashboardStyles.cardsScrollContainer}>
           {/* DEV */}
           {CURRENT_LIST?.records?.map(
-            ({
-              unit,
-              acceptedPrice,
-              status,
-              startDate,
-              endDate,
-              offerId,
-              eventName,
-              companyName,
-              platform,
-            }) => (
+            (
+              {
+                unit,
+                acceptedPrice,
+                status,
+                startDate,
+                endDate,
+                offerId,
+                eventName,
+                companyName,
+                platform,
+              },
+              idx
+            ) => (
               <DashboardCard key={offerId}>
                 {/* card details */}
                 <span
@@ -603,7 +606,9 @@ const DashboardCardsColumn = () => {
                 >
                   {companyName}
                 </p>
-                <p className={`${DashboardStyles.dashboardCardTitle}`}>{eventName}</p>
+                <p className={`${DashboardStyles.dashboardCardTitle}`}>
+                  {idx + 1}. {eventName}
+                </p>
                 <div className='divider m-0' />
                 <div className='flex flex-col flex-1'>
                   <div
@@ -613,10 +618,10 @@ const DashboardCardsColumn = () => {
                     <p>
                       <strong>Offer ID:</strong> {offerId}
                     </p>
-                    <p>
+                    <p className='line-clamp-1'>
                       <strong>Start Date:</strong> {formatted(startDate)}
                     </p>
-                    <p>
+                    <p className='line-clamp-1'>
                       <strong>End Date:</strong> {formatted(endDate)}
                     </p>
                     <p>
