@@ -46,15 +46,11 @@ const DashboardStatCardsRow = ({
               return;
             }
 
-            // TODO: handle business special button
             if (isBusiness) {
-              console.log("business special"); // DEV
               handleBusinessSpecial && handleBusinessSpecial();
               return;
             }
 
-            // TODO: handle influencer special button
-            console.log("influencer"); // DEV
             handleInfluencerSpecial && handleInfluencerSpecial();
             return;
           }}

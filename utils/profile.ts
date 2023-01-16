@@ -8,16 +8,10 @@ export const _executeSchema = (schema: Schema, data: FieldValues, callback?: () 
   // used schema to validate
   const executedSchema = schema.safeParse(data);
 
-  // DEV
-  // console.log(executedSchema);
-
   // FORM DATA IS INVALID
   if (!executedSchema.success) {
     // if error, toast error (form validation)
     angry(executedSchema.error.issues[0].message);
-
-    // DEV
-    console.log(executedSchema.error.issues);
 
     // reset submitting state
     callback && callback();

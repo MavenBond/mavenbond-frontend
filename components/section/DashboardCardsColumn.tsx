@@ -52,7 +52,6 @@ const DashboardCardsColumn = () => {
   const { data: allOffersData } = useSWR(`http://184.73.229.188:8090/api/v1/offers/?pageSize=100`);
 
   useEffect(() => {
-    // DEV
     const BUSINESS_STAT_CARDS: (OfferStatCards | EventStatCards)[] | undefined =
       distributeDataToModel(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -60,7 +59,6 @@ const DashboardCardsColumn = () => {
         BUSINESS_STAT_MODEL
       );
 
-    // DEV
     const INFLUENCE_STAT_CARDS: (OfferStatCards | EventStatCards)[] | undefined =
       distributeDataToModel(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -68,7 +66,6 @@ const DashboardCardsColumn = () => {
         INFLUENCE_STAT_MODEL
       );
 
-    console.log(allOffersData?.content); // DEV
     setTargetCards(isBusiness ? BUSINESS_STAT_CARDS : INFLUENCE_STAT_CARDS);
   }, [allEventsData]);
 

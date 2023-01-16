@@ -48,7 +48,6 @@ export interface OfferStatCards {
   isSpecial?: boolean;
 }
 
-// DEV
 export const BUSINESS_STAT_MODEL: EventStatCards[] = [
   {
     records: [],

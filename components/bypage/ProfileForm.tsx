@@ -56,11 +56,9 @@ const ProfileForm = () => {
   const [beData, setBeData] = useState<any>(undefined);
   useEffect(() => {
     if (!beData) {
-      setFormState({ isSubmitting: true });
       fetch(`http://184.73.229.188:8080/api/v1/${profile?.user_role}/${profile?.id}`)
         .then((rs) => rs.json())
         .then((data) => {
-          setFormState({ isSubmitting: false });
           setBeData(data);
         })
         .catch((err) => console.log(err));

@@ -38,8 +38,8 @@ export const signInGoogle = async () => {
     options: {
       redirectTo:
         process.env.NODE_ENV === "development"
-          ? "http://localhost:1234/login" // DEV
-          : "http://localhost:5678/login", // TODO: REPLACE THIS WITH DEPLOYMENT
+          ? "http://localhost:1234/login"
+          : "http://localhost:5678/login",
     },
   });
   return { data, error };

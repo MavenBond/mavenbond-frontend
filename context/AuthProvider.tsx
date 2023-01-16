@@ -43,10 +43,6 @@ export const AuthProvider = ({ children }: { children: ReactElement }) => {
         setUser(data?.session?.user);
         setProfile(profileData ? profileData[0] : {});
         setLoading(false);
-
-        // DEV
-        // profileData && console.log(profileData[0]);
-        // console.log(data?.session);
       } catch (error) {
         console.log(error);
         setLoading(false);
