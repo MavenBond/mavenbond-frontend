@@ -8,13 +8,14 @@ import {
   INFLUENCER_FORM_MODEL,
   PROFILE_ZOD_MODEL,
 } from "projConstants";
-import { ChangeEventHandler, useEffect, useReducer } from "react";
+import { ChangeEventHandler, useEffect, useReducer, useState } from "react";
 import type { FieldValues } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import ProfileStyles from "styles/Profile.module.css";
 import { supabaseClient, updateUserData } from "supabase/supbaseClient";
 import { _isShallowEqual } from "utils/obj";
 import { angry, happy, tasty } from "utils/toaster";
+import api from "api";
 
 const Button = dynamic(() => import("components/common/Button"));
 const ProfileImageInput = dynamic(() => import("components/bypage/ProfileImageInput"));
@@ -24,31 +25,8 @@ const ProfileForm = () => {
   const { profile } = useAuth();
   const { register, handleSubmit, watch } = useForm(); // react-hook-form methods
 
-  // init states
-  const INIT_AVATAR_URL = profile?.avatar_url as string;
-  const BUSINESS_INIT_VALUES: Record<string, string> = {
-    company_name: "",
-    company_email: "",
-    website_url: "",
-  };
-  const INFLUENECER_INIT_VALUES: Record<string, string> = {
-    tiktok_url: "",
-    youtube_url: "",
-    facebook_url: "",
-    instagram_url: "",
-  };
-  const PROFILE_INIT_VALUES: Record<string, string> = {
-    ...(profile?.user_role === "business" ? BUSINESS_INIT_VALUES : INFLUENECER_INIT_VALUES),
-    email: profile?.email as string,
-    full_name: profile?.full_name as string,
-    new_password: "",
-    confirm_password: "",
-    phone: "",
-    country: "",
-    city: "",
-  };
-
   // form states
+  const INIT_AVATAR_URL = profile?.avatar_url as string;
   const FORM_INIT_STATE: FormStateType = {
     downloadUrl: "",
     avatarExt: "png",
@@ -73,6 +51,46 @@ const ProfileForm = () => {
     }),
     FORM_INIT_STATE
   );
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [beData, setBeData] = useState<any>(undefined);
+  useEffect(() => {
+    if (!beData) {
+      setFormState({ isSubmitting: true });
+      fetch(`http://184.73.229.188:8080/api/v1/${profile?.user_role}/${profile?.id}`)
+        .then((rs) => rs.json())
+        .then((data) => {
+          setFormState({ isSubmitting: false });
+          setBeData(data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [beData]);
+
+  // init states
+  const BUSINESS_INIT_VALUES: Record<string, string> = {
+    company_name: beData?.company_name,
+    company_email: beData?.company_email,
+    website_url: beData?.website_url,
+  };
+  const INFLUENECER_INIT_VALUES: Record<string, string> = {
+    tiktok_url: beData?.tiktok_url,
+    youtube_url: beData?.youtube_url,
+    facebook_url: beData?.facebook_url,
+    instagram_url: beData?.instagram_url,
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const PROFILE_INIT_VALUES: Record<string, any> = {
+    ...(profile?.user_role === "business" ? BUSINESS_INIT_VALUES : INFLUENECER_INIT_VALUES),
+    email: profile?.email as string,
+    full_name: profile?.full_name as string,
+    new_password: "",
+    confirm_password: "",
+    phone: beData?.phone,
+    country: beData?.country,
+    city: beData?.city,
+  };
 
   // create inputs based on models
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -226,6 +244,13 @@ const ProfileForm = () => {
       setFormState({ isSubmitting: false, isDownloading: false });
       return;
     }
+
+    const updateDbRes = await api.put(
+      `http://184.73.229.188:8080/api/v1/${profile?.user_role}/${profile?.id}`,
+      { ...executedSchema.data, avatar_url: final_photo_url }
+    );
+
+    console.log(updateDbRes);
 
     // if no error, toast msg
     const happyMsg = `Profile updated`;

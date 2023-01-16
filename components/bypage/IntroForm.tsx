@@ -42,7 +42,7 @@ const IntroForm = () => {
       id: profile?.id,
       email: profile?.email,
       full_name: profile?.full_name,
-      image_url: profile?.avatar_url,
+      avatar_url: profile?.avatar_url,
     });
 
     const insertSuccess =
