@@ -16,11 +16,11 @@ const api = (axios: AxiosInstance) => ({
   // get: <T>(url: string, config: AxiosRequestConfig = {}) => axios.get<T>(url, config),
   delete: <T>(url: string, config: AxiosRequestConfig = {}) => axios.delete<T>(url, config),
   put: <T>(url: string, body: unknown, config: AxiosRequestConfig = {}) =>
-    axios.put<T>(url, config),
+    axios.put<T>(url, body, config),
   patch: <T>(url: string, body: unknown, config: AxiosRequestConfig = {}) =>
-    axios.patch<T>(url, config),
+    axios.patch<T>(url, body, config),
   post: <T>(url: string, body: unknown, config: AxiosRequestConfig = {}) =>
-    axios.post<T>(url, config),
+    axios.post<T>(url, body, config),
 });
 
 export default api(instance);
