@@ -1,3 +1,4 @@
+import { useAuth } from "context/useAuth";
 import dynamic from "next/dynamic";
 import IntroStyles from "styles/Intro.module.css";
 
@@ -7,6 +8,7 @@ const ThemeToggle = dynamic(() => import("components/common/ThemeToggle"));
 const BgCircles = dynamic(() => import("components/common/BgCircles"));
 
 const Intro = () => {
+  const { profile } = useAuth();
   return (
     <>
       <Helmet title='Intro - MavenBond' description='Intro - MavenBond' />
@@ -20,7 +22,7 @@ const Intro = () => {
           />
           <h1 className={IntroStyles.mainTitle}>
             Cheers! Welcome to MavenBond,
-            <div className='text-pink-500'>Andrew Le Nguyen ✨</div>
+            <div className='text-pink-500'>{profile?.full_name} ✨</div>
             <div>
               You're looking for <span className='tracking-wide'>...</span>
             </div>

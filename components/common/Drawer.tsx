@@ -12,8 +12,8 @@ type Props = {
 export default function ({ title, isOpen, closeModal, children }: Props) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as='div' className='relative z-[200]' onClose={closeModal}>
-        <div className='fixed inset-0 bg-gray-400/60 overflow-y-auto scrollbar-hide'>
+      <Dialog as='div' className='relative z-[200] ' onClose={closeModal}>
+        <div className='fixed inset-0 bg-gray-400/60'>
           <Transition.Child
             as={Fragment}
             enter='ease-in-out duration-500'
@@ -38,7 +38,7 @@ export default function ({ title, isOpen, closeModal, children }: Props) {
                 />
               </h2>
               <div className='divider' />
-              <div className='h-full w-full'>{children}</div>
+              <div className='h-full w-full overflow-y-scroll scrollbar-hide'>{children}</div>
             </Dialog.Panel>
           </Transition.Child>
         </div>

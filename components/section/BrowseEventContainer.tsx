@@ -252,7 +252,7 @@ const BrowseEventContainer = () => {
       // API HERE
 
       // const response = await userAPI.getAllData(loggedUser.logUserId, filter);
-      const apiCall = await fetch("http://localhost:8090/api/v1/events/")
+      const apiCall = await fetch("http://184.73.229.188:8090/api/v1/events/")
         .then((res) => {
           res.json().then((response) => {
             const data = response.content;

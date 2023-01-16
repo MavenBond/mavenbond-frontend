@@ -114,6 +114,8 @@ const Navbar = () => {
                   src={avatarUrl || FALLBACK_PROFILE_URL}
                   className='object-cover'
                   fill
+                  sizes='(max-width: 768px) 300px,
+                  (max-width: 1200px) 400px'
                 />
               )}
             </label>

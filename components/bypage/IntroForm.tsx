@@ -5,6 +5,7 @@ import { useAuth } from "context/useAuth";
 import { useState } from "react";
 import { supabaseClient } from "supabase/supbaseClient";
 import Router from "next/router";
+import api from "api";
 
 const Button = dynamic(() => import("components/common/Button"));
 
@@ -36,13 +37,28 @@ const IntroForm = () => {
       return;
     }
 
+    const insertUserRes = await api.post(`/${role}/signup`, {
+      type: role,
+      id: profile?.id,
+      email: profile?.email,
+      full_name: profile?.full_name,
+    });
+
+    const insertSuccess =
+      (await insertUserRes.status) === 201 || (await insertUserRes.status) === 200;
+    if (!insertSuccess) {
+      angry("Unable to insert user to database");
+      setRoleUpdating(false);
+      return;
+    }
+
     // if success first time
     happy("You're all good!");
     setTimeout(() => {
       setRoleUpdating(false);
-    }, 500);
-    setTimeout(() => {
-      Router.push("/dashboard");
+      setTimeout(() => {
+        Router.push("/dashboard");
+      }, 500);
     }, 1000);
   };
   return (
