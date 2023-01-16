@@ -37,7 +37,7 @@
   @apply transition-transform duration-300
   flex flex-col relative
   flex-shrink-0 px-8 pt-10 pb-6
-  col-span-1 min-h-[21rem]
+  col-span-1 h-[21rem]
   bg-white shadow-lg shadow-gray-200 rounded-[2rem]
   hover:-translate-y-2;
 }

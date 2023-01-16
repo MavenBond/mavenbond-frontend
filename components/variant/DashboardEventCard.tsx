@@ -1,30 +1,18 @@
 import dynamic from "next/dynamic";
 import { SocialIcon } from "react-social-icons";
 import DashboardStyles from "styles/Dashboard.module.css";
-import { OfferInfo } from "utils/dashboard";
+import { EventInfo } from "utils/dashboard";
 import { formatted } from "utils/time";
 
 const DashboardCard = dynamic(() => import("components/bypage/DashboardCard"));
-type Props = { data: OfferInfo; idx: number; onClick?: () => void };
+type Props = { data: EventInfo; idx: number; onClick?: () => void };
 
-const DashboardOfferCard = ({ data, idx, onClick = undefined }: Props) => {
-  const {
-    unit,
-    acceptedPrice,
-    status,
-    startDate,
-    endDate,
-    offerId,
-    eventName,
-    companyName,
-    platform,
-  } = data;
-
-  const handleStatusToText = (enumValue: number) =>
-    ["Open", "In Progress", "Completed"][enumValue] || "N/A";
+const DashboardEventCard = ({ data, idx, onClick = undefined }: Props) => {
+  const { id, title, platform, moneyMin, moneyMax, status, businessName, startDate, endDate } =
+    data;
 
   return (
-    <DashboardCard key={offerId}>
+    <DashboardCard>
       <span
         className='scale-[0.8] 
         absolute top-[0.9rem] 
@@ -32,7 +20,7 @@ const DashboardOfferCard = ({ data, idx, onClick = undefined }: Props) => {
       text-white self-end px-4 py-1 
         rounded-2xl mb-2'
       >
-        {handleStatusToText(status as number)}
+        {status}
       </span>
       <div
         style={{ position: "absolute", flexShrink: 0, bottom: "1.75rem", left: "2rem" }}
@@ -51,10 +39,10 @@ const DashboardOfferCard = ({ data, idx, onClick = undefined }: Props) => {
         className='text-gray-400 text-[0.9rem] w-full 
         flex justify-between items-center'
       >
-        {companyName}
+        {businessName}
       </p>
       <p className={`${DashboardStyles.dashboardCardTitle}`}>
-        {idx + 1}. {eventName}
+        {idx + 1}. {title}
       </p>
       <div className='divider m-0' />
       <div className='flex flex-col flex-1'>
@@ -63,7 +51,7 @@ const DashboardOfferCard = ({ data, idx, onClick = undefined }: Props) => {
           ${DashboardStyles.dashboardCardItems}`}
         >
           <p>
-            <strong>Offer ID:</strong> {offerId}
+            <strong>Event ID:</strong> {id}
           </p>
           <p className='line-clamp-1'>
             <strong>Start Date:</strong> {formatted(startDate as number)}
@@ -72,7 +60,7 @@ const DashboardOfferCard = ({ data, idx, onClick = undefined }: Props) => {
             <strong>End Date:</strong> {formatted(endDate as number)}
           </p>
           <p>
-            <strong>Accepted Price:</strong> {acceptedPrice} {unit}
+            <strong>Prices Range:</strong> {moneyMin} USD - {moneyMax} USD
           </p>
         </div>
 
@@ -86,4 +74,4 @@ const DashboardOfferCard = ({ data, idx, onClick = undefined }: Props) => {
   );
 };
 
-export default DashboardOfferCard;
+export default DashboardEventCard;

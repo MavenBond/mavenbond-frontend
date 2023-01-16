@@ -11,6 +11,7 @@
     "plugin:@next/next/recommended"
   ],
   "rules": {
+    "@typescript-eslint/no-explicit-any": "warn",
     "react-hooks/rules-of-hooks": "warn",
     "comma-dangle": [
       "warn",

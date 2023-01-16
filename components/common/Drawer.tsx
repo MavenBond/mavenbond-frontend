@@ -24,9 +24,11 @@ export default function ({ title, isOpen, closeModal, children }: Props) {
             leaveTo='opacity-0 -right-[600px]'
           >
             <Dialog.Panel
-              className='absolute flex flex-col h-full right-0 w-[600px] 
+              className='absolute flex flex-col 
+                h-full right-0 w-[600px] 
                 transform overflow-hidden
-               bg-white p-6 text-left align-middle shadow-xl transition-all'
+               bg-white p-6 text-left align-middle 
+               shadow-xl transition-all'
             >
               <h2 className='text-[1.25rem] font-bold text-[#0d1626]'>
                 {title.toUpperCase()}

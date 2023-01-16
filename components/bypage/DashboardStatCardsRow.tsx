@@ -6,7 +6,7 @@ const DashboardStatCard = dynamic(() => import("components/bypage/DashboardStatC
 
 type Props = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  statsModel: Record<string, any>[];
+  statsModel?: Record<string, any>[];
   isBusiness?: boolean;
   handleBusinessSpecial?: () => void;
   handleInfluencerSpecial?: () => void;

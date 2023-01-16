@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 // import BrowseStyles from "styles/Browse.module.css";
 
 import { ChevronDownIcon, FunnelIcon, Squares2X2Icon } from "@heroicons/react/20/solid";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { DeliveryType, PlatformType, StatusType } from "models/enums";
 import { Event } from "models/event";
 
@@ -234,7 +234,7 @@ const BrowseEventContainer = () => {
     // moneyMax: 99999999,
   });
 
-  const handleDataChange = (e) => {
+  const handleDataChange = (e: { target: { value: SetStateAction<string> } }) => {
     setSearchValue(e.target.value);
     if (e.target.value === "") {
       const currentFilter = filterData;
