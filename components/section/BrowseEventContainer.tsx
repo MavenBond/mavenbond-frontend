@@ -5,6 +5,7 @@ import { ChevronDownIcon, FunnelIcon, Squares2X2Icon } from "@heroicons/react/20
 import { SetStateAction, useEffect, useState } from "react";
 import { DeliveryType, PlatformType, StatusType } from "models/enums";
 import { Event } from "models/event";
+import useSWR from "swr";
 
 const sortOptions = [
   { name: "Latest", href: "#", current: true },
@@ -252,7 +253,7 @@ const BrowseEventContainer = () => {
       // API HERE
 
       // const response = await userAPI.getAllData(loggedUser.logUserId, filter);
-      const apiCall = await fetch("http://localhost:8090/api/v1/events/")
+      const apiCall = await fetch("http://184.73.229.188:8090/api/v1/events/")
         .then((res) => {
           res.json().then((response) => {
             const data = response.content;
@@ -294,6 +295,7 @@ const BrowseEventContainer = () => {
   }, [currentPage]);
 
   return (
+    // ANDREW OI SKELETON GIUP MINH
     <div className='drawer drawer-end overflow-hidden'>
       <input id='my-drawer-1' type='checkbox' className='drawer-toggle' />
       <div className='excludeNavContent'>

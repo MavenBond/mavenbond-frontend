@@ -1,4 +1,3 @@
-import { DeliveryType, PlatformType } from "models/enums";
 import { Event } from "models/event";
 import { formatUnixTimeStamp } from "utils/time";
 
@@ -17,8 +16,11 @@ export default function BrowseEventCard({ event }: Props) {
         </h2>
 
         {/* <div className='divider' /> */}
-        <p>{`${event.subject}`}</p>
-        <p>{`Company: ${event.businessName}`}</p>
+        <p className='line-clamp-1'>{`${event.description}`}</p>
+        <p>
+          <strong>Company: </strong>
+          {`${event.businessName}`}
+        </p>
         <p>{`${formatUnixTimeStamp(event.startDate)} - ${formatUnixTimeStamp(event.endDate)}`}</p>
         <div className='stat-value text-xl'>
           ${event.moneyMin} - ${event.moneyMax}
