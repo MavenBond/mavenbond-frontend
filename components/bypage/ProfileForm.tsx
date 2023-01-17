@@ -210,6 +210,8 @@ const ProfileForm = () => {
 
       if (removeError || uploadError) {
         // if error, toast error
+        console.log("removeError", removeError);
+        console.log("uploadError", uploadError);
         angry("Error updating profile. Try again later");
 
         // reset submitting state
