@@ -252,6 +252,13 @@ const ProfileForm = () => {
 
     console.log(updateDbRes);
 
+    const updateBeFailed = (await updateDbRes.status) !== 200 && (await updateDbRes.status) !== 201;
+
+    if (updateBeFailed) {
+      // if error, toast error
+      angry("Error updating database. Try again later");
+    }
+
     // if no error, toast msg
     const happyMsg = `Profile updated`;
     happy(happyMsg);
