@@ -235,6 +235,8 @@ const ProfileForm = () => {
     });
 
     if (updateDbError || updateAccError) {
+      console.log("DBerr", updateDbError);
+      console.log("ACerr", updateAccError);
       // if error, toast error
       angry("Error updating profile. Try again later");
 
