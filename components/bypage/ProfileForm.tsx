@@ -55,6 +55,7 @@ const ProfileForm = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [beData, setBeData] = useState<any>(undefined);
   useEffect(() => {
+    if (!profile?.user_role) window.location.reload();
     if (!beData) {
       fetch(`http://184.73.229.188:8080/api/v1/${profile?.user_role}/${profile?.id}`)
         .then((rs) => rs.json())
@@ -63,7 +64,7 @@ const ProfileForm = () => {
         })
         .catch((err) => console.log(err));
     }
-  }, [beData]);
+  }, [beData, profile?.user_role]);
 
   // init states
   const BUSINESS_INIT_VALUES: Record<string, string> = {
