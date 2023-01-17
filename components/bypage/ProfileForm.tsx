@@ -243,24 +243,26 @@ const ProfileForm = () => {
       return;
     }
 
-    const updateDbRes = await api.put(
-      `http://184.73.229.188:8080/api/v1/${profile?.user_role}/${profile?.id}`,
-      { ...executedSchema.data, avatar_url: final_photo_url }
-    );
+    if (profile?.user_role) {
+      const updateDbRes = await api.put(
+        `http://184.73.229.188:8080/api/v1/${profile?.user_role}/${profile?.id}`,
+        { ...executedSchema.data, avatar_url: final_photo_url }
+      );
 
-    console.log(updateDbRes);
+      console.log(updateDbRes);
 
-    // if no error, toast msg
-    const happyMsg = `Profile updated`;
-    happy(happyMsg);
+      // if no error, toast msg
+      const happyMsg = `Profile updated`;
+      happy(happyMsg);
 
-    // mark success state
-    setFormState({ isSubmitting: false, isDownloading: false, updateSuccess: true });
+      // mark success state
+      setFormState({ isSubmitting: false, isDownloading: false, updateSuccess: true });
 
-    // reload
-    setTimeout(() => {
-      Router.reload();
-    }, 1000);
+      // reload
+      setTimeout(() => {
+        Router.reload();
+      }, 1000);
+    }
   };
 
   // update submit handler
