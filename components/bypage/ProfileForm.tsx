@@ -272,7 +272,7 @@ const ProfileForm = () => {
     // reload
     setTimeout(() => {
       Router.reload();
-    }, 1000);
+    }, 1500);
   };
 
   // update submit handler
